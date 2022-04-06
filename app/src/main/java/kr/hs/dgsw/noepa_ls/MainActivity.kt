@@ -4,9 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import com.github.pwittchen.neurosky.library.NeuroSky
 import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException
 import com.github.pwittchen.neurosky.library.listener.ExtendedDeviceMessageListener
@@ -139,7 +142,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleBrainWavesChange(brainWaves: Set<BrainWave>) {
         for (brainWave in brainWaves) {
-            Log.d(LOG_TAG, String.format("%s: %d", brainWave.toString(), brainWave.value))
+            //Log.d(LOG_TAG, String.format("%s: %d", brainWave.toString(), brainWave.value))
+            when(brainWave.toString()){
+                "DELTA" -> binding.tvDelta.text = brainWave.toString() +": "+ brainWave.value.toString()
+                "THETA" -> binding.tvTheta.text = brainWave.toString() +": "+ brainWave.value.toString()
+                "LOW_ALPHA" -> binding.tvLowalpha.text = brainWave.toString() +": "+ brainWave.value.toString()
+                "HIGH_ALPHA" -> binding.tvHighalpha.text = brainWave.toString() +": "+ brainWave.value.toString()
+                "LOW_BETA" -> binding.tvLowbeta.text = brainWave.toString() +": "+ brainWave.value.toString()
+                "HIGH_BETA" -> binding.tvHighbeta.text = brainWave.toString() +": "+ brainWave.value.toString()
+                "LOW_GAMMA" -> binding.tvLowgamma.text = brainWave.toString() +": "+ brainWave.value.toString()
+                "MID_GAMMA" -> binding.tvMidgamma.text = brainWave.toString() +": "+ brainWave.value.toString()
+                else -> Log.d(LOG_TAG, "unhandled signal")
+            }
         }
     }
 }

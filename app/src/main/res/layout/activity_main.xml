@@ -8,72 +8,141 @@
     tools:context=".MainActivity"
     >
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_state"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="@string/waiting_for_state"
-            />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
 
-        <TextView
-            android:id="@+id/tv_attention"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="@string/waiting_for_attention_signal"
-            />
+            <TextView
+                android:id="@+id/tv_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="@string/waiting_for_state"
+                />
 
-        <TextView
-            android:id="@+id/tv_meditation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="@string/waiting_for_meditation_signal"
-            />
+            <TextView
+                android:id="@+id/tv_attention"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="@string/waiting_for_attention_signal"
+                />
 
-        <TextView
-            android:id="@+id/tv_blink"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="@string/waiting_for_blink_signal"
-            />
+            <TextView
+                android:id="@+id/tv_meditation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="@string/waiting_for_meditation_signal"
+                />
 
-        <Button
-            android:id="@+id/btn_connect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/connect"
-            />
+            <TextView
+                android:id="@+id/tv_delta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="@string/waiting_for_delta_signal"
+                />
 
-        <Button
-            android:id="@+id/btn_start_monitoring"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/start_monitoring"
-            />
+            <TextView
+                android:id="@+id/tv_theta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="@string/waiting_for_theta_signal"
+                />
 
-        <Button
-            android:id="@+id/btn_stop_monitoring"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/stop_monitoring"
-            />
+            <TextView
+                android:id="@+id/tv_lowalpha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="@string/waiting_for_low_alpha_signal"
+                />
 
-        <Button
-            android:id="@+id/btn_disconnect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/disconnect"
-            />
+            <TextView
+                android:id="@+id/tv_highalpha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="@string/waiting_for_high_alpha_signal"
+                />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_lowbeta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="@string/waiting_for_low_beta_signal"
+                />
+
+            <TextView
+                android:id="@+id/tv_highbeta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="@string/waiting_for_high_beta_signal"
+                />
+
+            <TextView
+                android:id="@+id/tv_lowgamma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="@string/waiting_for_low_gamma_signal"
+                />
+
+            <TextView
+                android:id="@+id/tv_midgamma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="@string/waiting_for_mid_gamma_signal"
+                />
+
+            <TextView
+                android:id="@+id/tv_blink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="@string/waiting_for_blink_signal"
+                />
+
+            <Button
+                android:id="@+id/btn_connect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/connect"
+                />
+
+            <Button
+                android:id="@+id/btn_start_monitoring"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/start_monitoring"
+                />
+
+            <Button
+                android:id="@+id/btn_stop_monitoring"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/stop_monitoring"
+                />
+
+            <Button
+                android:id="@+id/btn_disconnect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/disconnect"
+                />
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

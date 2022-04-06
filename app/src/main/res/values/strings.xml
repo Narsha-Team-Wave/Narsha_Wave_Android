@@ -9,4 +9,12 @@
     <string name="waiting_for_meditation_signal">waiting for meditation signal...</string>
     <string name="waiting_for_attention_signal">waiting for attention signal...</string>
     <string name="waiting_for_state">waiting for state...</string>
+    <string name="waiting_for_delta_signal">waiting for delta signal...</string>
+    <string name="waiting_for_theta_signal">waiting for theta signal...</string>
+    <string name="waiting_for_low_alpha_signal">waiting for low_alpha signal...</string>
+    <string name="waiting_for_high_alpha_signal">waiting for high_alpha signal...</string>
+    <string name="waiting_for_low_beta_signal">waiting for low_beta signal...</string>
+    <string name="waiting_for_high_beta_signal">waiting for high_beta signal...</string>
+    <string name="waiting_for_low_gamma_signal">waiting for low_gamma signal...</string>
+    <string name="waiting_for_mid_gamma_signal">waiting for mid_gamma signal...</string>
 </resources>
