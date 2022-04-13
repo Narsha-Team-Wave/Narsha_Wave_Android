@@ -22,6 +22,7 @@ public class JMainActivity extends AppCompatActivity {
 
     private final static String LOG_TAG = "NeuroSky";
     private NeuroSky neuroSky;
+    private int chekcATTENTION = 0;
 
     TextView tvState;
     TextView tvAttention;
@@ -87,6 +88,7 @@ public class JMainActivity extends AppCompatActivity {
         switch (signal) {
             case ATTENTION:
                 tvAttention.setText(getFormattedMessage("attention: %d", signal));
+                chekcATTENTION = Integer.parseInt(getFormattedMessage("%d", signal));
                 break;
             case MEDITATION:
                 tvMeditation.setText(getFormattedMessage("meditation: %d", signal));
@@ -106,6 +108,42 @@ public class JMainActivity extends AppCompatActivity {
     private void handleBrainWavesChange(final Set<BrainWave> brainWaves) {
         for (BrainWave brainWave : brainWaves) {
             Log.d(LOG_TAG, String.format("%s: %d", brainWave.toString(), brainWave.getValue()));
+
+            if(chekcATTENTION>0){
+
+                switch(brainWave.toString()){
+                    case "DELTA":
+                        ((TextView)findViewById(R.id.tv_delta)).setText(String.format("%s: %d", brainWave.toString(), brainWave.getValue()));
+                        break;
+                    case "THETA":
+                        ((TextView)findViewById(R.id.tv_theta)).setText(String.format("%s: %d", brainWave.toString(), brainWave.getValue()));
+                        break;
+                    case "LOW_ALPHA":
+                        ((TextView)findViewById(R.id.tv_lowalpha)).setText(String.format("%s: %d", brainWave.toString(), brainWave.getValue()));
+                        break;
+                    case "HIGH_ALPHA":
+                        ((TextView)findViewById(R.id.tv_highalpha)).setText(String.format("%s: %d", brainWave.toString(), brainWave.getValue()));
+                        break;
+                    case "LOW_BETA":
+                        ((TextView)findViewById(R.id.tv_lowbeta)).setText(String.format("%s: %d", brainWave.toString(), brainWave.getValue()));
+                        break;
+                    case "HIGH_BETA":
+                        ((TextView)findViewById(R.id.tv_highbeta)).setText(String.format("%s: %d", brainWave.toString(), brainWave.getValue()));
+                        break;
+                    case "LOW_GAMMA":
+                        ((TextView)findViewById(R.id.tv_lowgamma)).setText(String.format("%s: %d", brainWave.toString(), brainWave.getValue()));
+                        break;
+                    case "MID_GAMMA":
+                        ((TextView)findViewById(R.id.tv_midgamma)).setText(String.format("%s: %d", brainWave.toString(), brainWave.getValue()));
+                        break;
+                    default:
+                        Log.d(LOG_TAG, "unhandled signal");
+                        break;
+                }
+            }else{
+                Toast.makeText(getApplicationContext(), "착용을 바르게 해주세요", Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
     View.OnClickListener customClick =new View.OnClickListener(){
