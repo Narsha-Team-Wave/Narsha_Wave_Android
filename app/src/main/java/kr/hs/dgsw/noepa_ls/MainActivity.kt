@@ -20,6 +20,10 @@ import kr.hs.dgsw.noepa_ls.databinding.ActivityMainBinding
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+    var check = false
+    var checkAttenTion: Int = 0
+    var checkMeditation: Int = 0
+    var checkBlink: Int = 0
 
     companion object {
         const val LOG_TAG = "NeuroSky"
@@ -36,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         mBinding = ActivityMainBinding.inflate(layoutInflater)
 
 //        setContentView(R.layout.testnuro)
-        setContentView( binding.root)
+        setContentView(binding.root)
 
 
         neuroSky = createNeuroSky()
@@ -57,8 +61,8 @@ class MainActivity : AppCompatActivity() {
 //        })
 
 
-
     }
+
     private fun initButtonListeners() {
         binding.btnConnect.setOnClickListener() {
             try {
@@ -66,7 +70,7 @@ class MainActivity : AppCompatActivity() {
             } catch (e: BluetoothNotEnabledException) {
                 Toast.makeText(this, e.message, Toast.LENGTH_SHORT)
                     .show()
-                Log.d(LOG_TAG, ""+e.message)
+                Log.d(LOG_TAG, "" + e.message)
             }
         }
 
@@ -123,11 +127,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleSignalChange(signal: Signal) {
+        var num = getFormattedMessage("%d", signal).toInt()
         when (signal) {
-            Signal.ATTENTION -> binding.tvAttention.text = getFormattedMessage("attention: %d", signal)
-            Signal.MEDITATION -> binding.tvMeditation.text = getFormattedMessage("meditation: %d", signal)
-            Signal.BLINK -> binding.tvBlink.text = getFormattedMessage("blink: %d", signal)
+            Signal.ATTENTION -> if (num != checkAttenTion) {
+                binding.tvAttention.text = getFormattedMessage("attention: %d", signal)
+                checkAttenTion = num
+                check = true
+            } else check = false
+            Signal.MEDITATION -> if (num != checkMeditation) {
+                binding.tvMeditation.text = getFormattedMessage("meditation: %d", signal)
+                checkMeditation = num
+                check = true
+            } else check = false
+            Signal.BLINK -> if (num != checkBlink) {
+                binding.tvBlink.text = getFormattedMessage("blink: %d", signal)
+                checkBlink = num
+                check = true
+            } else check = false
             else -> Log.d(LOG_TAG, "unhandled signal")
+
+
+        }
+        if (checkAttenTion != 0 || checkMeditation != -0) {
+            check = true
+        } else {
+            check = false
         }
 
         Log.d(LOG_TAG, String.format("%s: %d", signal.toString(), signal.value))
@@ -135,24 +159,38 @@ class MainActivity : AppCompatActivity() {
 
     private fun getFormattedMessage(
         messageFormat: String,
-        signal: Signal
+        signal: Signal,
     ): String {
         return String.format(Locale.getDefault(), messageFormat, signal.value)
     }
 
     private fun handleBrainWavesChange(brainWaves: Set<BrainWave>) {
+        Log.d(LOG_TAG, "check : " + check)
         for (brainWave in brainWaves) {
-            //Log.d(LOG_TAG, String.format("%s: %d", brainWave.toString(), brainWave.value))
-            when(brainWave.toString()){
-                "DELTA" -> binding.tvDelta.text = brainWave.toString() +": "+ brainWave.value.toString()
-                "THETA" -> binding.tvTheta.text = brainWave.toString() +": "+ brainWave.value.toString()
-                "LOW_ALPHA" -> binding.tvLowalpha.text = brainWave.toString() +": "+ brainWave.value.toString()
-                "HIGH_ALPHA" -> binding.tvHighalpha.text = brainWave.toString() +": "+ brainWave.value.toString()
-                "LOW_BETA" -> binding.tvLowbeta.text = brainWave.toString() +": "+ brainWave.value.toString()
-                "HIGH_BETA" -> binding.tvHighbeta.text = brainWave.toString() +": "+ brainWave.value.toString()
-                "LOW_GAMMA" -> binding.tvLowgamma.text = brainWave.toString() +": "+ brainWave.value.toString()
-                "MID_GAMMA" -> binding.tvMidgamma.text = brainWave.toString() +": "+ brainWave.value.toString()
-                else -> Log.d(LOG_TAG, "unhandled signal")
+            Log.d(LOG_TAG, String.format("test %s: %d", brainWave.toString(), brainWave.value))
+
+            if (check) {
+                if (brainWave.value < 1000000 && brainWave.value != 0) {
+                    when (brainWave.toString()) {
+                        "DELTA" -> binding.tvDelta.text =
+                            brainWave.toString() + ": " + brainWave.value.toString()
+                        "THETA" -> binding.tvTheta.text =
+                            brainWave.toString() + ": " + brainWave.value.toString()
+                        "LOW_ALPHA" -> binding.tvLowalpha.text =
+                            brainWave.toString() + ": " + brainWave.value.toString()
+                        "HIGH_ALPHA" -> binding.tvHighalpha.text =
+                            brainWave.toString() + ": " + brainWave.value.toString()
+                        "LOW_BETA" -> binding.tvLowbeta.text =
+                            brainWave.toString() + ": " + brainWave.value.toString()
+                        "HIGH_BETA" -> binding.tvHighbeta.text =
+                            brainWave.toString() + ": " + brainWave.value.toString()
+                        "LOW_GAMMA" -> binding.tvLowgamma.text =
+                            brainWave.toString() + ": " + brainWave.value.toString()
+                        "MID_GAMMA" -> binding.tvMidgamma.text =
+                            brainWave.toString() + ": " + brainWave.value.toString()
+                        else -> Log.d(LOG_TAG, "unhandled signal")
+                    }
+                }
             }
         }
     }
