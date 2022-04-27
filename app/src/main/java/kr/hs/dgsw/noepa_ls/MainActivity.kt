@@ -45,6 +45,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var neuroSky: NeuroSky
 
+    val entries1: ArrayList<RadarEntry> = ArrayList()
+
     private var brainWaveList: IntArray = IntArray(8)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -140,7 +142,7 @@ class MainActivity : AppCompatActivity() {
         val mul = 80f
         val min = 20f
         val cnt = 8
-        val entries1: ArrayList<RadarEntry> = ArrayList()
+
         val entries2: ArrayList<RadarEntry> = ArrayList()
 
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
@@ -159,17 +161,17 @@ class MainActivity : AppCompatActivity() {
         set1.lineWidth = 2f
         set1.isDrawHighlightCircleEnabled = true
         set1.setDrawHighlightIndicators(false)
-        val set2 = RadarDataSet(entries2, "This Week")
-        set2.color = Color.rgb(121, 162, 175)
-        set2.fillColor = Color.rgb(121, 162, 175)
-        set2.setDrawFilled(true)
-        set2.fillAlpha = 180
-        set2.lineWidth = 2f
-        set2.isDrawHighlightCircleEnabled = true
-        set2.setDrawHighlightIndicators(false)
+//        val set2 = RadarDataSet(entries2, "This Week")
+//        set2.color = Color.rgb(121, 162, 175)
+//        set2.fillColor = Color.rgb(121, 162, 175)
+//        set2.setDrawFilled(true)
+//        set2.fillAlpha = 180
+//        set2.lineWidth = 2f
+//        set2.isDrawHighlightCircleEnabled = true
+//        set2.setDrawHighlightIndicators(false)
         val sets: ArrayList<IRadarDataSet> = ArrayList()
         sets.add(set1)
-        sets.add(set2)
+       // sets.add(set2)
         val data = RadarData(sets)
         data.setValueTextSize(8f)
         data.setDrawValues(false)
@@ -288,6 +290,8 @@ class MainActivity : AppCompatActivity() {
                                 brainWave.toString() + ": " + brainWave.value.toString()
                             if(brainWaveList[0] != brainWave.value){
                                 brainWaveList[0] = brainWave.value
+                                entries1[0] = RadarEntry(brainWave.value.toFloat() * 100/400000)
+                                Log.d(LOG_TAG + "1",  entries1[0].toString())
                             }
                         }
                         "THETA" -> {
@@ -295,6 +299,7 @@ class MainActivity : AppCompatActivity() {
                                 brainWave.toString() + ": " + brainWave.value.toString()
                             if(brainWaveList[1] != brainWave.value) {
                                 brainWaveList[1] = brainWave.value
+                                entries1[1] = RadarEntry(brainWave.value.toFloat() * 100/45000)
                             }
                         }
                         "LOW_ALPHA" -> {
@@ -302,6 +307,7 @@ class MainActivity : AppCompatActivity() {
                                 brainWave.toString() + ": " + brainWave.value.toString()
                             if(brainWaveList[2] != brainWave.value) {
                                 brainWaveList[2] = brainWave.value
+                                entries1[2] = RadarEntry(brainWave.value.toFloat() * 100/10000)
                             }
                         }
                         "HIGH_ALPHA" -> {
@@ -309,6 +315,7 @@ class MainActivity : AppCompatActivity() {
                                 brainWave.toString() + ": " + brainWave.value.toString()
                             if(brainWaveList[3] != brainWave.value) {
                                 brainWaveList[3] = brainWave.value
+                                entries1[3] = RadarEntry(brainWave.value.toFloat() * 100/15000)
                             }
                         }
                         "LOW_BETA" -> {
@@ -316,6 +323,7 @@ class MainActivity : AppCompatActivity() {
                                 brainWave.toString() + ": " + brainWave.value.toString()
                             if(brainWaveList[4] != brainWave.value) {
                                 brainWaveList[4] = brainWave.value
+                                entries1[4] = RadarEntry(brainWave.value.toFloat() * 100/18000)
                             }
                         }
                         "HIGH_BETA" -> {
@@ -323,6 +331,7 @@ class MainActivity : AppCompatActivity() {
                                 brainWave.toString() + ": " + brainWave.value.toString()
                             if(brainWaveList[5] != brainWave.value) {
                                 brainWaveList[5] = brainWave.value
+                                entries1[5] = RadarEntry(brainWave.value.toFloat() * 100/24000)
                             }
                         }
                         "LOW_GAMMA" -> {
@@ -330,6 +339,7 @@ class MainActivity : AppCompatActivity() {
                                 brainWave.toString() + ": " + brainWave.value.toString()
                             if(brainWaveList[6] != brainWave.value) {
                                 brainWaveList[6] = brainWave.value
+                                entries1[6] = RadarEntry(brainWave.value.toFloat() * 100/10000)
                             }
                         }
                         "MID_GAMMA" -> {
@@ -337,6 +347,7 @@ class MainActivity : AppCompatActivity() {
                                 brainWave.toString() + ": " + brainWave.value.toString()
                             if(brainWaveList[7] != brainWave.value) {
                                 brainWaveList[7] = brainWave.value
+                                entries1[7] = RadarEntry(brainWave.value.toFloat() * 100/10000)
                             }
                         }
                         else -> Log.d(LOG_TAG, "unhandled signal")
@@ -346,6 +357,8 @@ class MainActivity : AppCompatActivity() {
                         LogText = LogText + " " + brainWaveList[i].toString()
                     }
                     Log.d("LOG_TAG", LogText)
+                    binding.chart1.notifyDataSetChanged()
+                    binding.chart1.invalidate()
                 }
             }
         }
