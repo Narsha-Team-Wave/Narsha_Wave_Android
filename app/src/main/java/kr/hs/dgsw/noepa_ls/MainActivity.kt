@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var neuroSky: NeuroSky
 
+    private var brainWaveList: IntArray = IntArray(8)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_main)
@@ -148,11 +150,7 @@ class MainActivity : AppCompatActivity() {
 
 
         }
-        if (checkAttenTion != 0 || checkMeditation != -0) {
-            check = true
-        } else {
-            check = false
-        }
+        check = checkAttenTion != 0 || checkMeditation != -0
 
         Log.d(LOG_TAG, String.format("%s: %d", signal.toString(), signal.value))
     }
@@ -172,24 +170,69 @@ class MainActivity : AppCompatActivity() {
             if (check) {
                 if (brainWave.value < 1000000 && brainWave.value != 0) {
                     when (brainWave.toString()) {
-                        "DELTA" -> binding.tvDelta.text =
-                            brainWave.toString() + ": " + brainWave.value.toString()
-                        "THETA" -> binding.tvTheta.text =
-                            brainWave.toString() + ": " + brainWave.value.toString()
-                        "LOW_ALPHA" -> binding.tvLowalpha.text =
-                            brainWave.toString() + ": " + brainWave.value.toString()
-                        "HIGH_ALPHA" -> binding.tvHighalpha.text =
-                            brainWave.toString() + ": " + brainWave.value.toString()
-                        "LOW_BETA" -> binding.tvLowbeta.text =
-                            brainWave.toString() + ": " + brainWave.value.toString()
-                        "HIGH_BETA" -> binding.tvHighbeta.text =
-                            brainWave.toString() + ": " + brainWave.value.toString()
-                        "LOW_GAMMA" -> binding.tvLowgamma.text =
-                            brainWave.toString() + ": " + brainWave.value.toString()
-                        "MID_GAMMA" -> binding.tvMidgamma.text =
-                            brainWave.toString() + ": " + brainWave.value.toString()
+                        "DELTA" -> {
+                            binding.tvDelta.text =
+                                brainWave.toString() + ": " + brainWave.value.toString()
+                            if(brainWaveList[0] != brainWave.value){
+                                brainWaveList[0] = brainWave.value
+                            }
+                        }
+                        "THETA" -> {
+                            binding.tvTheta.text =
+                                brainWave.toString() + ": " + brainWave.value.toString()
+                            if(brainWaveList[1] != brainWave.value) {
+                                brainWaveList[1] = brainWave.value
+                            }
+                        }
+                        "LOW_ALPHA" -> {
+                            binding.tvLowalpha.text =
+                                brainWave.toString() + ": " + brainWave.value.toString()
+                            if(brainWaveList[2] != brainWave.value) {
+                                brainWaveList[2] = brainWave.value
+                            }
+                        }
+                        "HIGH_ALPHA" -> {
+                            binding.tvHighalpha.text =
+                                brainWave.toString() + ": " + brainWave.value.toString()
+                            if(brainWaveList[3] != brainWave.value) {
+                                brainWaveList[3] = brainWave.value
+                            }
+                        }
+                        "LOW_BETA" -> {
+                            binding.tvLowbeta.text =
+                                brainWave.toString() + ": " + brainWave.value.toString()
+                            if(brainWaveList[4] != brainWave.value) {
+                                brainWaveList[4] = brainWave.value
+                            }
+                        }
+                        "HIGH_BETA" -> {
+                            binding.tvHighbeta.text =
+                                brainWave.toString() + ": " + brainWave.value.toString()
+                            if(brainWaveList[5] != brainWave.value) {
+                                brainWaveList[5] = brainWave.value
+                            }
+                        }
+                        "LOW_GAMMA" -> {
+                            binding.tvLowgamma.text =
+                                brainWave.toString() + ": " + brainWave.value.toString()
+                            if(brainWaveList[6] != brainWave.value) {
+                                brainWaveList[6] = brainWave.value
+                            }
+                        }
+                        "MID_GAMMA" -> {
+                            binding.tvMidgamma.text =
+                                brainWave.toString() + ": " + brainWave.value.toString()
+                            if(brainWaveList[7] != brainWave.value) {
+                                brainWaveList[7] = brainWave.value
+                            }
+                        }
                         else -> Log.d(LOG_TAG, "unhandled signal")
                     }
+                    var LogText = ""
+                    for(i in 0..7) {
+                        LogText = LogText + " " + brainWaveList[i].toString()
+                    }
+                    Log.d("LOG_TAG", LogText)
                 }
             }
         }
