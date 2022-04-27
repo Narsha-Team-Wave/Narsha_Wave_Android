@@ -12,11 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
+            <com.github.mikephil.charting.charts.RadarChart
+                android:id="@+id/chart1"
+                android:layout_width="match_parent"
+                android:layout_height="400dp" />
 
             <TextView
                 android:id="@+id/tv_state"

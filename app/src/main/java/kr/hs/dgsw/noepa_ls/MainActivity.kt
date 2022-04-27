@@ -1,6 +1,7 @@
 package kr.hs.dgsw.noepa_ls
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,12 +11,22 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.MarkerView
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.RadarData
+import com.github.mikephil.charting.data.RadarDataSet
+import com.github.mikephil.charting.data.RadarEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet
 import com.github.pwittchen.neurosky.library.NeuroSky
 import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException
 import com.github.pwittchen.neurosky.library.listener.ExtendedDeviceMessageListener
 import com.github.pwittchen.neurosky.library.message.enums.BrainWave
 import com.github.pwittchen.neurosky.library.message.enums.Signal
 import com.github.pwittchen.neurosky.library.message.enums.State
+import kr.hs.dgsw.noepa_ls.custom.RadarMarkerView
 import kr.hs.dgsw.noepa_ls.databinding.ActivityMainBinding
 import java.util.*
 
@@ -48,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         neuroSky = createNeuroSky()
         initButtonListeners()
 
+
 //        val neuroSky = NeuroSky(object : ExtendedDeviceMessageListener() {
 //            override fun onStateChange(state: State) {
 //                handleStateChange(state)
@@ -61,8 +73,109 @@ class MainActivity : AppCompatActivity() {
 //                handleBrainWavesChange(brainWaves)
 //            }
 //        })
+        initChart();
 
+    }
 
+    private fun initChart(){
+        Log.d(LOG_TAG, "initChart")
+        binding.chart1.setBackgroundColor(Color.rgb(60, 65, 82));
+
+        binding.chart1.getDescription().setEnabled(false);
+
+        binding.chart1.setWebLineWidth(1f);
+        binding.chart1.setWebColor(Color.LTGRAY);
+        binding.chart1.setWebLineWidthInner(1f);
+        binding.chart1.setWebColorInner(Color.LTGRAY);
+        binding.chart1.setWebAlpha(100)
+
+        // create a custom MarkerView (extend MarkerView) and specify the layout
+        // to use for it
+
+        // create a custom MarkerView (extend MarkerView) and specify the layout
+        // to use for it
+
+        val mv: MarkerView = RadarMarkerView(this, R.layout.radar_markerview)
+        mv.chartView = binding.chart1 // For bounds control
+
+        binding.chart1.setMarker(mv) // Set the marker to the chart
+        setData()
+        val xAxis: XAxis = binding.chart1.getXAxis()
+        xAxis.textSize = 9f
+        xAxis.yOffset = 0f
+        xAxis.xOffset = 0f
+        val labels = ArrayList<String>()
+        labels.add("data1")
+        labels.add("data2")
+        labels.add("data3")
+        labels.add("data4")
+        labels.add("data5")
+        labels.add("data6")
+        labels.add("data7")
+        labels.add("data8")
+
+        val formatData = IndexAxisValueFormatter(labels)
+        xAxis.valueFormatter = formatData
+
+        xAxis.textColor = Color.WHITE
+
+        val yAxis: YAxis = binding.chart1.getYAxis()
+        yAxis.setLabelCount(8, false)
+        yAxis.textSize = 9f
+        yAxis.axisMinimum = 0f
+        yAxis.axisMaximum = 80f
+        yAxis.setDrawLabels(false)
+
+        val l: Legend = binding.chart1.getLegend()
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP)
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER)
+        l.setOrientation(Legend.LegendOrientation.HORIZONTAL)
+        l.setDrawInside(false)
+        l.setXEntrySpace(7f)
+        l.setYEntrySpace(5f)
+        l.setTextColor(Color.WHITE)
+
+    }
+    private fun setData() {
+        val mul = 80f
+        val min = 20f
+        val cnt = 8
+        val entries1: ArrayList<RadarEntry> = ArrayList()
+        val entries2: ArrayList<RadarEntry> = ArrayList()
+
+        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
+        // the chart.
+        for (i in 0 until cnt) {
+            val val1 = (Math.random() * mul).toFloat() + min
+            entries1.add(RadarEntry(val1))
+            val val2 = (Math.random() * mul).toFloat() + min
+            entries2.add(RadarEntry(val2))
+        }
+        val set1 = RadarDataSet(entries1, "Last Week")
+        set1.color = Color.rgb(103, 110, 129)
+        set1.fillColor = Color.rgb(103, 110, 129)
+        set1.setDrawFilled(true)
+        set1.fillAlpha = 180
+        set1.lineWidth = 2f
+        set1.isDrawHighlightCircleEnabled = true
+        set1.setDrawHighlightIndicators(false)
+        val set2 = RadarDataSet(entries2, "This Week")
+        set2.color = Color.rgb(121, 162, 175)
+        set2.fillColor = Color.rgb(121, 162, 175)
+        set2.setDrawFilled(true)
+        set2.fillAlpha = 180
+        set2.lineWidth = 2f
+        set2.isDrawHighlightCircleEnabled = true
+        set2.setDrawHighlightIndicators(false)
+        val sets: ArrayList<IRadarDataSet> = ArrayList()
+        sets.add(set1)
+        sets.add(set2)
+        val data = RadarData(sets)
+        data.setValueTextSize(8f)
+        data.setDrawValues(false)
+        data.setValueTextColor(Color.WHITE)
+        binding.chart1.setData(data)
+        binding.chart1.invalidate()
     }
 
     private fun initButtonListeners() {

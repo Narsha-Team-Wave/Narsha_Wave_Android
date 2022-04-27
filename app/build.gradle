@@ -48,4 +48,5 @@ dependencies {
     implementation 'com.github.pwittchen:neurosky-android-sdk:0.0.2'
 //    implementation  'com.jakewharton:butterknife:10.2.3'
 //    implementation  'com.jakewharton:butterknife-compiler:10.2.3'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
