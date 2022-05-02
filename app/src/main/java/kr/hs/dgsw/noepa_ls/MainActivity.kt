@@ -1,16 +1,10 @@
 package kr.hs.dgsw.noepa_ls
 
-import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.MarkerView
 import com.github.mikephil.charting.components.XAxis
@@ -125,7 +119,7 @@ class MainActivity : AppCompatActivity() {
         yAxis.setLabelCount(8, false)
         yAxis.textSize = 9f
         yAxis.axisMinimum = 0f
-        yAxis.axisMaximum = 80f
+        yAxis.axisMaximum = 100f
         yAxis.setDrawLabels(false)
 
         val l: Legend = binding.chart1.getLegend()
@@ -290,7 +284,8 @@ class MainActivity : AppCompatActivity() {
                                 brainWave.toString() + ": " + brainWave.value.toString()
                             if(brainWaveList[0] != brainWave.value){
                                 brainWaveList[0] = brainWave.value
-                                entries1[0] = RadarEntry(brainWave.value.toFloat() * 100/400000)
+                                if(checkData(brainWave.value.toFloat() * 100/400000))
+                                    entries1[0] = RadarEntry(brainWave.value.toFloat() * 100/400000)
                                 Log.d(LOG_TAG + "1",  entries1[0].toString())
                             }
                         }
@@ -299,7 +294,8 @@ class MainActivity : AppCompatActivity() {
                                 brainWave.toString() + ": " + brainWave.value.toString()
                             if(brainWaveList[1] != brainWave.value) {
                                 brainWaveList[1] = brainWave.value
-                                entries1[1] = RadarEntry(brainWave.value.toFloat() * 100/45000)
+                                if(checkData(brainWave.value.toFloat() * 100/45000))
+                                    entries1[1] = RadarEntry(brainWave.value.toFloat() * 100/45000)
                             }
                         }
                         "LOW_ALPHA" -> {
@@ -307,7 +303,8 @@ class MainActivity : AppCompatActivity() {
                                 brainWave.toString() + ": " + brainWave.value.toString()
                             if(brainWaveList[2] != brainWave.value) {
                                 brainWaveList[2] = brainWave.value
-                                entries1[2] = RadarEntry(brainWave.value.toFloat() * 100/10000)
+                                if(checkData(brainWave.value.toFloat() * 100/10000))
+                                    entries1[2] = RadarEntry(brainWave.value.toFloat() * 100/10000)
                             }
                         }
                         "HIGH_ALPHA" -> {
@@ -315,7 +312,8 @@ class MainActivity : AppCompatActivity() {
                                 brainWave.toString() + ": " + brainWave.value.toString()
                             if(brainWaveList[3] != brainWave.value) {
                                 brainWaveList[3] = brainWave.value
-                                entries1[3] = RadarEntry(brainWave.value.toFloat() * 100/15000)
+                                if(checkData(brainWave.value.toFloat() * 100/15000))
+                                    entries1[3] = RadarEntry(brainWave.value.toFloat() * 100/15000)
                             }
                         }
                         "LOW_BETA" -> {
@@ -323,7 +321,8 @@ class MainActivity : AppCompatActivity() {
                                 brainWave.toString() + ": " + brainWave.value.toString()
                             if(brainWaveList[4] != brainWave.value) {
                                 brainWaveList[4] = brainWave.value
-                                entries1[4] = RadarEntry(brainWave.value.toFloat() * 100/18000)
+                                if(checkData(brainWave.value.toFloat() * 100/18000))
+                                    entries1[4] = RadarEntry(brainWave.value.toFloat() * 100/18000)
                             }
                         }
                         "HIGH_BETA" -> {
@@ -331,7 +330,8 @@ class MainActivity : AppCompatActivity() {
                                 brainWave.toString() + ": " + brainWave.value.toString()
                             if(brainWaveList[5] != brainWave.value) {
                                 brainWaveList[5] = brainWave.value
-                                entries1[5] = RadarEntry(brainWave.value.toFloat() * 100/24000)
+                                if(checkData(brainWave.value.toFloat() * 100/24000))
+                                    entries1[5] = RadarEntry(brainWave.value.toFloat() * 100/24000)
                             }
                         }
                         "LOW_GAMMA" -> {
@@ -339,7 +339,8 @@ class MainActivity : AppCompatActivity() {
                                 brainWave.toString() + ": " + brainWave.value.toString()
                             if(brainWaveList[6] != brainWave.value) {
                                 brainWaveList[6] = brainWave.value
-                                entries1[6] = RadarEntry(brainWave.value.toFloat() * 100/10000)
+                                if(checkData(brainWave.value.toFloat() * 100/10000))
+                                    entries1[6] = RadarEntry(brainWave.value.toFloat() * 100/10000)
                             }
                         }
                         "MID_GAMMA" -> {
@@ -347,20 +348,28 @@ class MainActivity : AppCompatActivity() {
                                 brainWave.toString() + ": " + brainWave.value.toString()
                             if(brainWaveList[7] != brainWave.value) {
                                 brainWaveList[7] = brainWave.value
-                                entries1[7] = RadarEntry(brainWave.value.toFloat() * 100/10000)
+                                if(checkData(brainWave.value.toFloat() * 100/10000))
+                                    entries1[7] = RadarEntry(brainWave.value.toFloat() * 100/10000)
                             }
                         }
                         else -> Log.d(LOG_TAG, "unhandled signal")
                     }
-                    var LogText = ""
-                    for(i in 0..7) {
-                        LogText = LogText + " " + brainWaveList[i].toString()
-                    }
-                    Log.d("LOG_TAG", LogText)
+//                    var LogText = ""
+//                    for(i in 0..7) {
+//                        LogText = LogText + " " + brainWaveList[i].toString()
+//                    }
+
+
+                    Log.d("LOG_TAG", entries1.toString())
                     binding.chart1.notifyDataSetChanged()
                     binding.chart1.invalidate()
                 }
             }
         }
+    }
+
+    private fun checkData(radarEntry: Float): Boolean {
+        return radarEntry <= 150
+
     }
 }
