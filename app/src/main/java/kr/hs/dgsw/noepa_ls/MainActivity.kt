@@ -3,6 +3,7 @@ package kr.hs.dgsw.noepa_ls
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.Toast
 import com.github.mikephil.charting.components.Legend
@@ -71,6 +72,8 @@ class MainActivity : AppCompatActivity() {
 //        })
         initChart();
 
+
+
     }
 
     private fun initChart(){
@@ -119,7 +122,7 @@ class MainActivity : AppCompatActivity() {
         yAxis.setLabelCount(8, false)
         yAxis.textSize = 9f
         yAxis.axisMinimum = 0f
-        yAxis.axisMaximum = 100f
+        //yAxis.axisMaximum = 100f
         yAxis.setDrawLabels(false)
 
         val l: Legend = binding.chart1.getLegend()
