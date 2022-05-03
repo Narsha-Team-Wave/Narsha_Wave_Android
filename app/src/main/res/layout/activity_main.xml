@@ -21,11 +21,17 @@
             <com.github.mikephil.charting.charts.RadarChart
                 android:id="@+id/chart1"
                 android:layout_width="match_parent"
-                android:layout_height="400dp" />
+                android:layout_height="400dp"/>
             <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/LineChart"
+                android:id="@+id/LineChart1"
                 android:layout_width="match_parent"
-                android:layout_height="380dp"/>
+                android:layout_height="190dp"/>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:layout_marginTop="10dp"
+                android:id="@+id/LineChart2"
+                android:layout_width="match_parent"
+                android:layout_height="190dp"/>
 
             <TextView
                 android:id="@+id/tv_state"

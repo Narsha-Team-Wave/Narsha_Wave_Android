@@ -74,76 +74,107 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initLineChart() {
-        binding.LineChart.setDrawGridBackground(true)
-        binding.LineChart.setBackgroundColor(Color.BLACK)
-        binding.LineChart.setGridBackgroundColor(Color.BLACK)
+        binding.LineChart1.setDrawGridBackground(true)
+        binding.LineChart1.setBackgroundColor(Color.BLACK)
+        binding.LineChart1.setGridBackgroundColor(Color.BLACK)
+
+        binding.LineChart2.setDrawGridBackground(true)
+        binding.LineChart2.setBackgroundColor(Color.BLACK)
+        binding.LineChart2.setGridBackgroundColor(Color.BLACK)
         // description text
         // description text
-        binding.LineChart.getDescription().setEnabled(true)
-        val des: Description = binding.LineChart.getDescription()
-        des.setEnabled(true)
-        des.setText("Real-Time DATA")
-        des.setTextSize(15f)
-        des.setTextColor(Color.WHITE)
+        binding.LineChart1.getDescription().setEnabled(true)
+        binding.LineChart2.getDescription().setEnabled(true)
+        val des1: Description = binding.LineChart1.getDescription()
+        val des2: Description = binding.LineChart2.getDescription()
+        des1.setEnabled(true)
+        des1.setText("Real-Time DATA")
+        des1.setTextSize(15f)
+        des1.setTextColor(Color.WHITE)
+        des2.setEnabled(true)
+        des2.setText("Real-Time DATA")
+        des2.setTextSize(15f)
+        des2.setTextColor(Color.WHITE)
 
 // touch gestures (false-비활성화)
 
 // touch gestures (false-비활성화)
-        binding.LineChart.setTouchEnabled(false)
+        binding.LineChart1.setTouchEnabled(false)
+        binding.LineChart2.setTouchEnabled(false)
 
 // scaling and dragging (false-비활성화)
 
 // scaling and dragging (false-비활성화)
-        binding.LineChart.setDragEnabled(false)
-        binding.LineChart.setScaleEnabled(false)
+        binding.LineChart1.setDragEnabled(false)
+        binding.LineChart1.setScaleEnabled(false)
+        binding.LineChart2.setDragEnabled(false)
+        binding.LineChart2.setScaleEnabled(false)
 
 //auto scale
 
 //auto scale
-        binding.LineChart.setAutoScaleMinMaxEnabled(true)
+        binding.LineChart1.setAutoScaleMinMaxEnabled(true)
+        binding.LineChart2.setAutoScaleMinMaxEnabled(true)
 
 // if disabled, scaling can be done on x- and y-axis separately
 
 // if disabled, scaling can be done on x- and y-axis separately
-        binding.LineChart.setPinchZoom(false)
+        binding.LineChart1.setPinchZoom(false)
+        binding.LineChart2.setPinchZoom(false)
 
 //X축
 
 //X축
-        binding.LineChart.getXAxis().setDrawGridLines(true)
-        binding.LineChart.getXAxis().setDrawAxisLine(false)
+        binding.LineChart1.getXAxis().setDrawGridLines(true)
+        binding.LineChart1.getXAxis().setDrawAxisLine(false)
+        binding.LineChart2.getXAxis().setDrawGridLines(true)
+        binding.LineChart2.getXAxis().setDrawAxisLine(false)
 
-        binding.LineChart.getXAxis().setEnabled(true)
-        binding.LineChart.getXAxis().setDrawGridLines(false)
+        binding.LineChart1.getXAxis().setEnabled(true)
+        binding.LineChart1.getXAxis().setDrawGridLines(false)
+        binding.LineChart2.getXAxis().setEnabled(true)
+        binding.LineChart2.getXAxis().setDrawGridLines(false)
 
 //Legend
 
 //Legend
-        val l: Legend = binding.LineChart.getLegend()
-        l.isEnabled = true
-        l.formSize = 10f // set the size of the legend forms/shapes
+        val l1: Legend = binding.LineChart1.getLegend()
+        val l2: Legend = binding.LineChart2.getLegend()
+        l1.isEnabled = true
+        l1.formSize = 10f // set the size of the legend forms/shapes
+        l2.isEnabled = true
+        l2.formSize = 10f
 
-        l.textSize = 12f
-        l.textColor = Color.WHITE
+        l1.textSize = 12f
+        l1.textColor = Color.WHITE
+        l2.textSize = 12f
+        l2.textColor = Color.WHITE
 
 //Y축
 
 //Y축
-        val leftAxis: YAxis = binding.LineChart.getAxisLeft()
-        leftAxis.isEnabled = true
-        leftAxis.textColor = Color.RED
-        leftAxis.setDrawGridLines(true)
-        leftAxis.gridColor = Color.GRAY
+        val leftAxis1: YAxis = binding.LineChart1.getAxisLeft()
+        val leftAxis2: YAxis = binding.LineChart2.getAxisLeft()
+        leftAxis1.isEnabled = true
+        leftAxis1.textColor = Color.RED
+        leftAxis1.setDrawGridLines(true)
+        leftAxis1.gridColor = Color.GRAY
+        leftAxis2.isEnabled = true
+        leftAxis2.textColor = Color.RED
+        leftAxis2.setDrawGridLines(true)
+        leftAxis2.gridColor = Color.GRAY
 
-        val rightAxis: YAxis = binding.LineChart.getAxisRight()
-        rightAxis.isEnabled = false
+        val rightAxis1: YAxis = binding.LineChart1.getAxisRight()
+        rightAxis1.isEnabled = false
+        val rightAxis2: YAxis = binding.LineChart2.getAxisRight()
+        rightAxis2.isEnabled = false
 
 
 // don't forget to refresh the drawing
         // create a data object with the data sets
-        val yVals = ArrayList<Entry>()
-        yVals.add(Entry(0F, 0F))
-        val set1 = LineDataSet(yVals, "DataSet 1")
+        val yVals1 = ArrayList<Entry>()
+        yVals1.add(Entry(0F, 0F))
+        val set1 = LineDataSet(yVals1, "Meditation")
         set1.axisDependency = AxisDependency.LEFT
         set1.color = ColorTemplate.getHoloBlue()
         set1.valueTextColor = ColorTemplate.getHoloBlue()
@@ -155,42 +186,95 @@ class MainActivity : AppCompatActivity() {
         set1.highLightColor = Color.rgb(244, 117, 117)
         set1.setDrawCircleHole(false)
 
-        val lineData : LineData  = LineData(set1);
-        lineData.setValueTextColor(Color.WHITE);
-        lineData.setValueTextSize(9f);
+        val lineData1 : LineData  = LineData(set1);
+        lineData1.setValueTextColor(Color.WHITE);
+        lineData1.setValueTextSize(9f);
 
         // set data
-        binding.LineChart.setData(lineData)
+        binding.LineChart1.setData(lineData1)
+
+        //
+
+        val yVals2 = ArrayList<Entry>()
+        yVals2.add(Entry(0F, 0F))
+        val set2 = LineDataSet(yVals2, "Attention")
+        set2.axisDependency = AxisDependency.LEFT
+        set2.color = ColorTemplate.getHoloBlue()
+        set2.valueTextColor = ColorTemplate.getHoloBlue()
+        set2.lineWidth = 1.5f
+        set2.setDrawCircles(false)
+        set2.setDrawValues(false)
+        set2.fillAlpha = 65
+        set2.fillColor = ColorTemplate.getHoloBlue()
+        set2.highLightColor = Color.rgb(244, 117, 117)
+        set2.setDrawCircleHole(false)
+
+        val lineData2 : LineData  = LineData(set2);
+        lineData2.setValueTextColor(Color.WHITE);
+        lineData2.setValueTextSize(9f);
+
+        // set data
+        binding.LineChart2.setData(lineData2)
 
 
 // don't forget to refresh the drawing
-        binding.LineChart.invalidate()
+        binding.LineChart1.invalidate()
+        binding.LineChart2.invalidate()
     }
-    private fun addEntry(num: Double) {
-        var data: LineData = binding.LineChart.getData()
-        if (data == null) {
-            data = LineData()
-            binding.LineChart.setData(data)
+    private fun addEntry1(num: Double) {
+        var data1: LineData = binding.LineChart1.getData()
+        if (data1 == null) {
+            data1 = LineData()
+            binding.LineChart1.setData(data1)
         }
-        var set = data.getDataSetByIndex(0)
+
+        var set1 = data1.getDataSetByIndex(0)
         // set.addEntry(...); // can be called as well
-        if (set == null) {
-            set = createSet()
-            data.addDataSet(set)
+        if (set1 == null) {
+            set1 = createSet()
+            data1.addDataSet(set1)
         }
         //data.addEntry(new Entry((float)set.getEntryCount(), (float)num), 0);
 
-        data.addEntry(
-            Entry(set.entryCount
+        data1.addEntry(
+            Entry(set1.entryCount
                 .toFloat(), num.toFloat()),0
         )
-        data.notifyDataChanged()
+        data1.notifyDataChanged()
 
         // let the chart know it's data has changed
-        binding.LineChart.notifyDataSetChanged()
-        binding.LineChart.setVisibleXRangeMaximum(150F)
+        binding.LineChart1.notifyDataSetChanged()
+        binding.LineChart1.setVisibleXRangeMaximum(150F)
         // this automatically refreshes the chart (calls invalidate())
-        binding.LineChart.moveViewTo(data.entryCount.toFloat(), 50f, YAxis.AxisDependency.LEFT)
+        binding.LineChart1.moveViewTo(data1.entryCount.toFloat(), 50f, YAxis.AxisDependency.LEFT)
+    }
+
+    private fun addEntry2(num: Double) {
+        var data2: LineData = binding.LineChart2.getData()
+        if (data2 == null) {
+            data2 = LineData()
+            binding.LineChart2.setData(data2)
+        }
+
+        var set2 = data2.getDataSetByIndex(0)
+        // set.addEntry(...); // can be called as well
+        if (set2 == null) {
+            set2 = createSet()
+            data2.addDataSet(set2)
+        }
+        //data.addEntry(new Entry((float)set.getEntryCount(), (float)num), 0);
+
+        data2.addEntry(
+            Entry(set2.entryCount
+                .toFloat(), num.toFloat()),0
+        )
+        data2.notifyDataChanged()
+
+        // let the chart know it's data has changed
+        binding.LineChart2.notifyDataSetChanged()
+        binding.LineChart2.setVisibleXRangeMaximum(150F)
+        // this automatically refreshes the chart (calls invalidate())
+        binding.LineChart2.moveViewTo(data2.entryCount.toFloat(), 50f, YAxis.AxisDependency.LEFT)
     }
 
     private fun createSet(): LineDataSet {
@@ -375,12 +459,13 @@ class MainActivity : AppCompatActivity() {
             Signal.ATTENTION -> if (num != checkAttenTion) {
                 binding.tvAttention.text = getFormattedMessage("attention: %d", signal)
                 checkAttenTion = num
+                runOnUiThread { addEntry2(checkAttenTion.toDouble()) }
                 check = true
             } else check = false
             Signal.MEDITATION -> if (num != checkMeditation) {
                 binding.tvMeditation.text = getFormattedMessage("meditation: %d", signal)
                 checkMeditation = num
-                runOnUiThread { addEntry(checkMeditation.toDouble()) }
+                runOnUiThread { addEntry1(checkMeditation.toDouble()) }
                 check = true
             } else check = false
             Signal.BLINK -> if (num != checkBlink) {
