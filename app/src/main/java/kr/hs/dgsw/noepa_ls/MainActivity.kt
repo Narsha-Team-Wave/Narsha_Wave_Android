@@ -1,20 +1,16 @@
 package kr.hs.dgsw.noepa_ls
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.widget.Toast
-import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.MarkerView
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.YAxis
-import com.github.mikephil.charting.data.RadarData
-import com.github.mikephil.charting.data.RadarDataSet
-import com.github.mikephil.charting.data.RadarEntry
+import androidx.appcompat.app.AppCompatActivity
+import com.github.mikephil.charting.components.*
+import com.github.mikephil.charting.components.YAxis.AxisDependency
+import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet
+import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.pwittchen.neurosky.library.NeuroSky
 import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException
 import com.github.pwittchen.neurosky.library.listener.ExtendedDeviceMessageListener
@@ -24,6 +20,7 @@ import com.github.pwittchen.neurosky.library.message.enums.State
 import kr.hs.dgsw.noepa_ls.custom.RadarMarkerView
 import kr.hs.dgsw.noepa_ls.databinding.ActivityMainBinding
 import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
     var check = false
@@ -71,9 +68,141 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        })
         initChart();
+        initLineChart();
 
 
+    }
 
+    private fun initLineChart() {
+        binding.LineChart.setDrawGridBackground(true)
+        binding.LineChart.setBackgroundColor(Color.BLACK)
+        binding.LineChart.setGridBackgroundColor(Color.BLACK)
+        // description text
+        // description text
+        binding.LineChart.getDescription().setEnabled(true)
+        val des: Description = binding.LineChart.getDescription()
+        des.setEnabled(true)
+        des.setText("Real-Time DATA")
+        des.setTextSize(15f)
+        des.setTextColor(Color.WHITE)
+
+// touch gestures (false-비활성화)
+
+// touch gestures (false-비활성화)
+        binding.LineChart.setTouchEnabled(false)
+
+// scaling and dragging (false-비활성화)
+
+// scaling and dragging (false-비활성화)
+        binding.LineChart.setDragEnabled(false)
+        binding.LineChart.setScaleEnabled(false)
+
+//auto scale
+
+//auto scale
+        binding.LineChart.setAutoScaleMinMaxEnabled(true)
+
+// if disabled, scaling can be done on x- and y-axis separately
+
+// if disabled, scaling can be done on x- and y-axis separately
+        binding.LineChart.setPinchZoom(false)
+
+//X축
+
+//X축
+        binding.LineChart.getXAxis().setDrawGridLines(true)
+        binding.LineChart.getXAxis().setDrawAxisLine(false)
+
+        binding.LineChart.getXAxis().setEnabled(true)
+        binding.LineChart.getXAxis().setDrawGridLines(false)
+
+//Legend
+
+//Legend
+        val l: Legend = binding.LineChart.getLegend()
+        l.isEnabled = true
+        l.formSize = 10f // set the size of the legend forms/shapes
+
+        l.textSize = 12f
+        l.textColor = Color.WHITE
+
+//Y축
+
+//Y축
+        val leftAxis: YAxis = binding.LineChart.getAxisLeft()
+        leftAxis.isEnabled = true
+        leftAxis.textColor = Color.RED
+        leftAxis.setDrawGridLines(true)
+        leftAxis.gridColor = Color.GRAY
+
+        val rightAxis: YAxis = binding.LineChart.getAxisRight()
+        rightAxis.isEnabled = false
+
+
+// don't forget to refresh the drawing
+        // create a data object with the data sets
+        val yVals = ArrayList<Entry>()
+        yVals.add(Entry(0F, 0F))
+        val set1 = LineDataSet(yVals, "DataSet 1")
+        set1.axisDependency = AxisDependency.LEFT
+        set1.color = ColorTemplate.getHoloBlue()
+        set1.valueTextColor = ColorTemplate.getHoloBlue()
+        set1.lineWidth = 1.5f
+        set1.setDrawCircles(false)
+        set1.setDrawValues(false)
+        set1.fillAlpha = 65
+        set1.fillColor = ColorTemplate.getHoloBlue()
+        set1.highLightColor = Color.rgb(244, 117, 117)
+        set1.setDrawCircleHole(false)
+
+        val lineData : LineData  = LineData(set1);
+        lineData.setValueTextColor(Color.WHITE);
+        lineData.setValueTextSize(9f);
+
+        // set data
+        binding.LineChart.setData(lineData)
+
+
+// don't forget to refresh the drawing
+        binding.LineChart.invalidate()
+    }
+    private fun addEntry(num: Double) {
+        var data: LineData = binding.LineChart.getData()
+        if (data == null) {
+            data = LineData()
+            binding.LineChart.setData(data)
+        }
+        var set = data.getDataSetByIndex(0)
+        // set.addEntry(...); // can be called as well
+        if (set == null) {
+            set = createSet()
+            data.addDataSet(set)
+        }
+        //data.addEntry(new Entry((float)set.getEntryCount(), (float)num), 0);
+
+        data.addEntry(
+            Entry(set.entryCount
+                .toFloat(), num.toFloat()),0
+        )
+        data.notifyDataChanged()
+
+        // let the chart know it's data has changed
+        binding.LineChart.notifyDataSetChanged()
+        binding.LineChart.setVisibleXRangeMaximum(150F)
+        // this automatically refreshes the chart (calls invalidate())
+        binding.LineChart.moveViewTo(data.entryCount.toFloat(), 50f, YAxis.AxisDependency.LEFT)
+    }
+
+    private fun createSet(): LineDataSet {
+        val set = LineDataSet(null, "Real-time Line Data")
+        set.lineWidth = 1f
+        set.setDrawValues(false)
+        set.valueTextColor =Color.WHITE
+        set.color = Color.WHITE
+        set.mode = LineDataSet.Mode.LINEAR
+        set.setDrawCircles(false)
+        set.highLightColor = Color.rgb(190, 190, 190)
+        return set
     }
 
     private fun initChart(){
@@ -251,6 +380,7 @@ class MainActivity : AppCompatActivity() {
             Signal.MEDITATION -> if (num != checkMeditation) {
                 binding.tvMeditation.text = getFormattedMessage("meditation: %d", signal)
                 checkMeditation = num
+                runOnUiThread { addEntry(checkMeditation.toDouble()) }
                 check = true
             } else check = false
             Signal.BLINK -> if (num != checkBlink) {
@@ -364,8 +494,12 @@ class MainActivity : AppCompatActivity() {
 
 
                     Log.d("LOG_TAG", entries1.toString())
+                    Log.d("LOG_TAG", "data3 +" + entries1.size);
                     binding.chart1.notifyDataSetChanged()
                     binding.chart1.invalidate()
+                    for(i in 0..7) {
+                        Log.d(LOG_TAG,"data2 "+i+" : "+entries1[i]);
+                    }
                 }
             }
         }
