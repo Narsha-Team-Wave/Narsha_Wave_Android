@@ -1,10 +1,12 @@
 package kr.hs.dgsw.noepa_ls
 
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.github.mikephil.charting.components.*
 import com.github.mikephil.charting.components.YAxis.AxisDependency
 import com.github.mikephil.charting.data.*
@@ -23,6 +25,8 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
+    val MY_PERMISSION_ACCESS_ALL = 100
+
     var check = false
     var checkAttenTion: Int = 0
     var checkMeditation: Int = 0
@@ -70,8 +74,41 @@ class MainActivity : AppCompatActivity() {
         initChart();
         initLineChart();
 
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+            ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+            ActivityCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED ||
+            ActivityCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_ADVERTISE) != PackageManager.PERMISSION_GRANTED ||
+            ActivityCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED
+        ) {
+            var permissions = arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                android.Manifest.permission.BLUETOOTH_SCAN,
+                android.Manifest.permission.BLUETOOTH_ADVERTISE,
+                android.Manifest.permission.BLUETOOTH_CONNECT
+            )
+            ActivityCompat.requestPermissions(this, permissions, MY_PERMISSION_ACCESS_ALL)
+        }
+
 
     }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray,
+    ) {
+        super.onRequestPermissionsResult(requestCode,
+            permissions,
+            grantResults)
+        if (requestCode === MY_PERMISSION_ACCESS_ALL) {
+            if (grantResults.size > 0) {
+                for (grant in grantResults) {
+                    if (grant != PackageManager.PERMISSION_GRANTED) System.exit(0)
+                }
+            }
+        }
+    }
+
 
     private fun initLineChart() {
         binding.LineChart1.setDrawGridBackground(true)
@@ -186,7 +223,7 @@ class MainActivity : AppCompatActivity() {
         set1.highLightColor = Color.rgb(244, 117, 117)
         set1.setDrawCircleHole(false)
 
-        val lineData1 : LineData  = LineData(set1);
+        val lineData1: LineData = LineData(set1);
         lineData1.setValueTextColor(Color.WHITE);
         lineData1.setValueTextSize(9f);
 
@@ -209,7 +246,7 @@ class MainActivity : AppCompatActivity() {
         set2.highLightColor = Color.rgb(244, 117, 117)
         set2.setDrawCircleHole(false)
 
-        val lineData2 : LineData  = LineData(set2);
+        val lineData2: LineData = LineData(set2);
         lineData2.setValueTextColor(Color.WHITE);
         lineData2.setValueTextSize(9f);
 
@@ -221,6 +258,7 @@ class MainActivity : AppCompatActivity() {
         binding.LineChart1.invalidate()
         binding.LineChart2.invalidate()
     }
+
     private fun addEntry1(num: Double) {
         var data1: LineData = binding.LineChart1.getData()
         if (data1 == null) {
@@ -238,7 +276,7 @@ class MainActivity : AppCompatActivity() {
 
         data1.addEntry(
             Entry(set1.entryCount
-                .toFloat(), num.toFloat()),0
+                .toFloat(), num.toFloat()), 0
         )
         data1.notifyDataChanged()
 
@@ -266,7 +304,7 @@ class MainActivity : AppCompatActivity() {
 
         data2.addEntry(
             Entry(set2.entryCount
-                .toFloat(), num.toFloat()),0
+                .toFloat(), num.toFloat()), 0
         )
         data2.notifyDataChanged()
 
@@ -281,7 +319,7 @@ class MainActivity : AppCompatActivity() {
         val set = LineDataSet(null, "Real-time Line Data")
         set.lineWidth = 1f
         set.setDrawValues(false)
-        set.valueTextColor =Color.WHITE
+        set.valueTextColor = Color.WHITE
         set.color = Color.WHITE
         set.mode = LineDataSet.Mode.LINEAR
         set.setDrawCircles(false)
@@ -289,7 +327,7 @@ class MainActivity : AppCompatActivity() {
         return set
     }
 
-    private fun initChart(){
+    private fun initChart() {
         Log.d(LOG_TAG, "initChart")
         binding.chart1.setBackgroundColor(Color.rgb(60, 65, 82));
 
@@ -348,6 +386,7 @@ class MainActivity : AppCompatActivity() {
         l.setTextColor(Color.WHITE)
 
     }
+
     private fun setData() {
         val mul = 80f
         val min = 20f
@@ -381,7 +420,7 @@ class MainActivity : AppCompatActivity() {
 //        set2.setDrawHighlightIndicators(false)
         val sets: ArrayList<IRadarDataSet> = ArrayList()
         sets.add(set1)
-       // sets.add(set2)
+        // sets.add(set2)
         val data = RadarData(sets)
         data.setValueTextSize(8f)
         data.setDrawValues(false)
@@ -500,74 +539,82 @@ class MainActivity : AppCompatActivity() {
                         "DELTA" -> {
                             binding.tvDelta.text =
                                 brainWave.toString() + ": " + brainWave.value.toString()
-                            if(brainWaveList[0] != brainWave.value){
+                            if (brainWaveList[0] != brainWave.value) {
                                 brainWaveList[0] = brainWave.value
-                                if(checkData(brainWave.value.toFloat() * 100/400000))
-                                    entries1[0] = RadarEntry(brainWave.value.toFloat() * 100/400000)
-                                Log.d(LOG_TAG + "1",  entries1[0].toString())
+                                if (checkData(brainWave.value.toFloat() * 100 / 400000))
+                                    entries1[0] =
+                                        RadarEntry(brainWave.value.toFloat() * 100 / 400000)
+                                Log.d(LOG_TAG + "1", entries1[0].toString())
                             }
                         }
                         "THETA" -> {
                             binding.tvTheta.text =
                                 brainWave.toString() + ": " + brainWave.value.toString()
-                            if(brainWaveList[1] != brainWave.value) {
+                            if (brainWaveList[1] != brainWave.value) {
                                 brainWaveList[1] = brainWave.value
-                                if(checkData(brainWave.value.toFloat() * 100/45000))
-                                    entries1[1] = RadarEntry(brainWave.value.toFloat() * 100/45000)
+                                if (checkData(brainWave.value.toFloat() * 100 / 45000))
+                                    entries1[1] =
+                                        RadarEntry(brainWave.value.toFloat() * 100 / 45000)
                             }
                         }
                         "LOW_ALPHA" -> {
                             binding.tvLowalpha.text =
                                 brainWave.toString() + ": " + brainWave.value.toString()
-                            if(brainWaveList[2] != brainWave.value) {
+                            if (brainWaveList[2] != brainWave.value) {
                                 brainWaveList[2] = brainWave.value
-                                if(checkData(brainWave.value.toFloat() * 100/10000))
-                                    entries1[2] = RadarEntry(brainWave.value.toFloat() * 100/10000)
+                                if (checkData(brainWave.value.toFloat() * 100 / 10000))
+                                    entries1[2] =
+                                        RadarEntry(brainWave.value.toFloat() * 100 / 10000)
                             }
                         }
                         "HIGH_ALPHA" -> {
                             binding.tvHighalpha.text =
                                 brainWave.toString() + ": " + brainWave.value.toString()
-                            if(brainWaveList[3] != brainWave.value) {
+                            if (brainWaveList[3] != brainWave.value) {
                                 brainWaveList[3] = brainWave.value
-                                if(checkData(brainWave.value.toFloat() * 100/15000))
-                                    entries1[3] = RadarEntry(brainWave.value.toFloat() * 100/15000)
+                                if (checkData(brainWave.value.toFloat() * 100 / 15000))
+                                    entries1[3] =
+                                        RadarEntry(brainWave.value.toFloat() * 100 / 15000)
                             }
                         }
                         "LOW_BETA" -> {
                             binding.tvLowbeta.text =
                                 brainWave.toString() + ": " + brainWave.value.toString()
-                            if(brainWaveList[4] != brainWave.value) {
+                            if (brainWaveList[4] != brainWave.value) {
                                 brainWaveList[4] = brainWave.value
-                                if(checkData(brainWave.value.toFloat() * 100/18000))
-                                    entries1[4] = RadarEntry(brainWave.value.toFloat() * 100/18000)
+                                if (checkData(brainWave.value.toFloat() * 100 / 18000))
+                                    entries1[4] =
+                                        RadarEntry(brainWave.value.toFloat() * 100 / 18000)
                             }
                         }
                         "HIGH_BETA" -> {
                             binding.tvHighbeta.text =
                                 brainWave.toString() + ": " + brainWave.value.toString()
-                            if(brainWaveList[5] != brainWave.value) {
+                            if (brainWaveList[5] != brainWave.value) {
                                 brainWaveList[5] = brainWave.value
-                                if(checkData(brainWave.value.toFloat() * 100/24000))
-                                    entries1[5] = RadarEntry(brainWave.value.toFloat() * 100/24000)
+                                if (checkData(brainWave.value.toFloat() * 100 / 24000))
+                                    entries1[5] =
+                                        RadarEntry(brainWave.value.toFloat() * 100 / 24000)
                             }
                         }
                         "LOW_GAMMA" -> {
                             binding.tvLowgamma.text =
                                 brainWave.toString() + ": " + brainWave.value.toString()
-                            if(brainWaveList[6] != brainWave.value) {
+                            if (brainWaveList[6] != brainWave.value) {
                                 brainWaveList[6] = brainWave.value
-                                if(checkData(brainWave.value.toFloat() * 100/10000))
-                                    entries1[6] = RadarEntry(brainWave.value.toFloat() * 100/10000)
+                                if (checkData(brainWave.value.toFloat() * 100 / 10000))
+                                    entries1[6] =
+                                        RadarEntry(brainWave.value.toFloat() * 100 / 10000)
                             }
                         }
                         "MID_GAMMA" -> {
                             binding.tvMidgamma.text =
                                 brainWave.toString() + ": " + brainWave.value.toString()
-                            if(brainWaveList[7] != brainWave.value) {
+                            if (brainWaveList[7] != brainWave.value) {
                                 brainWaveList[7] = brainWave.value
-                                if(checkData(brainWave.value.toFloat() * 100/10000))
-                                    entries1[7] = RadarEntry(brainWave.value.toFloat() * 100/10000)
+                                if (checkData(brainWave.value.toFloat() * 100 / 10000))
+                                    entries1[7] =
+                                        RadarEntry(brainWave.value.toFloat() * 100 / 10000)
                             }
                         }
                         else -> Log.d(LOG_TAG, "unhandled signal")
@@ -582,8 +629,8 @@ class MainActivity : AppCompatActivity() {
                     Log.d("LOG_TAG", "data3 +" + entries1.size);
                     binding.chart1.notifyDataSetChanged()
                     binding.chart1.invalidate()
-                    for(i in 0..7) {
-                        Log.d(LOG_TAG,"data2 "+i+" : "+entries1[i]);
+                    for (i in 0..7) {
+                        Log.d(LOG_TAG, "data2 " + i + " : " + entries1[i]);
                     }
                 }
             }
