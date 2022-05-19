@@ -101,10 +101,6 @@ class MainActivity : AppCompatActivity() {
                 ActivityCompat.requestPermissions(this, permissions, MY_PERMISSION_ACCESS_ALL)
             }
         }
-
-
-
-
     }
 
     override fun onRequestPermissionsResult(
@@ -517,6 +513,17 @@ class MainActivity : AppCompatActivity() {
                 check = true
             } else check = false
             Signal.MEDITATION -> if (num != checkMeditation) {
+
+                if(num >= 60){
+                    binding.MainLayout.setBackgroundColor(getColor(R.color.safe))
+                    binding.LineChart1.setBackgroundColor(getColor(R.color.safe))
+                    binding.LineChart2.setBackgroundColor(getColor(R.color.safe))
+                }
+                else{
+                    binding.MainLayout.setBackgroundColor(getColor(R.color.danger))
+                    binding.LineChart1.setBackgroundColor(getColor(R.color.danger))
+                    binding.LineChart2.setBackgroundColor(getColor(R.color.danger))
+                }
                 binding.tvMeditation.text = getFormattedMessage("meditation: %d", signal)
                 checkMeditation = num
                 runOnUiThread { addEntry1(checkMeditation.toDouble()) }
