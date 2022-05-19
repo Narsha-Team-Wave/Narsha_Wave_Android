@@ -158,6 +158,13 @@
                 android:text="@string/disconnect"
                 />
 
+            <Button
+                android:id="@+id/btn_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="저장된 데이터 보기"
+                />
+
         </LinearLayout>
     </ScrollView>
 

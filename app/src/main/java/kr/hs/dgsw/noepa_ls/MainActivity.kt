@@ -1,5 +1,6 @@
 package kr.hs.dgsw.noepa_ls
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
@@ -101,6 +102,22 @@ class MainActivity : AppCompatActivity() {
                 ActivityCompat.requestPermissions(this, permissions, MY_PERMISSION_ACCESS_ALL)
             }
         }
+
+//        binding.btnHistory.setOnClickListener {
+//            var appDatabase : AppDatabase? = AppDatabase.getInstance(this)
+//            val saveddata : List<BrainwaveEntity> = appDatabase!!.dao().getAll()
+//            var DataList = arrayListOf<BrainwaveEntity>()
+//            if(saveddata.isNotEmpty()){
+//                DataList.addAll(saveddata)
+//            }
+//
+//
+//            val intent = Intent(this, HistoryActivity::class.java)
+//            intent.putExtra("key", DataList)
+//            startActivity(intent)
+//        }
+
+
     }
 
     override fun onRequestPermissionsResult(
@@ -504,6 +521,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleSignalChange(signal: Signal) {
+
         var num = getFormattedMessage("%d", signal).toInt()
         when (signal) {
             Signal.ATTENTION -> if (num != checkAttenTion) {
