@@ -26,6 +26,9 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
+    private var Counting = IntArray(10)
+    private var BindMindWave = IntArray(10)
+
     val MY_PERMISSION_ACCESS_ALL = 100
 
     var check = false
@@ -103,19 +106,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-//        binding.btnHistory.setOnClickListener {
-//            var appDatabase : AppDatabase? = AppDatabase.getInstance(this)
-//            val saveddata : List<BrainwaveEntity> = appDatabase!!.dao().getAll()
-//            var DataList = arrayListOf<BrainwaveEntity>()
-//            if(saveddata.isNotEmpty()){
-//                DataList.addAll(saveddata)
-//            }
-//
-//
-//            val intent = Intent(this, HistoryActivity::class.java)
-//            intent.putExtra("key", DataList)
-//            startActivity(intent)
-//        }
+        binding.btnHistory.setOnClickListener {
+
+
+
+
+            val intent = Intent(this, HistoryActivity::class.java)
+            startActivity(intent)
+        }
 
 
     }
@@ -525,12 +523,16 @@ class MainActivity : AppCompatActivity() {
         var num = getFormattedMessage("%d", signal).toInt()
         when (signal) {
             Signal.ATTENTION -> if (num != checkAttenTion) {
+                BindMindWave[0] += num
+                Counting[0]++
                 binding.tvAttention.text = getFormattedMessage("attention: %d", signal)
                 checkAttenTion = num
                 runOnUiThread { addEntry2(checkAttenTion.toDouble()) }
                 check = true
             } else check = false
             Signal.MEDITATION -> if (num != checkMeditation) {
+                BindMindWave[1] += num
+                Counting[1]++
 
                 if(num >= 60){
                     binding.MainLayout.setBackgroundColor(getColor(R.color.safe))
@@ -585,6 +587,8 @@ class MainActivity : AppCompatActivity() {
                                     entries1[0] =
                                         RadarEntry(brainWave.value.toFloat() * 100 / 400000)
                                 Log.d(LOG_TAG + "1", entries1[0].toString())
+                                BindMindWave[2] += brainWave.value
+                                Counting[2]++
                             }
                         }
                         "THETA" -> {
@@ -595,6 +599,8 @@ class MainActivity : AppCompatActivity() {
                                 if (checkData(brainWave.value.toFloat() * 100 / 45000))
                                     entries1[1] =
                                         RadarEntry(brainWave.value.toFloat() * 100 / 45000)
+                                BindMindWave[3] += brainWave.value
+                                Counting[3]++
                             }
                         }
                         "LOW_ALPHA" -> {
@@ -605,6 +611,8 @@ class MainActivity : AppCompatActivity() {
                                 if (checkData(brainWave.value.toFloat() * 100 / 10000))
                                     entries1[2] =
                                         RadarEntry(brainWave.value.toFloat() * 100 / 10000)
+                                BindMindWave[4] += brainWave.value
+                                Counting[4]++
                             }
                         }
                         "HIGH_ALPHA" -> {
@@ -615,6 +623,8 @@ class MainActivity : AppCompatActivity() {
                                 if (checkData(brainWave.value.toFloat() * 100 / 15000))
                                     entries1[3] =
                                         RadarEntry(brainWave.value.toFloat() * 100 / 15000)
+                                BindMindWave[5] += brainWave.value
+                                Counting[5]++
                             }
                         }
                         "LOW_BETA" -> {
@@ -625,6 +635,8 @@ class MainActivity : AppCompatActivity() {
                                 if (checkData(brainWave.value.toFloat() * 100 / 18000))
                                     entries1[4] =
                                         RadarEntry(brainWave.value.toFloat() * 100 / 18000)
+                                BindMindWave[6] += brainWave.value
+                                Counting[6]++
                             }
                         }
                         "HIGH_BETA" -> {
@@ -635,6 +647,8 @@ class MainActivity : AppCompatActivity() {
                                 if (checkData(brainWave.value.toFloat() * 100 / 24000))
                                     entries1[5] =
                                         RadarEntry(brainWave.value.toFloat() * 100 / 24000)
+                                BindMindWave[7] += brainWave.value
+                                Counting[7]++
                             }
                         }
                         "LOW_GAMMA" -> {
@@ -645,6 +659,8 @@ class MainActivity : AppCompatActivity() {
                                 if (checkData(brainWave.value.toFloat() * 100 / 10000))
                                     entries1[6] =
                                         RadarEntry(brainWave.value.toFloat() * 100 / 10000)
+                                BindMindWave[8] += brainWave.value
+                                Counting[8]++
                             }
                         }
                         "MID_GAMMA" -> {
@@ -655,6 +671,8 @@ class MainActivity : AppCompatActivity() {
                                 if (checkData(brainWave.value.toFloat() * 100 / 10000))
                                     entries1[7] =
                                         RadarEntry(brainWave.value.toFloat() * 100 / 10000)
+                                BindMindWave[9] += brainWave.value
+                                Counting[9]++
                             }
                         }
                         else -> Log.d(LOG_TAG, "unhandled signal")
@@ -673,6 +691,7 @@ class MainActivity : AppCompatActivity() {
                         Log.d(LOG_TAG, "data2 " + i + " : " + entries1[i]);
                     }
                 }
+                InsertData()
             }
         }
     }
@@ -680,5 +699,22 @@ class MainActivity : AppCompatActivity() {
     private fun checkData(radarEntry: Float): Boolean {
         return radarEntry <= 150
 
+    }
+
+    private fun InsertData(){
+        var appDatabase : AppDatabase? = AppDatabase.getInstance(this)
+
+        val MindWaveEntity = MindWaveEntity()
+        MindWaveEntity.MEDITATION = BindMindWave[0] / Counting[0]
+        MindWaveEntity.ATTENTION = BindMindWave[1] / Counting[1]
+        MindWaveEntity.DELTA = BindMindWave[2] / Counting[2]
+        MindWaveEntity.THETA = BindMindWave[3] / Counting[3]
+        MindWaveEntity.LOW_ALPHA = BindMindWave[4] / Counting[4]
+        MindWaveEntity.HIGH_ALPHA = BindMindWave[5] / Counting[5]
+        MindWaveEntity.LOW_BETA = BindMindWave[6] / Counting[6]
+        MindWaveEntity.HIGH_BETA = BindMindWave[7] / Counting[7]
+        MindWaveEntity.LOW_GAMMA = BindMindWave[8] / Counting[8]
+        MindWaveEntity.MID_GAMMA = BindMindWave[9] / Counting[9]
+        appDatabase!!.dao().insert(MindWaveEntity)
     }
 }

@@ -4,12 +4,12 @@ import androidx.room.*
 
 @Dao
 interface DAO {
-//    @Query("SELECT * FROM MindWave")
-//    fun getAll(): List<BrainwaveEntity>
-//
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun insert(brainwaveEntity: BrainwaveEntity)
-//
-//    @Delete
-//    fun delete(brainwaveEntity: BrainwaveEntity)
+    @Query("SELECT * FROM MindWave")
+    fun getAll(): List<MindWaveEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(mindWaveEntity: MindWaveEntity)
+
+    @Delete
+    fun delete(mindWaveEntity: MindWaveEntity)
 }
