@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/MainLayout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/noepa_background"
     tools:context=".MainActivity">
 
     <ScrollView
@@ -16,156 +16,215 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
-            <com.github.mikephil.charting.charts.RadarChart
-                android:id="@+id/chart1"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"/>
-            <com.github.mikephil.charting.charts.LineChart
-                android:layout_marginTop="10dp"
-                android:id="@+id/LineChart1"
-                android:layout_width="match_parent"
-                android:layout_height="190dp"/>
+            android:orientation="vertical">
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:layout_marginTop="10dp"
-                android:id="@+id/LineChart2"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="190dp"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_state"
+                <com.github.mikephil.charting.charts.RadarChart
+                    android:id="@+id/chart1"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp" />
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/LineChart1"
+                    android:layout_width="match_parent"
+                    android:layout_height="190dp"
+                    android:layout_marginTop="10dp" />
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/LineChart2"
+                    android:layout_width="match_parent"
+                    android:layout_height="190dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/cutting_line" />
+
+                <TextView
+                    android:id="@+id/tv_state"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:padding="15dp"
+                    android:text="@string/waiting_for_state"
+                    android:textColor="@color/pont_color" />
+
+                <TextView
+                    android:id="@+id/tv_attention"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/waiting_for_attention_signal"
+                    android:textColor="@color/pont_color" />
+
+                <TextView
+                    android:id="@+id/tv_meditation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/waiting_for_meditation_signal"
+                    android:textColor="@color/pont_color" />
+
+                <TextView
+                    android:id="@+id/tv_delta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/waiting_for_delta_signal"
+                    android:textColor="@color/pont_color" />
+
+                <TextView
+                    android:id="@+id/tv_theta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/waiting_for_theta_signal"
+                    android:textColor="@color/pont_color" />
+
+                <TextView
+                    android:id="@+id/tv_lowalpha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/waiting_for_low_alpha_signal"
+                    android:textColor="@color/pont_color" />
+
+                <TextView
+                    android:id="@+id/tv_highalpha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/waiting_for_high_alpha_signal"
+                    android:textColor="@color/pont_color" />
+
+                <TextView
+                    android:id="@+id/tv_lowbeta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/waiting_for_low_beta_signal"
+                    android:textColor="@color/pont_color" />
+
+                <TextView
+                    android:id="@+id/tv_highbeta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/waiting_for_high_beta_signal"
+                    android:textColor="@color/pont_color" />
+
+                <TextView
+                    android:id="@+id/tv_lowgamma"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/waiting_for_low_gamma_signal"
+                    android:textColor="@color/pont_color" />
+
+                <TextView
+                    android:id="@+id/tv_midgamma"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/waiting_for_mid_gamma_signal"
+                    android:textColor="@color/pont_color" />
+
+                <TextView
+                    android:id="@+id/tv_blink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/waiting_for_blink_signal"
+                    android:textColor="@color/pont_color" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:padding="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="@string/waiting_for_state"
-                />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="3">
 
-            <TextView
-                android:id="@+id/tv_attention"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="@string/waiting_for_attention_signal"
-                />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-            <TextView
-                android:id="@+id/tv_meditation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="@string/waiting_for_meditation_signal"
-                />
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_connect"
+                        android:layout_width="450dp"
+                        android:layout_height="75dp"
+                        android:layout_gravity="left"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="17dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/blue_btn_style"
+                        android:text="@string/connect" />
 
-            <TextView
-                android:id="@+id/tv_delta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="@string/waiting_for_delta_signal"
-                />
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_disconnect"
+                        android:layout_width="450dp"
+                        android:layout_height="75dp"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="25dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/green_btn_style"
+                        android:text="@string/disconnect" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_theta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="@string/waiting_for_theta_signal"
-                />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-            <TextView
-                android:id="@+id/tv_lowalpha"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="@string/waiting_for_low_alpha_signal"
-                />
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_start_monitoring"
+                        android:layout_width="450dp"
+                        android:layout_height="75dp"
+                        android:layout_gravity="right"
+                        android:layout_marginBottom="17dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/green_btn_style"
+                        android:text="@string/start_monitoring" />
 
-            <TextView
-                android:id="@+id/tv_highalpha"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="@string/waiting_for_high_alpha_signal"
-                />
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_stop_monitoring"
+                        android:layout_width="450dp"
+                        android:layout_height="75dp"
+                        android:layout_gravity="right"
+                        android:layout_marginBottom="20dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/blue_btn_style"
+                        android:text="@string/stop_monitoring" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_lowbeta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="@string/waiting_for_low_beta_signal"
-                />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_history"
+                    android:layout_width="500dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/save_btn_style"
+                    android:text="저장된 데이터 보기" />
 
-            <TextView
-                android:id="@+id/tv_highbeta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="@string/waiting_for_high_beta_signal"
-                />
 
-            <TextView
-                android:id="@+id/tv_lowgamma"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="@string/waiting_for_low_gamma_signal"
-                />
-
-            <TextView
-                android:id="@+id/tv_midgamma"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="@string/waiting_for_mid_gamma_signal"
-                />
-
-            <TextView
-                android:id="@+id/tv_blink"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="@string/waiting_for_blink_signal"
-                />
-
-            <Button
-                android:id="@+id/btn_connect"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/connect"
-                />
-
-            <Button
-                android:id="@+id/btn_start_monitoring"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/start_monitoring"
-                />
-
-            <Button
-                android:id="@+id/btn_stop_monitoring"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/stop_monitoring"
-                />
-
-            <Button
-                android:id="@+id/btn_disconnect"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/disconnect"
-                />
-
-            <Button
-                android:id="@+id/btn_history"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="저장된 데이터 보기"
-                />
-
+            </LinearLayout>
         </LinearLayout>
+
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,4 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="danger">#FF0000</color>
     <color name="safe">#8BC34A</color>
+    <color name="noepa_background">#E1F1F7</color>
+    <color name="Btn_Blue_Shape">#00A7CB</color>
+    <color name="Btn_Green_Shape">#00626C</color>
+    <color name="pont_color">#C4C4C4</color>
+    <color name="save_btn">#83DCDA</color>
 </resources>
