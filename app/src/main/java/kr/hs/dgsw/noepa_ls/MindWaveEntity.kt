@@ -20,8 +20,9 @@ class MindWaveEntity(
     @ColumnInfo(name = "MID_GAMMA") var MID_GAMMA: Int,
     @ColumnInfo(name = "ATTENTION") var ATTENTION: Int,
     @ColumnInfo(name = "MEDITATION") var MEDITATION: Int,
+    @ColumnInfo(name = "TIMESTAMP") var TIMESTAMP: String
 ){
-    constructor(): this(null, 0,0,0,0,0,0,0,0,0,0)
+    constructor(): this(null, 0,0,0,0,0,0,0,0,0,0, "")
 }
 
 //  DELTA(1),

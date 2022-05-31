@@ -24,31 +24,31 @@ class HistoryActivity : AppCompatActivity() {
         }
         var MindWave = IntArray(10)
         for (i in 0 until DataList.size){
-            MindWave[0] = DataList[i].ATTENTION
-            MindWave[1] = DataList[i].MEDITATION
-            MindWave[2] = DataList[i].DELTA
-            MindWave[3] = DataList[i].HIGH_ALPHA
-            MindWave[4] = DataList[i].HIGH_BETA
-            MindWave[5] = DataList[i].LOW_ALPHA
-            MindWave[6] = DataList[i].LOW_BETA
-            MindWave[7] = DataList[i].LOW_GAMMA
-            MindWave[8] = DataList[i].MID_GAMMA
-            MindWave[9] = DataList[i].THETA
+            MindWave[0] += DataList[i].ATTENTION
+            MindWave[1] += DataList[i].MEDITATION
+            MindWave[2] += DataList[i].DELTA
+            MindWave[3] += DataList[i].HIGH_ALPHA
+            MindWave[4] += DataList[i].HIGH_BETA
+            MindWave[5] += DataList[i].LOW_ALPHA
+            MindWave[6] += DataList[i].LOW_BETA
+            MindWave[7] += DataList[i].LOW_GAMMA
+            MindWave[8] += DataList[i].MID_GAMMA
+            MindWave[9] += DataList[i].THETA
+            binding.timeStamp.text = binding.timeStamp.text.toString() + "\n"+DataList[i].TIMESTAMP
         }
         for(i in 0 until 10){
             MindWave[i] /= DataList.size
         }
 
-
-        binding.attention.text = DataList[0].ATTENTION.toString()
-        binding.meditation.text = DataList[1].ATTENTION.toString()
-        binding.delta.text = DataList[2].ATTENTION.toString()
-        binding.highAlpha.text = DataList[3].ATTENTION.toString()
-        binding.highBeta.text = DataList[4].ATTENTION.toString()
-        binding.lowAlpha.text = DataList[5].ATTENTION.toString()
-        binding.lowBeta.text = DataList[6].ATTENTION.toString()
-        binding.lowGamma.text = DataList[7].ATTENTION.toString()
-        binding.midGamma.text = DataList[8].ATTENTION.toString()
-        binding.theta.text = DataList[9].ATTENTION.toString()
+        binding.attention.text = MindWave[0].toString()
+        binding.meditation.text = MindWave[1].toString()
+        binding.delta.text = MindWave[2].toString()
+        binding.highAlpha.text = MindWave[3].toString()
+        binding.highBeta.text = MindWave[4].toString()
+        binding.lowAlpha.text = MindWave[5].toString()
+        binding.lowBeta.text = MindWave[6].toString()
+        binding.lowGamma.text = MindWave[7].toString()
+        binding.midGamma.text = MindWave[8].toString()
+        binding.theta.text = MindWave[9].toString()
     }
 }

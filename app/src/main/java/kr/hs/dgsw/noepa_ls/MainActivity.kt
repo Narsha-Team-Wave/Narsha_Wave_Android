@@ -22,6 +22,8 @@ import com.github.pwittchen.neurosky.library.message.enums.Signal
 import com.github.pwittchen.neurosky.library.message.enums.State
 import kr.hs.dgsw.noepa_ls.custom.RadarMarkerView
 import kr.hs.dgsw.noepa_ls.databinding.ActivityMainBinding
+import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 
 
@@ -110,7 +112,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
+            InsertData()
             val intent = Intent(this, HistoryActivity::class.java)
             startActivity(intent)
         }
@@ -691,7 +693,6 @@ class MainActivity : AppCompatActivity() {
                         Log.d(LOG_TAG, "data2 " + i + " : " + entries1[i]);
                     }
                 }
-                InsertData()
             }
         }
     }
@@ -704,17 +705,29 @@ class MainActivity : AppCompatActivity() {
     private fun InsertData(){
         var appDatabase : AppDatabase? = AppDatabase.getInstance(this)
 
-        val MindWaveEntity = MindWaveEntity()
-        MindWaveEntity.MEDITATION = BindMindWave[0] / Counting[0]
-        MindWaveEntity.ATTENTION = BindMindWave[1] / Counting[1]
-        MindWaveEntity.DELTA = BindMindWave[2] / Counting[2]
-        MindWaveEntity.THETA = BindMindWave[3] / Counting[3]
-        MindWaveEntity.LOW_ALPHA = BindMindWave[4] / Counting[4]
-        MindWaveEntity.HIGH_ALPHA = BindMindWave[5] / Counting[5]
-        MindWaveEntity.LOW_BETA = BindMindWave[6] / Counting[6]
-        MindWaveEntity.HIGH_BETA = BindMindWave[7] / Counting[7]
-        MindWaveEntity.LOW_GAMMA = BindMindWave[8] / Counting[8]
-        MindWaveEntity.MID_GAMMA = BindMindWave[9] / Counting[9]
-        appDatabase!!.dao().insert(MindWaveEntity)
+        val mindWaveEntity = MindWaveEntity()
+        mindWaveEntity.MEDITATION = BindMindWave[0] / Counting[0]
+        mindWaveEntity.ATTENTION = BindMindWave[1] / Counting[1]
+        mindWaveEntity.DELTA = BindMindWave[2] / Counting[2]
+        mindWaveEntity.THETA = BindMindWave[3] / Counting[3]
+        mindWaveEntity.LOW_ALPHA = BindMindWave[4] / Counting[4]
+        mindWaveEntity.HIGH_ALPHA = BindMindWave[5] / Counting[5]
+        mindWaveEntity.LOW_BETA = BindMindWave[6] / Counting[6]
+        mindWaveEntity.HIGH_BETA = BindMindWave[7] / Counting[7]
+        mindWaveEntity.LOW_GAMMA = BindMindWave[8] / Counting[8]
+        mindWaveEntity.MID_GAMMA = BindMindWave[9] / Counting[9]
+
+        Log.d("TAG1234", mindWaveEntity.TIMESTAMP)
+        mindWaveEntity.TIMESTAMP = SimpleDateFormat("yyyyMMddHHmmss", Locale("ko", "KR")).format(Date(System.currentTimeMillis()))
+        Log.d("TAG1234", mindWaveEntity.ATTENTION.toString())
+        Log.d("TAG1234", mindWaveEntity.HIGH_BETA.toString())
+        Log.d("TAG1234", mindWaveEntity.LOW_GAMMA.toString())
+        Log.d("TAG1234", mindWaveEntity.HIGH_ALPHA.toString())
+        var res = appDatabase?.dao()?.insert(mindWaveEntity)
+        Log.d("TAG1234", res.toString())
+
+        Log.d("TAG1234", "datas : " +appDatabase?.dao()?.getAll()?.size)
     }
+
+
 }

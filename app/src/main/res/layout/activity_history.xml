@@ -66,4 +66,9 @@
         android:layout_height="wrap_content"
         android:text="attention"
         android:id="@+id/mid_gamma"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TIMESTAMP"
+        android:id="@+id/time_stamp"/>
 </LinearLayout>
