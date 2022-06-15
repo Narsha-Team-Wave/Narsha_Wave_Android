@@ -28,6 +28,7 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
+    private var DID: String? = null
     private var Counting = IntArray(10)
     private var BindMindWave = IntArray(10)
 
@@ -55,7 +56,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_main)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
-
+        DID = intent.getStringExtra("ID")
+        Log.d("ID", DID!!)
 //        setContentView(R.layout.testnuro)
         setContentView(binding.root)
 
