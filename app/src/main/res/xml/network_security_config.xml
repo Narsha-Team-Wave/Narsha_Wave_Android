@@ -5,6 +5,7 @@
     <domain-config cleartextTrafficPermitted="true">
 
         <domain includeSubdomains="true">10.80.163.26</domain>
+        <domain includeSubdomains="true">10.80.162.125</domain>
 
     </domain-config>
 

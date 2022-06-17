@@ -6,10 +6,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitBuilder {
     var api: API
+    private var serverIP:String = "10.80.162.125"
 
     init {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.80.163.26:8080")
+            .baseUrl("http://"+ serverIP + ":8080")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

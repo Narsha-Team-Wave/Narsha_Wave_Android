@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private var Counting = IntArray(10)
     private var BindMindWave = IntArray(10)
 
+
     val MY_PERMISSION_ACCESS_ALL = 100
 
     var check = false
