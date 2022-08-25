@@ -7,73 +7,88 @@
     tools:context=".HistoryActivity"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="attention"
-        android:id="@+id/attention"/>
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="attention"
-        android:id="@+id/meditation"/>
+       <LinearLayout
+           android:orientation="vertical"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="attention"
-        android:id="@+id/delta"/>
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="attention"
+               android:id="@+id/attention"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="attention"
-        android:id="@+id/theta"/>
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="meditation"
+               android:id="@+id/meditation"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="attention"
-        android:id="@+id/low_alpha"/>
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="delta"
+               android:id="@+id/delta"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="attention"
-        android:id="@+id/high_alpha"/>
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="theta"
+               android:id="@+id/theta"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="attention"
-        android:id="@+id/low_beta"/>
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="low_alpha"
+               android:id="@+id/low_alpha"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="attention"
-        android:id="@+id/high_beta"/>
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="high_alpha"
+               android:id="@+id/high_alpha"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="attention"
-        android:id="@+id/low_gamma"/>
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="low_beta"
+               android:id="@+id/low_beta"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="attention"
-        android:id="@+id/mid_gamma"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TIMESTAMP"
-        android:id="@+id/time_stamp"/>
-    <Button
-        android:text="포스트"
-        android:id="@+id/post_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="high_beta"
+               android:id="@+id/high_beta"/>
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="low_gamma"
+               android:id="@+id/low_gamma"/>
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="mid_gamma"
+               android:id="@+id/mid_gamma"/>
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="TIMESTAMP"
+               android:id="@+id/time_stamp"/>
+           <Button
+               android:text="포스트"
+               android:id="@+id/post_btn"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
+
+       </LinearLayout>
+
+   </ScrollView>
+
+
 </LinearLayout>

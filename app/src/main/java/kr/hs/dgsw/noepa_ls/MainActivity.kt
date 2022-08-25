@@ -31,6 +31,17 @@ class MainActivity : AppCompatActivity() {
     private var DID: String? = null
     private var Counting = IntArray(10)
     private var BindMindWave = IntArray(10)
+    private var attention = mutableListOf<String>()
+    private var delta = mutableListOf<String>()
+    private var high_alpha = mutableListOf<String>()
+    private var high_beta = mutableListOf<String>()
+    private var low_alpha = mutableListOf<String>()
+    private var low_beta = mutableListOf<String>()
+    private var low_gamma = mutableListOf<String>()
+    private var meditation = mutableListOf<String>()
+    private var mid_gamma = mutableListOf<String>()
+    private var theta = mutableListOf<String>()
+
 
 
     val MY_PERMISSION_ACCESS_ALL = 100
@@ -112,11 +123,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnHistory.setOnClickListener {
-
-
-
             InsertData()
             val intent = Intent(this, HistoryActivity::class.java)
+            intent.putExtra("attention", attention.toTypedArray())
+            intent.putExtra("delta", delta.toTypedArray())
+            intent.putExtra("high_alpha", high_alpha.toTypedArray())
+            intent.putExtra("high_beta", high_beta.toTypedArray())
+            intent.putExtra("low_alpha", low_alpha.toTypedArray())
+            intent.putExtra("low_beta", low_beta.toTypedArray())
+            intent.putExtra("low_gamma", low_gamma.toTypedArray())
+            intent.putExtra("meditation", meditation.toTypedArray())
+            intent.putExtra("mid_gamma", mid_gamma.toTypedArray())
+            intent.putExtra("theta", theta.toTypedArray())
             startActivity(intent)
         }
 
@@ -528,6 +546,7 @@ class MainActivity : AppCompatActivity() {
         var num = getFormattedMessage("%d", signal).toInt()
         when (signal) {
             Signal.ATTENTION -> if (num != checkAttenTion) {
+                attention.add(num.toString())
                 BindMindWave[0] += num
                 Counting[0]++
                 binding.tvAttention.text = getFormattedMessage("attention: %d", signal)
@@ -549,6 +568,7 @@ class MainActivity : AppCompatActivity() {
                     binding.LineChart1.setBackgroundColor(getColor(R.color.danger))
                     binding.LineChart2.setBackgroundColor(getColor(R.color.danger))
                 }
+                meditation.add(num.toString())
                 binding.tvMeditation.text = getFormattedMessage("meditation: %d", signal)
                 checkMeditation = num
                 runOnUiThread { addEntry1(checkMeditation.toDouble()) }
@@ -593,6 +613,7 @@ class MainActivity : AppCompatActivity() {
                                         RadarEntry(brainWave.value.toFloat() * 100 / 400000)
                                 Log.d(LOG_TAG + "1", entries1[0].toString())
                                 BindMindWave[2] += brainWave.value
+                                delta.add(brainWave.value.toString())
                                 Counting[2]++
                             }
                         }
@@ -605,6 +626,7 @@ class MainActivity : AppCompatActivity() {
                                     entries1[1] =
                                         RadarEntry(brainWave.value.toFloat() * 100 / 45000)
                                 BindMindWave[3] += brainWave.value
+                                theta.add(brainWave.value.toString())
                                 Counting[3]++
                             }
                         }
@@ -617,6 +639,7 @@ class MainActivity : AppCompatActivity() {
                                     entries1[2] =
                                         RadarEntry(brainWave.value.toFloat() * 100 / 10000)
                                 BindMindWave[4] += brainWave.value
+                                low_alpha.add(brainWave.value.toString())
                                 Counting[4]++
                             }
                         }
@@ -629,6 +652,7 @@ class MainActivity : AppCompatActivity() {
                                     entries1[3] =
                                         RadarEntry(brainWave.value.toFloat() * 100 / 15000)
                                 BindMindWave[5] += brainWave.value
+                                high_alpha.add(brainWave.value.toString())
                                 Counting[5]++
                             }
                         }
@@ -641,6 +665,7 @@ class MainActivity : AppCompatActivity() {
                                     entries1[4] =
                                         RadarEntry(brainWave.value.toFloat() * 100 / 18000)
                                 BindMindWave[6] += brainWave.value
+                                low_beta.add(brainWave.value.toString())
                                 Counting[6]++
                             }
                         }
@@ -653,6 +678,7 @@ class MainActivity : AppCompatActivity() {
                                     entries1[5] =
                                         RadarEntry(brainWave.value.toFloat() * 100 / 24000)
                                 BindMindWave[7] += brainWave.value
+                                high_beta.add(brainWave.value.toString())
                                 Counting[7]++
                             }
                         }
@@ -665,6 +691,7 @@ class MainActivity : AppCompatActivity() {
                                     entries1[6] =
                                         RadarEntry(brainWave.value.toFloat() * 100 / 10000)
                                 BindMindWave[8] += brainWave.value
+                                low_gamma.add(brainWave.value.toString())
                                 Counting[8]++
                             }
                         }
@@ -677,6 +704,7 @@ class MainActivity : AppCompatActivity() {
                                     entries1[7] =
                                         RadarEntry(brainWave.value.toFloat() * 100 / 10000)
                                 BindMindWave[9] += brainWave.value
+                                mid_gamma.add(brainWave.value.toString())
                                 Counting[9]++
                             }
                         }
@@ -693,7 +721,7 @@ class MainActivity : AppCompatActivity() {
                     binding.chart1.notifyDataSetChanged()
                     binding.chart1.invalidate()
                     for (i in 0..7) {
-                        Log.d(LOG_TAG, "data2 " + i + " : " + entries1[i]);
+                        Log.d(LOG_TAG, "data2 " + i + " : " + entries1[i])
                     }
                 }
             }

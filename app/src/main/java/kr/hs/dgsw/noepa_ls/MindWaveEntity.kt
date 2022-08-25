@@ -3,9 +3,6 @@ package kr.hs.dgsw.noepa_ls
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.github.pwittchen.neurosky.library.message.enums.BrainWave
-import com.github.pwittchen.neurosky.library.message.enums.Signal
-import io.reactivex.Single
 
 @Entity(tableName = "MindWave")
 class MindWaveEntity(
