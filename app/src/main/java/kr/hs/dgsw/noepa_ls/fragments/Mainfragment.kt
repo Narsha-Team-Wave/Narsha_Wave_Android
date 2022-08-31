@@ -1,15 +1,17 @@
-package kr.hs.dgsw.noepa_ls
+package kr.hs.dgsw.noepa_ls.fragments
 
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.github.mikephil.charting.components.*
-import com.github.mikephil.charting.components.YAxis.AxisDependency
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet
@@ -20,14 +22,33 @@ import com.github.pwittchen.neurosky.library.listener.ExtendedDeviceMessageListe
 import com.github.pwittchen.neurosky.library.message.enums.BrainWave
 import com.github.pwittchen.neurosky.library.message.enums.Signal
 import com.github.pwittchen.neurosky.library.message.enums.State
+import kr.hs.dgsw.noepa_ls.AppDatabase
+import kr.hs.dgsw.noepa_ls.HistoryActivity
+import kr.hs.dgsw.noepa_ls.MindWaveEntity
+import kr.hs.dgsw.noepa_ls.R
+import kr.hs.dgsw.noepa_ls.activity.ScreenActivity
 import kr.hs.dgsw.noepa_ls.custom.RadarMarkerView
-import kr.hs.dgsw.noepa_ls.databinding.ActivityMainBinding
+import kr.hs.dgsw.noepa_ls.databinding.FragmentLoginBinding
+import kr.hs.dgsw.noepa_ls.databinding.FragmentMainfragmentBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "DID"
+private const val ARG_PARAM2 = "param2"
 
-class MainActivity : AppCompatActivity() {
+/**
+ * A simple [Fragment] subclass.
+ * Use the [Mainfragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class Mainfragment : Fragment() {
+    // TODO: Rename and change types of parameters
     private var DID: String? = null
+    private var param2: String? = null
+
+//    private var DID: String? = null
     private var Counting = IntArray(10)
     private var BindMindWave = IntArray(10)
     private var attention = mutableListOf<String>()
@@ -50,14 +71,13 @@ class MainActivity : AppCompatActivity() {
     var checkMeditation: Int = 0
     var checkBlink: Int = 0
 
-    companion object {
-        const val LOG_TAG = "NeuroSky"
-    }
 
-    private var mBinding: ActivityMainBinding? = null
+
+    private var mBinding: FragmentMainfragmentBinding? = null
     private val binding get() = mBinding!!
 
     private lateinit var neuroSky: NeuroSky
+    var mainActivity: ScreenActivity? = null //(activity as ScreenActivity)
 
     val entries1: ArrayList<RadarEntry> = ArrayList()
 
@@ -65,41 +85,35 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
-        mBinding = ActivityMainBinding.inflate(layoutInflater)
-        DID = intent.getStringExtra("ID")
-        Log.d("ID", DID!!)
-//        setContentView(R.layout.testnuro)
-        setContentView(binding.root)
+        arguments?.let {
+            DID = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+        Log.d("test DID", "DID 1 : " +DID);
+    }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+//        return inflater.inflate(R.layout.fragment_mainfragment, container, false)
+        mBinding = FragmentMainfragmentBinding.inflate(inflater, container, false)
+        mainActivity = (activity as ScreenActivity)
 
         neuroSky = createNeuroSky()
         initButtonListeners()
 
-
-//        val neuroSky = NeuroSky(object : ExtendedDeviceMessageListener() {
-//            override fun onStateChange(state: State) {
-//                handleStateChange(state)
-//            }
-//
-//            override fun onSignalChange(signal: Signal) {
-//                handleSignalChange(signal)
-//            }
-//
-//            override fun onBrainWavesChange(brainWaves: Set<BrainWave>) {
-//                handleBrainWavesChange(brainWaves)
-//            }
-//        })
         initChart();
         initLineChart();
 
         if (android.os.Build.VERSION.SDK_INT >= 31){
             Log.d("TAG", "asd")
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED ||
-                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_ADVERTISE) != PackageManager.PERMISSION_GRANTED ||
-                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED
+            if (ActivityCompat.checkSelfPermission(mainActivity!!, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(mainActivity!!, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(mainActivity!!, android.Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(mainActivity!!, android.Manifest.permission.BLUETOOTH_ADVERTISE) != PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(mainActivity!!, android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED
             ) {
                 var permissions = arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION,
                     android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -107,23 +121,23 @@ class MainActivity : AppCompatActivity() {
                     android.Manifest.permission.BLUETOOTH_ADVERTISE,
                     android.Manifest.permission.BLUETOOTH_CONNECT
                 )
-                ActivityCompat.requestPermissions(this, permissions, MY_PERMISSION_ACCESS_ALL)
+                ActivityCompat.requestPermissions(mainActivity!!, permissions, MY_PERMISSION_ACCESS_ALL)
             }
         }else{
             Log.d("TAG", "asd2")
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+            if (ActivityCompat.checkSelfPermission(mainActivity!!, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(mainActivity!!, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
             ) {
                 var permissions = arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION,
                     android.Manifest.permission.WRITE_EXTERNAL_STORAGE
                 )
-                ActivityCompat.requestPermissions(this, permissions, MY_PERMISSION_ACCESS_ALL)
+                ActivityCompat.requestPermissions(mainActivity!!, permissions, MY_PERMISSION_ACCESS_ALL)
             }
         }
 
         binding.btnHistory.setOnClickListener {
             InsertData()
-            val intent = Intent(this, HistoryActivity::class.java)
+            val intent = Intent(mainActivity!!, HistoryActivity::class.java)
             intent.putExtra("attention", attention.toTypedArray())
             intent.putExtra("delta", delta.toTypedArray())
             intent.putExtra("high_alpha", high_alpha.toTypedArray())
@@ -137,7 +151,29 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // 3. 프래그먼트 레이아웃 뷰 반환
+        return binding.root
+    }
 
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment Mainfragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        const val LOG_TAG = "NeuroSky"
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            Mainfragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
     }
 
     override fun onRequestPermissionsResult(
@@ -260,7 +296,7 @@ class MainActivity : AppCompatActivity() {
         val yVals1 = ArrayList<Entry>()
         yVals1.add(Entry(0F, 0F))
         val set1 = LineDataSet(yVals1, "Meditation")
-        set1.axisDependency = AxisDependency.LEFT
+        set1.axisDependency = YAxis.AxisDependency.LEFT
         set1.color = ColorTemplate.getHoloBlue()
         set1.valueTextColor = ColorTemplate.getHoloBlue()
         set1.lineWidth = 1.5f
@@ -283,7 +319,7 @@ class MainActivity : AppCompatActivity() {
         val yVals2 = ArrayList<Entry>()
         yVals2.add(Entry(0F, 0F))
         val set2 = LineDataSet(yVals2, "Attention")
-        set2.axisDependency = AxisDependency.LEFT
+        set2.axisDependency = YAxis.AxisDependency.LEFT
         set2.color = ColorTemplate.getHoloBlue()
         set2.valueTextColor = ColorTemplate.getHoloBlue()
         set2.lineWidth = 1.5f
@@ -393,7 +429,7 @@ class MainActivity : AppCompatActivity() {
         // create a custom MarkerView (extend MarkerView) and specify the layout
         // to use for it
 
-        val mv: MarkerView = RadarMarkerView(this, R.layout.radar_markerview)
+        val mv: MarkerView = RadarMarkerView(activity, R.layout.radar_markerview)
         mv.chartView = binding.chart1 // For bounds control
 
         binding.chart1.setMarker(mv) // Set the marker to the chart
@@ -482,7 +518,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 neuroSky.connect()
             } catch (e: BluetoothNotEnabledException) {
-                Toast.makeText(this, e.message, Toast.LENGTH_SHORT)
+                Toast.makeText(activity, e.message, Toast.LENGTH_SHORT)
                     .show()
                 Log.d(LOG_TAG, "" + e.message)
             }
@@ -550,7 +586,8 @@ class MainActivity : AppCompatActivity() {
                 Counting[0]++
                 binding.tvAttention.text = getFormattedMessage("attention: %d", signal)
                 checkAttenTion = num
-                runOnUiThread { addEntry2(checkAttenTion.toDouble()) }
+
+                activity?.runOnUiThread { addEntry2(checkAttenTion.toDouble()) }
                 check = true
             } else check = false
             Signal.MEDITATION -> if (num != checkMeditation) {
@@ -558,19 +595,19 @@ class MainActivity : AppCompatActivity() {
                 Counting[1]++
 
                 if(num >= 60){
-                    binding.MainLayout.setBackgroundColor(getColor(R.color.safe))
-                    binding.LineChart1.setBackgroundColor(getColor(R.color.safe))
-                    binding.LineChart2.setBackgroundColor(getColor(R.color.safe))
+                    activity?.let { binding.MainLayout.setBackgroundColor(it.getColor(R.color.safe)) }
+                    activity?.let { binding.LineChart1.setBackgroundColor(it.getColor(R.color.safe)) }
+                    activity?.let { binding.LineChart2.setBackgroundColor(it.getColor(R.color.safe)) }
                 }
                 else{
-                    binding.MainLayout.setBackgroundColor(getColor(R.color.danger))
-                    binding.LineChart1.setBackgroundColor(getColor(R.color.danger))
-                    binding.LineChart2.setBackgroundColor(getColor(R.color.danger))
+                    activity?.let { binding.MainLayout.setBackgroundColor(it.getColor(R.color.danger)) }
+                    activity?.let { binding.LineChart1.setBackgroundColor(it.getColor(R.color.danger)) }
+                    activity?.let { binding.LineChart2.setBackgroundColor(it.getColor(R.color.danger)) }
                 }
                 meditation.add(num.toString())
                 binding.tvMeditation.text = getFormattedMessage("meditation: %d", signal)
                 checkMeditation = num
-                runOnUiThread { addEntry1(checkMeditation.toDouble()) }
+                activity?.runOnUiThread { addEntry1(checkMeditation.toDouble()) }
                 check = true
             } else check = false
             Signal.BLINK -> if (num != checkBlink) {
@@ -733,7 +770,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun InsertData(){
-        var appDatabase : AppDatabase? = AppDatabase.getInstance(this)
+        var appDatabase : AppDatabase? = AppDatabase.getInstance(context)
 
         val mindWaveEntity = MindWaveEntity()
         mindWaveEntity.MEDITATION = BindMindWave[0] / Counting[0]
@@ -748,7 +785,9 @@ class MainActivity : AppCompatActivity() {
         mindWaveEntity.MID_GAMMA = BindMindWave[9] / Counting[9]
 
         Log.d("TAG1234", mindWaveEntity.TIMESTAMP)
-        mindWaveEntity.TIMESTAMP = SimpleDateFormat("yyyyMMddHHmmss", Locale("ko", "KR")).format(Date(System.currentTimeMillis()))
+        mindWaveEntity.TIMESTAMP = SimpleDateFormat("yyyyMMddHHmmss", Locale("ko", "KR")).format(
+            Date(System.currentTimeMillis())
+        )
         Log.d("TAG1234", mindWaveEntity.ATTENTION.toString())
         Log.d("TAG1234", mindWaveEntity.HIGH_BETA.toString())
         Log.d("TAG1234", mindWaveEntity.LOW_GAMMA.toString())
@@ -758,6 +797,4 @@ class MainActivity : AppCompatActivity() {
 
         Log.d("TAG1234", "datas : " +appDatabase?.dao()?.getAll()?.size)
     }
-
-
 }

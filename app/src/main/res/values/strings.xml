@@ -17,4 +17,6 @@
     <string name="waiting_for_high_beta_signal">waiting for high_beta signal...</string>
     <string name="waiting_for_low_gamma_signal">waiting for low_gamma signal...</string>
     <string name="waiting_for_mid_gamma_signal">waiting for mid_gamma signal...</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

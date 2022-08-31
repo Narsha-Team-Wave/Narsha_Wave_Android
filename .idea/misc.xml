@@ -3,11 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/DGSW/Documents/Noepa_LS/app/src/main/res/layout/activity_main.xml" value="0.10548523206751055" />
+        <entry key="..\:/work/narsha/Noepa/app/src/main/res/layout/activity_login.xml" value="0.21240942028985507" />
+        <entry key="..\:/work/narsha/Noepa/app/src/main/res/layout/activity_screen.xml" value="0.21240942028985507" />
+        <entry key="..\:/work/narsha/Noepa/app/src/main/res/layout/fragment_login.xml" value="0.21240942028985507" />
+        <entry key="..\:/work/narsha/Noepa/app/src/main/res/layout/fragment_mainfragment.xml" value="0.15052083333333333" />
+        <entry key="..\:/work/narsha/Noepa/app/src/main/res/layout/line_chart_layout.xml" value="0.15208333333333332" />
+        <entry key="..\:/work/narsha/Noepa/app/src/main/res/layout/radar_markerview.xml" value="0.15208333333333332" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
