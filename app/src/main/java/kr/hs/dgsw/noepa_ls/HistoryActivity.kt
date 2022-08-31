@@ -19,28 +19,46 @@ class HistoryActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        var attention = intent.getStringArrayListExtra("attention")
-        var delta = intent.getStringArrayListExtra("delta")
-        var high_alpha = intent.getStringArrayListExtra("high_alpha")
-        var high_beta = intent.getStringArrayListExtra("high_beta")
-        var low_alpha = intent.getStringArrayListExtra("low_alpha")
-        var low_beta = intent.getStringArrayListExtra("low_beta")
-        var low_gamma = intent.getStringArrayListExtra("low_gamma")
-        var meditation = intent.getStringArrayListExtra("meditation")
-        var mid_gamma = intent.getStringArrayListExtra("mid_gamma")
-        var theta = intent.getStringArrayListExtra("theta")
+        var attention = intent.getStringArrayExtra("attention")
+        var delta = intent.getStringArrayExtra("delta")
+        var high_alpha = intent.getStringArrayExtra("high_alpha")
+        var high_beta = intent.getStringArrayExtra("high_beta")
+        var low_alpha = intent.getStringArrayExtra("low_alpha")
+        var low_beta = intent.getStringArrayExtra("low_beta")
+        var low_gamma = intent.getStringArrayExtra("low_gamma")
+        var meditation = intent.getStringArrayExtra("meditation")
+        var mid_gamma = intent.getStringArrayExtra("mid_gamma")
+        var theta = intent.getStringArrayExtra("theta")
 
-        for(i in 0..attention!!.size){
-            binding.attention.text = binding.attention.text.toString() + "\n" + attention[0]
-            binding.delta.text = binding.delta.text.toString() + "\n" + delta!![0]
-            binding.highAlpha.text = binding.highAlpha.text.toString() + "\n" + high_alpha!![0]
-            binding.highBeta.text = binding.highBeta.text.toString() + "\n" + high_beta!![0]
-            binding.lowAlpha.text = binding.lowAlpha.text.toString() + "\n" + low_alpha!![0]
-            binding.lowBeta.text = binding.lowBeta.text.toString() + "\n" + low_beta!![0]
-            binding.lowGamma.text = binding.lowGamma.text.toString() + "\n" + low_gamma!![0]
-            binding.meditation.text = binding.meditation.text.toString() + "\n" + meditation!![0]
-            binding.midGamma.text = binding.midGamma.text.toString() + "\n" + mid_gamma!![0]
-            binding.theta.text = binding.theta.text.toString() + "\n" + theta!![0]
+        for(i in 0 until attention!!.size){
+            binding.attention.text = binding.attention.text.toString() + "\n" + attention[i]
+        }
+        for(i in 0 until delta!!.size){
+            binding.delta.text = binding.delta.text.toString() + "\n" + delta[i]
+        }
+        for(i in 0 until high_alpha!!.size){
+            binding.highAlpha.text = binding.highAlpha.text.toString() + "\n" + high_alpha[i]
+        }
+        for(i in 0 until high_beta!!.size){
+            binding.highBeta.text = binding.highBeta.text.toString() + "\n" + high_beta[i]
+        }
+        for(i in 0 until low_alpha!!.size){
+            binding.lowAlpha.text = binding.lowAlpha.text.toString() + "\n" + low_alpha[i]
+        }
+        for(i in 0 until low_beta!!.size){
+            binding.lowBeta.text = binding.lowBeta.text.toString() + "\n" + low_beta[i]
+        }
+        for(i in 0 until low_gamma!!.size){
+            binding.lowGamma.text = binding.lowGamma.text.toString() + "\n" + low_gamma[i]
+        }
+        for(i in 0 until meditation!!.size){
+            binding.meditation.text = binding.meditation.text.toString() + "\n" + meditation[i]
+        }
+        for(i in 0 until mid_gamma!!.size){
+            binding.midGamma.text = binding.midGamma.text.toString() + "\n" + mid_gamma[i]
+        }
+        for(i in 0 until theta!!.size){
+            binding.theta.text = binding.theta.text.toString() + "\n" + theta[i]
         }
 
 //        var appDatabase: AppDatabase? = AppDatabase.getInstance(this)
