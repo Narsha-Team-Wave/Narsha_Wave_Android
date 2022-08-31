@@ -36,7 +36,7 @@ class ScreenActivity : AppCompatActivity() {
         transaction.commit()
     }
     fun setDid(did: String){
-        this.DID = did;
+        DID = did
     }
 
     public fun changeFragment(screenNum : Int){

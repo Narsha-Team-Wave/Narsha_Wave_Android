@@ -89,7 +89,7 @@ class Mainfragment : Fragment() {
             DID = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        Log.d("test DID", "DID 1 : " +DID);
+        Log.d("test DID", "DID 1 : " +DID)
     }
 
     override fun onCreateView(
@@ -104,8 +104,8 @@ class Mainfragment : Fragment() {
         neuroSky = createNeuroSky()
         initButtonListeners()
 
-        initChart();
-        initLineChart();
+        initChart()
+        initLineChart()
 
         if (android.os.Build.VERSION.SDK_INT >= 31){
             Log.d("TAG", "asd")
@@ -184,7 +184,7 @@ class Mainfragment : Fragment() {
         super.onRequestPermissionsResult(requestCode,
             permissions,
             grantResults)
-        if (requestCode === MY_PERMISSION_ACCESS_ALL) {
+        if (requestCode == MY_PERMISSION_ACCESS_ALL) {
             if (grantResults.size > 0) {
                 for (grant in grantResults) {
                     if (grant != PackageManager.PERMISSION_GRANTED) System.exit(0)
@@ -204,18 +204,18 @@ class Mainfragment : Fragment() {
         binding.LineChart2.setGridBackgroundColor(Color.BLACK)
         // description text
         // description text
-        binding.LineChart1.getDescription().setEnabled(true)
-        binding.LineChart2.getDescription().setEnabled(true)
-        val des1: Description = binding.LineChart1.getDescription()
-        val des2: Description = binding.LineChart2.getDescription()
-        des1.setEnabled(true)
-        des1.setText("Real-Time DATA")
-        des1.setTextSize(15f)
-        des1.setTextColor(Color.WHITE)
-        des2.setEnabled(true)
-        des2.setText("Real-Time DATA")
-        des2.setTextSize(15f)
-        des2.setTextColor(Color.WHITE)
+        binding.LineChart1.description.isEnabled = true
+        binding.LineChart2.description.isEnabled = true
+        val des1: Description = binding.LineChart1.description
+        val des2: Description = binding.LineChart2.description
+        des1.isEnabled = true
+        des1.text = "Real-Time DATA"
+        des1.textSize = 15f
+        des1.textColor = Color.WHITE
+        des2.isEnabled = true
+        des2.text = "Real-Time DATA"
+        des2.textSize = 15f
+        des2.textColor = Color.WHITE
 
 // touch gestures (false-비활성화)
 
@@ -226,16 +226,16 @@ class Mainfragment : Fragment() {
 // scaling and dragging (false-비활성화)
 
 // scaling and dragging (false-비활성화)
-        binding.LineChart1.setDragEnabled(false)
+        binding.LineChart1.isDragEnabled = false
         binding.LineChart1.setScaleEnabled(false)
-        binding.LineChart2.setDragEnabled(false)
+        binding.LineChart2.isDragEnabled = false
         binding.LineChart2.setScaleEnabled(false)
 
 //auto scale
 
 //auto scale
-        binding.LineChart1.setAutoScaleMinMaxEnabled(true)
-        binding.LineChart2.setAutoScaleMinMaxEnabled(true)
+        binding.LineChart1.isAutoScaleMinMaxEnabled = true
+        binding.LineChart2.isAutoScaleMinMaxEnabled = true
 
 // if disabled, scaling can be done on x- and y-axis separately
 
@@ -246,21 +246,21 @@ class Mainfragment : Fragment() {
 //X축
 
 //X축
-        binding.LineChart1.getXAxis().setDrawGridLines(true)
-        binding.LineChart1.getXAxis().setDrawAxisLine(false)
-        binding.LineChart2.getXAxis().setDrawGridLines(true)
-        binding.LineChart2.getXAxis().setDrawAxisLine(false)
+        binding.LineChart1.xAxis.setDrawGridLines(true)
+        binding.LineChart1.xAxis.setDrawAxisLine(false)
+        binding.LineChart2.xAxis.setDrawGridLines(true)
+        binding.LineChart2.xAxis.setDrawAxisLine(false)
 
-        binding.LineChart1.getXAxis().setEnabled(true)
-        binding.LineChart1.getXAxis().setDrawGridLines(false)
-        binding.LineChart2.getXAxis().setEnabled(true)
-        binding.LineChart2.getXAxis().setDrawGridLines(false)
-
-//Legend
+        binding.LineChart1.xAxis.isEnabled = true
+        binding.LineChart1.xAxis.setDrawGridLines(false)
+        binding.LineChart2.xAxis.isEnabled = true
+        binding.LineChart2.xAxis.setDrawGridLines(false)
 
 //Legend
-        val l1: Legend = binding.LineChart1.getLegend()
-        val l2: Legend = binding.LineChart2.getLegend()
+
+//Legend
+        val l1: Legend = binding.LineChart1.legend
+        val l2: Legend = binding.LineChart2.legend
         l1.isEnabled = true
         l1.formSize = 10f // set the size of the legend forms/shapes
         l2.isEnabled = true
@@ -274,8 +274,8 @@ class Mainfragment : Fragment() {
 //Y축
 
 //Y축
-        val leftAxis1: YAxis = binding.LineChart1.getAxisLeft()
-        val leftAxis2: YAxis = binding.LineChart2.getAxisLeft()
+        val leftAxis1: YAxis = binding.LineChart1.axisLeft
+        val leftAxis2: YAxis = binding.LineChart2.axisLeft
         leftAxis1.isEnabled = true
         leftAxis1.textColor = Color.RED
         leftAxis1.setDrawGridLines(true)
@@ -285,9 +285,9 @@ class Mainfragment : Fragment() {
         leftAxis2.setDrawGridLines(true)
         leftAxis2.gridColor = Color.GRAY
 
-        val rightAxis1: YAxis = binding.LineChart1.getAxisRight()
+        val rightAxis1: YAxis = binding.LineChart1.axisRight
         rightAxis1.isEnabled = false
-        val rightAxis2: YAxis = binding.LineChart2.getAxisRight()
+        val rightAxis2: YAxis = binding.LineChart2.axisRight
         rightAxis2.isEnabled = false
 
 
@@ -307,12 +307,12 @@ class Mainfragment : Fragment() {
         set1.highLightColor = Color.rgb(244, 117, 117)
         set1.setDrawCircleHole(false)
 
-        val lineData1: LineData = LineData(set1);
-        lineData1.setValueTextColor(Color.WHITE);
-        lineData1.setValueTextSize(9f);
+        val lineData1: LineData = LineData(set1)
+        lineData1.setValueTextColor(Color.WHITE)
+        lineData1.setValueTextSize(9f)
 
         // set data
-        binding.LineChart1.setData(lineData1)
+        binding.LineChart1.data = lineData1
 
         //
 
@@ -330,12 +330,12 @@ class Mainfragment : Fragment() {
         set2.highLightColor = Color.rgb(244, 117, 117)
         set2.setDrawCircleHole(false)
 
-        val lineData2: LineData = LineData(set2);
-        lineData2.setValueTextColor(Color.WHITE);
-        lineData2.setValueTextSize(9f);
+        val lineData2: LineData = LineData(set2)
+        lineData2.setValueTextColor(Color.WHITE)
+        lineData2.setValueTextSize(9f)
 
         // set data
-        binding.LineChart2.setData(lineData2)
+        binding.LineChart2.data = lineData2
 
 
 // don't forget to refresh the drawing
@@ -344,10 +344,10 @@ class Mainfragment : Fragment() {
     }
 
     private fun addEntry1(num: Double) {
-        var data1: LineData = binding.LineChart1.getData()
+        var data1: LineData = binding.LineChart1.data
         if (data1 == null) {
             data1 = LineData()
-            binding.LineChart1.setData(data1)
+            binding.LineChart1.data = data1
         }
 
         var set1 = data1.getDataSetByIndex(0)
@@ -372,10 +372,10 @@ class Mainfragment : Fragment() {
     }
 
     private fun addEntry2(num: Double) {
-        var data2: LineData = binding.LineChart2.getData()
+        var data2: LineData = binding.LineChart2.data
         if (data2 == null) {
             data2 = LineData()
-            binding.LineChart2.setData(data2)
+            binding.LineChart2.data = data2
         }
 
         var set2 = data2.getDataSetByIndex(0)
@@ -413,15 +413,15 @@ class Mainfragment : Fragment() {
 
     private fun initChart() {
         Log.d(LOG_TAG, "initChart")
-        binding.chart1.setBackgroundColor(Color.rgb(60, 65, 82));
+        binding.chart1.setBackgroundColor(Color.rgb(60, 65, 82))
 
-        binding.chart1.getDescription().setEnabled(false);
+        binding.chart1.description.isEnabled = false
 
-        binding.chart1.setWebLineWidth(1f);
-        binding.chart1.setWebColor(Color.LTGRAY);
-        binding.chart1.setWebLineWidthInner(1f);
-        binding.chart1.setWebColorInner(Color.LTGRAY);
-        binding.chart1.setWebAlpha(100)
+        binding.chart1.webLineWidth = 1f
+        binding.chart1.webColor = Color.LTGRAY
+        binding.chart1.webLineWidthInner = 1f
+        binding.chart1.webColorInner = Color.LTGRAY
+        binding.chart1.webAlpha = 100
 
         // create a custom MarkerView (extend MarkerView) and specify the layout
         // to use for it
@@ -432,9 +432,9 @@ class Mainfragment : Fragment() {
         val mv: MarkerView = RadarMarkerView(activity, R.layout.radar_markerview)
         mv.chartView = binding.chart1 // For bounds control
 
-        binding.chart1.setMarker(mv) // Set the marker to the chart
+        binding.chart1.marker = mv // Set the marker to the chart
         setData()
-        val xAxis: XAxis = binding.chart1.getXAxis()
+        val xAxis: XAxis = binding.chart1.xAxis
         xAxis.textSize = 9f
         xAxis.yOffset = 0f
         xAxis.xOffset = 0f
@@ -453,21 +453,21 @@ class Mainfragment : Fragment() {
 
         xAxis.textColor = Color.WHITE
 
-        val yAxis: YAxis = binding.chart1.getYAxis()
+        val yAxis: YAxis = binding.chart1.yAxis
         yAxis.setLabelCount(8, false)
         yAxis.textSize = 9f
         yAxis.axisMinimum = 0f
         //yAxis.axisMaximum = 100f
         yAxis.setDrawLabels(false)
 
-        val l: Legend = binding.chart1.getLegend()
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP)
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER)
-        l.setOrientation(Legend.LegendOrientation.HORIZONTAL)
+        val l: Legend = binding.chart1.legend
+        l.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+        l.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
+        l.orientation = Legend.LegendOrientation.HORIZONTAL
         l.setDrawInside(false)
-        l.setXEntrySpace(7f)
-        l.setYEntrySpace(5f)
-        l.setTextColor(Color.WHITE)
+        l.xEntrySpace = 7f
+        l.yEntrySpace = 5f
+        l.textColor = Color.WHITE
 
     }
 
@@ -509,12 +509,12 @@ class Mainfragment : Fragment() {
         data.setValueTextSize(8f)
         data.setDrawValues(false)
         data.setValueTextColor(Color.WHITE)
-        binding.chart1.setData(data)
+        binding.chart1.data = data
         binding.chart1.invalidate()
     }
 
     private fun initButtonListeners() {
-        binding.btnConnect.setOnClickListener() {
+        binding.btnConnect.setOnClickListener {
             try {
                 neuroSky.connect()
             } catch (e: BluetoothNotEnabledException) {
@@ -524,15 +524,15 @@ class Mainfragment : Fragment() {
             }
         }
 
-        binding.btnDisconnect.setOnClickListener() {
+        binding.btnDisconnect.setOnClickListener {
             neuroSky.disconnect()
         }
 
-        binding.btnStartMonitoring.setOnClickListener() {
+        binding.btnStartMonitoring.setOnClickListener {
             neuroSky.startMonitoring()
         }
 
-        binding.btnStopMonitoring.setOnClickListener() {
+        binding.btnStopMonitoring.setOnClickListener {
             neuroSky.stopMonitoring()
         }
     }
@@ -753,7 +753,7 @@ class Mainfragment : Fragment() {
 
 
                     Log.d("LOG_TAG", entries1.toString())
-                    Log.d("LOG_TAG", "data3 +" + entries1.size);
+                    Log.d("LOG_TAG", "data3 +" + entries1.size)
                     binding.chart1.notifyDataSetChanged()
                     binding.chart1.invalidate()
                     for (i in 0..7) {
