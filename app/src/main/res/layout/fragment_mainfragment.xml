@@ -1,229 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/MainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/wave_background"
     tools:context=".fragments.Mainfragment">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/Mignone"
+        android:shadowColor="#155A80"
+        android:shadowDx="7.0"
+        android:shadowDy="7.0"
+        android:shadowRadius="7.0"
+        android:text="wave"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/connect_layout"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginTop="66dp"
+        android:background="@drawable/round_white"
+        app:layout_constraintBottom_toTopOf="@id/measure_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_connect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:text="기기 연결"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+        <ImageButton
+            android:id="@+id/btn_connect"
+            android:layout_width="90dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/round_btn"
+            android:padding="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/connect_img"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <com.github.mikephil.charting.charts.RadarChart
-                    android:id="@+id/chart1"
-                    android:layout_width="match_parent"
-                    android:layout_height="400dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/measure_layout"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/round_white"
+        app:layout_constraintBottom_toTopOf="@id/record_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/connect_layout">
+        <TextView
+            android:id="@+id/tv_measure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:text="뇌파 측정"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/LineChart1"
-                    android:layout_width="match_parent"
-                    android:layout_height="190dp"
-                    android:layout_marginTop="10dp" />
+        <ImageButton
+            android:id="@+id/btn_measure"
+            android:layout_width="90dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/round_btn"
+            android:padding="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/measure_img"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/LineChart2"
-                    android:layout_width="match_parent"
-                    android:layout_height="190dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/record_layout"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/round_white"
+        app:layout_constraintBottom_toTopOf="@id/check_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/measure_layout">
+        <TextView
+            android:id="@+id/tv_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:text="기록 확인"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/cutting_line" />
+        <ImageButton
+            android:id="@+id/btn_record"
+            android:layout_width="90dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/round_btn"
+            android:padding="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/record_img"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/tv_state"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:padding="15dp"
-                    android:text="@string/waiting_for_state"
-                    android:textColor="@color/pont_color" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/check_layout"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="67dp"
+        android:background="@drawable/round_white"
+        app:layout_constraintBottom_toTopOf="@id/img_brain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/record_layout">
+        <TextView
+            android:id="@+id/tv_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:text="거짓말 탐지"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_attention"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="@string/waiting_for_attention_signal"
-                    android:textColor="@color/pont_color" />
+        <ImageButton
+            android:id="@+id/btn_check"
+            android:layout_width="90dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/round_btn"
+            android:padding="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/check_img"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/tv_meditation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="@string/waiting_for_meditation_signal"
-                    android:textColor="@color/pont_color" />
+    <ImageView
+        android:id="@+id/img_brain"
+        android:layout_width="147dp"
+        android:layout_height="98dp"
+        android:layout_marginBottom="67dp"
+        android:src="@drawable/brain"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_delta"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="@string/waiting_for_delta_signal"
-                    android:textColor="@color/pont_color" />
-
-                <TextView
-                    android:id="@+id/tv_theta"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="@string/waiting_for_theta_signal"
-                    android:textColor="@color/pont_color" />
-
-                <TextView
-                    android:id="@+id/tv_lowalpha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="@string/waiting_for_low_alpha_signal"
-                    android:textColor="@color/pont_color" />
-
-                <TextView
-                    android:id="@+id/tv_highalpha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="@string/waiting_for_high_alpha_signal"
-                    android:textColor="@color/pont_color" />
-
-                <TextView
-                    android:id="@+id/tv_lowbeta"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="@string/waiting_for_low_beta_signal"
-                    android:textColor="@color/pont_color" />
-
-                <TextView
-                    android:id="@+id/tv_highbeta"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="@string/waiting_for_high_beta_signal"
-                    android:textColor="@color/pont_color" />
-
-                <TextView
-                    android:id="@+id/tv_lowgamma"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="@string/waiting_for_low_gamma_signal"
-                    android:textColor="@color/pont_color" />
-
-                <TextView
-                    android:id="@+id/tv_midgamma"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="@string/waiting_for_mid_gamma_signal"
-                    android:textColor="@color/pont_color" />
-
-                <TextView
-                    android:id="@+id/tv_blink"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="@string/waiting_for_blink_signal"
-                    android:textColor="@color/pont_color" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:padding="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="3">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_connect"
-                        android:layout_width="450dp"
-                        android:layout_height="75dp"
-                        android:layout_gravity="left"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="17dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/blue_btn_style"
-                        android:text="@string/connect" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_disconnect"
-                        android:layout_width="450dp"
-                        android:layout_height="75dp"
-                        android:layout_gravity="left"
-                        android:layout_marginBottom="25dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/green_btn_style"
-                        android:text="@string/disconnect" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_start_monitoring"
-                        android:layout_width="450dp"
-                        android:layout_height="75dp"
-                        android:layout_gravity="right"
-                        android:layout_marginBottom="17dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/green_btn_style"
-                        android:text="@string/start_monitoring" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_stop_monitoring"
-                        android:layout_width="450dp"
-                        android:layout_height="75dp"
-                        android:layout_gravity="right"
-                        android:layout_marginBottom="20dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/blue_btn_style"
-                        android:text="@string/stop_monitoring" />
-                </LinearLayout>
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_history"
-                    android:layout_width="500dp"
-                    android:layout_height="70dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="15dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/save_btn_style"
-                    android:text="저장된 데이터 보기" />
-
-
-            </LinearLayout>
-        </LinearLayout>
-
-    </ScrollView>
+    <ImageView
+        android:id="@+id/img_wave"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/wave"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

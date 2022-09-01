@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_background"
+    android:background="@drawable/wave_background"
     tools:context=".fragments.LoginFragment">
 
     <TextView
@@ -13,6 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:fontFamily="@font/Mignone"
+        android:shadowColor="#155A80"
+        android:shadowDx="7.0"
+        android:shadowDy="7.0"
+        android:shadowRadius="7.0"
         android:text="wave"
         android:textColor="@color/white"
         android:textSize="35sp"
@@ -35,11 +39,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="38dp"
+        android:background="@drawable/round_edittext_id"
         android:hint="기기 아이디를 입력해주세요"
         android:paddingLeft="27dp"
         android:textColor="@color/black"
         android:textColorHint="#CBCBCB"
-        android:background="@drawable/round_edittext_id"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,13 +51,13 @@
 
     <ImageView
         android:id="@+id/img_wave"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:scaleType="fitXY"
         android:src="@drawable/wave"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
