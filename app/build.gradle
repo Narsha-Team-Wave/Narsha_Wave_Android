@@ -21,6 +21,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        buildFeatures { // 뷰 바인딩 활성화
+            viewBinding true
+
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -29,9 +33,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures { // 뷰 바인딩 활성화
-        viewBinding true
-    }
+
 
 }
 
