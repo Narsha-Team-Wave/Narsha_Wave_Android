@@ -1,7 +1,6 @@
 package kr.hs.dgsw.noepa_ls.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import kr.hs.dgsw.noepa_ls.activity.ScreenActivity
 import kr.hs.dgsw.noepa_ls.databinding.FragmentLoginBinding
+import kr.hs.dgsw.noepa_ls.util.NoepaUtil
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,6 +51,7 @@ class LoginFragment : Fragment() {
         binding.NextBtn.setOnClickListener {
             if(binding.IDET.text.isNullOrBlank()){
                 Toast.makeText(activity, "ID를 입력해주세요.", Toast.LENGTH_SHORT).show()
+                NoepaUtil.sendSMS("01095491337","안녕 되네", context);
             }
             else {
                 var main = (activity as ScreenActivity);
