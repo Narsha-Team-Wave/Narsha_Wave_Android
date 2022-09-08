@@ -9,7 +9,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:fontFamily="@font/Mignone"
         android:shadowColor="#155A80"
         android:shadowDx="7.0"
         android:shadowDy="7.0"

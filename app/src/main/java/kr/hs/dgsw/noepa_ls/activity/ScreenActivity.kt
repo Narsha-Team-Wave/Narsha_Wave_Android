@@ -18,7 +18,6 @@ class ScreenActivity : AppCompatActivity() {
     val LOGIN_SCREEN = 0;
     val MAIN_SCREEN =1;
 
-    var DID = "";
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +34,6 @@ class ScreenActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
-    fun setDid(did: String){
-        DID = did
-    }
 
     public fun changeFragment(screenNum : Int){
         var transaction = supportFragmentManager.beginTransaction()
@@ -47,15 +43,19 @@ class ScreenActivity : AppCompatActivity() {
                 transaction.replace(R.id.fragmentLayout, LoginFragment())
             }
             1 -> {
-                val bundle = Bundle();
-                bundle.putString("DID",this.DID);
+                //val bundle = Bundle();
+                //bundle.putString("DID",this.DID);
                 var fragment = Mainfragment()
-                fragment.arguments = bundle
+                //fragment.arguments = bundle
                 transaction.replace(R.id.fragmentLayout, fragment)
             }
 
         }
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    override fun onBackPressed() {
+        finish()
     }
 }

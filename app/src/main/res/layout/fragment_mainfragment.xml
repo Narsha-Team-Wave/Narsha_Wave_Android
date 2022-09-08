@@ -8,191 +8,216 @@
     android:background="@drawable/wave_background"
     tools:context=".fragments.Mainfragment">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:fontFamily="@font/Mignone"
-        android:shadowColor="#155A80"
-        android:shadowDx="7.0"
-        android:shadowDy="7.0"
-        android:shadowRadius="7.0"
-        android:text="wave"
-        android:textColor="@color/white"
-        android:textSize="35sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/connect_layout"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginHorizontal="80dp"
-        android:layout_marginTop="66dp"
-        android:background="@drawable/round_white"
-        app:layout_constraintBottom_toTopOf="@id/measure_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_connect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:text="기기 연결"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:shadowColor="#155A80"
+                android:shadowDx="7.0"
+                android:shadowDy="7.0"
+                android:shadowRadius="7.0"
+                android:text="wave"
+                android:textColor="@color/white"
+                android:textSize="35sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/btn_connect"
-            android:layout_width="90dp"
-            android:layout_height="0dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/round_btn"
-            android:padding="10dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/connect_img"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/connect_layout"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_marginHorizontal="80dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/round_white"
+                app:layout_constraintBottom_toTopOf="@id/measure_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/measure_layout"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginHorizontal="80dp"
-        android:layout_marginTop="18dp"
-        android:background="@drawable/round_white"
-        app:layout_constraintBottom_toTopOf="@id/record_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/connect_layout">
-        <TextView
-            android:id="@+id/tv_measure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:text="뇌파 측정"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/tv_connect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:text="기기 연결"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/btn_measure"
-            android:layout_width="90dp"
-            android:layout_height="0dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/round_btn"
-            android:padding="10dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/measure_img"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageButton
+                    android:id="@+id/btn_connect"
+                    android:layout_width="90dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/round_btn"
+                    android:padding="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/connect_img"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/record_layout"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginHorizontal="80dp"
-        android:layout_marginTop="18dp"
-        android:background="@drawable/round_white"
-        app:layout_constraintBottom_toTopOf="@id/check_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/measure_layout">
-        <TextView
-            android:id="@+id/tv_record"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:text="기록 확인"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/measure_layout"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_marginHorizontal="80dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/round_white"
+                app:layout_constraintBottom_toTopOf="@id/record_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/connect_layout">
+                <TextView
+                    android:id="@+id/tv_measure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:text="뇌파 측정"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/btn_record"
-            android:layout_width="90dp"
-            android:layout_height="0dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/round_btn"
-            android:padding="10dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/record_img"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageButton
+                    android:id="@+id/btn_measure"
+                    android:layout_width="90dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/round_btn"
+                    android:padding="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/measure_img"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/check_layout"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginHorizontal="80dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="67dp"
-        android:background="@drawable/round_white"
-        app:layout_constraintBottom_toTopOf="@id/img_brain"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/record_layout">
-        <TextView
-            android:id="@+id/tv_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:text="거짓말 탐지"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/record_layout"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_marginHorizontal="80dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/round_white"
+                app:layout_constraintBottom_toTopOf="@id/check_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/measure_layout">
+                <TextView
+                    android:id="@+id/tv_record"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:text="기록 확인"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/btn_check"
-            android:layout_width="90dp"
-            android:layout_height="0dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/round_btn"
-            android:padding="10dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/check_img"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageButton
+                    android:id="@+id/btn_record"
+                    android:layout_width="90dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/round_btn"
+                    android:padding="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/record_img"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/img_brain"
-        android:layout_width="147dp"
-        android:layout_height="98dp"
-        android:layout_marginBottom="67dp"
-        android:src="@drawable/brain"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/check_layout"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_marginHorizontal="80dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="67dp"
+                android:background="@drawable/round_white"
+                app:layout_constraintBottom_toTopOf="@id/img_brain"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/record_layout">
+                <TextView
+                    android:id="@+id/tv_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:text="거짓말 탐지"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/img_wave"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@drawable/wave"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+                <ImageButton
+                    android:id="@+id/btn_check"
+                    android:layout_width="90dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/round_btn"
+                    android:padding="10dp"
+                    android:src="@drawable/check_img"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/logout_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="로그아웃"
+                app:layout_constraintTop_toBottomOf="@id/check_layout"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:id="@+id/img_brain"
+                android:layout_width="0dp"
+                android:adjustViewBounds="true"
+                android:layout_height="wrap_content"
+                android:src="@drawable/brain"
+                app:layout_constraintBottom_toTopOf="@id/img_wave"
+                app:layout_constraintTop_toBottomOf="@id/logout_btn"
+                app:layout_constraintEnd_toEndOf="@id/check_layout"
+                app:layout_constraintStart_toStartOf="@id/check_layout" />
+
+            <ImageView
+                android:id="@+id/img_wave"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/wave"
+                app:layout_constraintTop_toBottomOf="@id/img_brain"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

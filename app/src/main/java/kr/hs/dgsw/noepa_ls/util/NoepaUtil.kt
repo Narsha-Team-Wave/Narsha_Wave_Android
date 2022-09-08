@@ -13,7 +13,7 @@ class NoepaUtil {
         fun sendSMS(phoneNo:String, msg:String, context: Context?) {
             // Do something
             try {
-                val smsManager: SmsManager = context!!.getSystemService(SmsManager::class.java)
+                val smsManager: SmsManager = SmsManager.getDefault()// context!!.getSystemService(SmsManager::class.java)
 
                 // on below line we are sending text message.
                 smsManager.sendTextMessage(phoneNo, null, msg, null, null)
