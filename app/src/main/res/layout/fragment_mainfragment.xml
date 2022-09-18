@@ -197,7 +197,7 @@
                 android:layout_width="0dp"
                 android:adjustViewBounds="true"
                 android:layout_height="wrap_content"
-                android:src="@drawable/brain"
+                android:src="@drawable/brain_connect"
                 app:layout_constraintBottom_toTopOf="@id/img_wave"
                 app:layout_constraintTop_toBottomOf="@id/logout_btn"
                 app:layout_constraintEnd_toEndOf="@id/check_layout"

@@ -14,10 +14,7 @@ import kr.hs.dgsw.noepa_ls.databinding.FragmentLoginBinding
 import kr.hs.dgsw.noepa_ls.util.NoepaUtil
 
 class LoginFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var DID: String? = null
-    private var param2: String? = null
-
+    private var mainActivity: ScreenActivity? = null
     private var mBinding: FragmentLoginBinding? = null
     private val binding get() = mBinding!!
 
@@ -29,6 +26,7 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         // 1. 뷰 바인딩 설정
         mBinding = FragmentLoginBinding.inflate(inflater, container, false)
+        mainActivity = (activity as ScreenActivity)
 
         binding.NextBtn.setOnClickListener {
             if(binding.etId.text.isNullOrBlank()){
@@ -36,9 +34,8 @@ class LoginFragment : Fragment() {
                 // TODO            NoepaUtil.sendSMS("01038540977","김상추", context)
             }
             else {
-                var main = (activity as ScreenActivity)
                 App.prefs.id = binding.etId.text.toString()
-                main.changeFragment(main.MAIN_SCREEN)
+                mainActivity!!.changeFragment(mainActivity!!.MAIN_SCREEN)
             }
         }
 
@@ -52,8 +49,7 @@ class LoginFragment : Fragment() {
 
         App.prefs = Prefs(requireContext())
         if(App.prefs.id != null){
-            var main = (activity as ScreenActivity)
-            main.changeFragment(main.MAIN_SCREEN)
+            mainActivity!!.changeFragment(mainActivity!!.MAIN_SCREEN)
         }
     }
 }

@@ -32,39 +32,39 @@ import java.util.*
 
 class Mainfragment : Fragment() {
 
-    private var Counting = IntArray(10)
-    private var BindMindWave = IntArray(10)
-    private var attention = mutableListOf<String>()
-    private var delta = mutableListOf<String>()
-    private var high_alpha = mutableListOf<String>()
-    private var high_beta = mutableListOf<String>()
-    private var low_alpha = mutableListOf<String>()
-    private var low_beta = mutableListOf<String>()
-    private var low_gamma = mutableListOf<String>()
-    private var meditation = mutableListOf<String>()
-    private var mid_gamma = mutableListOf<String>()
-    private var theta = mutableListOf<String>()
+//    private var Counting = IntArray(10)
+//    private var BindMindWave = IntArray(10)
+//    private var attention = mutableListOf<String>()
+//    private var delta = mutableListOf<String>()
+//    private var high_alpha = mutableListOf<String>()
+//    private var high_beta = mutableListOf<String>()
+//    private var low_alpha = mutableListOf<String>()
+//    private var low_beta = mutableListOf<String>()
+//    private var low_gamma = mutableListOf<String>()
+//    private var meditation = mutableListOf<String>()
+//    private var mid_gamma = mutableListOf<String>()
+//    private var theta = mutableListOf<String>()
 
 
 
     val MY_PERMISSION_ACCESS_ALL = 100
 
-    var check = false
-    var checkAttenTion: Int = 0
-    var checkMeditation: Int = 0
-    var checkBlink: Int = 0
+//    var check = false
+//    var checkAttenTion: Int = 0
+//    var checkMeditation: Int = 0
+//    var checkBlink: Int = 0
 
 
 
     private var mBinding: FragmentMainfragmentBinding? = null
     private val binding get() = mBinding!!
 
-    private lateinit var neuroSky: NeuroSky
-    var mainActivity: ScreenActivity? = null //(activity as ScreenActivity)
 
-    val entries1: ArrayList<RadarEntry> = ArrayList()
+    private var mainActivity: ScreenActivity? = null
 
-    private var brainWaveList: IntArray = IntArray(8)
+//    val entries1: ArrayList<RadarEntry> = ArrayList()
+//
+//    private var brainWaveList: IntArray = IntArray(8)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +79,6 @@ class Mainfragment : Fragment() {
         mBinding = FragmentMainfragmentBinding.inflate(inflater, container, false)
         mainActivity = (activity as ScreenActivity)
 
-//        neuroSky = createNeuroSky()
 //        initButtonListeners()
 //
 //        initChart()
@@ -115,9 +114,13 @@ class Mainfragment : Fragment() {
 
         binding.logoutBtn.setOnClickListener {
             App.prefs.id = null
-            var main = (activity as ScreenActivity)
-            main.changeFragment(main.LOGIN_SCREEN)
+            mainActivity!!.changeFragment(mainActivity!!.LOGIN_SCREEN)
         }
+
+        binding.connectLayout.setOnClickListener{
+            mainActivity!!.changeFragment(mainActivity!!.CONNECT_SCREEN)
+        }
+
 
 //        binding.btnHistory.setOnClickListener {
 //            InsertData()
@@ -515,218 +518,9 @@ class Mainfragment : Fragment() {
 //        }
 //    }
 //
-//    private fun createNeuroSky(): NeuroSky {
-//        return NeuroSky(object : ExtendedDeviceMessageListener() {
-//            override fun onStateChange(state: State) {
-//                handleStateChange(state)
-//            }
-//
-//            override fun onSignalChange(signal: Signal) {
-//                handleSignalChange(signal)
-//            }
-//
-//            override fun onBrainWavesChange(brainWaves: Set<BrainWave>) {
-//                handleBrainWavesChange(brainWaves)
-//            }
-//        })
-//    }
-//
-//    private fun handleStateChange(state: State) {
-//        if (state == State.CONNECTED) {
-//            neuroSky.startMonitoring()
-//        }
-//
-//        binding.tvState.text = state.toString()
-//        Log.d(LOG_TAG, state.toString())
-//    }
-//
-//    private fun handleSignalChange(signal: Signal) {
-//
-//        var num = getFormattedMessage("%d", signal).toInt()
-//        when (signal) {
-//            Signal.ATTENTION -> if (num != checkAttenTion) {
-//                attention.add(num.toString())
-//                BindMindWave[0] += num
-//                Counting[0]++
-//                binding.tvAttention.text = getFormattedMessage("attention: %d", signal)
-//                checkAttenTion = num
-//
-//                activity?.runOnUiThread { addEntry2(checkAttenTion.toDouble()) }
-//                check = true
-//            } else check = false
-//            Signal.MEDITATION -> if (num != checkMeditation) {
-//                BindMindWave[1] += num
-//                Counting[1]++
-//
-//                if(num >= 60){
-//                    activity?.let { binding.MainLayout.setBackgroundColor(it.getColor(R.color.safe)) }
-//                    activity?.let { binding.LineChart1.setBackgroundColor(it.getColor(R.color.safe)) }
-//                    activity?.let { binding.LineChart2.setBackgroundColor(it.getColor(R.color.safe)) }
-//                }
-//                else{
-//                    activity?.let { binding.MainLayout.setBackgroundColor(it.getColor(R.color.danger)) }
-//                    activity?.let { binding.LineChart1.setBackgroundColor(it.getColor(R.color.danger)) }
-//                    activity?.let { binding.LineChart2.setBackgroundColor(it.getColor(R.color.danger)) }
-//                }
-//                meditation.add(num.toString())
-//                binding.tvMeditation.text = getFormattedMessage("meditation: %d", signal)
-//                checkMeditation = num
-//                activity?.runOnUiThread { addEntry1(checkMeditation.toDouble()) }
-//                check = true
-//            } else check = false
-//            Signal.BLINK -> if (num != checkBlink) {
-//                binding.tvBlink.text = getFormattedMessage("blink: %d", signal)
-//                checkBlink = num
-//                check = true
-//            } else check = false
-//            else -> Log.d(LOG_TAG, "unhandled signal")
 //
 //
-//        }
-//        check = checkAttenTion != 0 || checkMeditation != -0
-//
-//        Log.d(LOG_TAG, String.format("%s: %d", signal.toString(), signal.value))
-//    }
-//
-//    private fun getFormattedMessage(
-//        messageFormat: String,
-//        signal: Signal,
-//    ): String {
-//        return String.format(Locale.getDefault(), messageFormat, signal.value)
-//    }
-//
-//    private fun handleBrainWavesChange(brainWaves: Set<BrainWave>) {
-//        Log.d(LOG_TAG, "check : " + check)
-//        for (brainWave in brainWaves) {
-//            Log.d(LOG_TAG, String.format("test %s: %d", brainWave.toString(), brainWave.value))
-//
-//            if (check) {
-//                if (brainWave.value < 1000000 && brainWave.value != 0) {
-//                    when (brainWave.toString()) {
-//                        "DELTA" -> {
-//                            binding.tvDelta.text =
-//                                brainWave.toString() + ": " + brainWave.value.toString()
-//                            if (brainWaveList[0] != brainWave.value) {
-//                                brainWaveList[0] = brainWave.value
-//                                if (checkData(brainWave.value.toFloat() * 100 / 400000))
-//                                    entries1[0] =
-//                                        RadarEntry(brainWave.value.toFloat() * 100 / 400000)
-//                                Log.d(LOG_TAG + "1", entries1[0].toString())
-//                                BindMindWave[2] += brainWave.value
-//                                delta.add(brainWave.value.toString())
-//                                Counting[2]++
-//                            }
-//                        }
-//                        "THETA" -> {
-//                            binding.tvTheta.text =
-//                                brainWave.toString() + ": " + brainWave.value.toString()
-//                            if (brainWaveList[1] != brainWave.value) {
-//                                brainWaveList[1] = brainWave.value
-//                                if (checkData(brainWave.value.toFloat() * 100 / 45000))
-//                                    entries1[1] =
-//                                        RadarEntry(brainWave.value.toFloat() * 100 / 45000)
-//                                BindMindWave[3] += brainWave.value
-//                                theta.add(brainWave.value.toString())
-//                                Counting[3]++
-//                            }
-//                        }
-//                        "LOW_ALPHA" -> {
-//                            binding.tvLowalpha.text =
-//                                brainWave.toString() + ": " + brainWave.value.toString()
-//                            if (brainWaveList[2] != brainWave.value) {
-//                                brainWaveList[2] = brainWave.value
-//                                if (checkData(brainWave.value.toFloat() * 100 / 10000))
-//                                    entries1[2] =
-//                                        RadarEntry(brainWave.value.toFloat() * 100 / 10000)
-//                                BindMindWave[4] += brainWave.value
-//                                low_alpha.add(brainWave.value.toString())
-//                                Counting[4]++
-//                            }
-//                        }
-//                        "HIGH_ALPHA" -> {
-//                            binding.tvHighalpha.text =
-//                                brainWave.toString() + ": " + brainWave.value.toString()
-//                            if (brainWaveList[3] != brainWave.value) {
-//                                brainWaveList[3] = brainWave.value
-//                                if (checkData(brainWave.value.toFloat() * 100 / 15000))
-//                                    entries1[3] =
-//                                        RadarEntry(brainWave.value.toFloat() * 100 / 15000)
-//                                BindMindWave[5] += brainWave.value
-//                                high_alpha.add(brainWave.value.toString())
-//                                Counting[5]++
-//                            }
-//                        }
-//                        "LOW_BETA" -> {
-//                            binding.tvLowbeta.text =
-//                                brainWave.toString() + ": " + brainWave.value.toString()
-//                            if (brainWaveList[4] != brainWave.value) {
-//                                brainWaveList[4] = brainWave.value
-//                                if (checkData(brainWave.value.toFloat() * 100 / 18000))
-//                                    entries1[4] =
-//                                        RadarEntry(brainWave.value.toFloat() * 100 / 18000)
-//                                BindMindWave[6] += brainWave.value
-//                                low_beta.add(brainWave.value.toString())
-//                                Counting[6]++
-//                            }
-//                        }
-//                        "HIGH_BETA" -> {
-//                            binding.tvHighbeta.text =
-//                                brainWave.toString() + ": " + brainWave.value.toString()
-//                            if (brainWaveList[5] != brainWave.value) {
-//                                brainWaveList[5] = brainWave.value
-//                                if (checkData(brainWave.value.toFloat() * 100 / 24000))
-//                                    entries1[5] =
-//                                        RadarEntry(brainWave.value.toFloat() * 100 / 24000)
-//                                BindMindWave[7] += brainWave.value
-//                                high_beta.add(brainWave.value.toString())
-//                                Counting[7]++
-//                            }
-//                        }
-//                        "LOW_GAMMA" -> {
-//                            binding.tvLowgamma.text =
-//                                brainWave.toString() + ": " + brainWave.value.toString()
-//                            if (brainWaveList[6] != brainWave.value) {
-//                                brainWaveList[6] = brainWave.value
-//                                if (checkData(brainWave.value.toFloat() * 100 / 10000))
-//                                    entries1[6] =
-//                                        RadarEntry(brainWave.value.toFloat() * 100 / 10000)
-//                                BindMindWave[8] += brainWave.value
-//                                low_gamma.add(brainWave.value.toString())
-//                                Counting[8]++
-//                            }
-//                        }
-//                        "MID_GAMMA" -> {
-//                            binding.tvMidgamma.text =
-//                                brainWave.toString() + ": " + brainWave.value.toString()
-//                            if (brainWaveList[7] != brainWave.value) {
-//                                brainWaveList[7] = brainWave.value
-//                                if (checkData(brainWave.value.toFloat() * 100 / 10000))
-//                                    entries1[7] =
-//                                        RadarEntry(brainWave.value.toFloat() * 100 / 10000)
-//                                BindMindWave[9] += brainWave.value
-//                                mid_gamma.add(brainWave.value.toString())
-//                                Counting[9]++
-//                            }
-//                        }
-//                        else -> Log.d(LOG_TAG, "unhandled signal")
-//                    }
-////                    var LogText = ""
-////                    for(i in 0..7) {
-////                        LogText = LogText + " " + brainWaveList[i].toString()
-////                    }
-//
-//
-//                    Log.d("LOG_TAG", entries1.toString())
-//                    Log.d("LOG_TAG", "data3 +" + entries1.size)
-//                    binding.chart1.notifyDataSetChanged()
-//                    binding.chart1.invalidate()
-//                    for (i in 0..7) {
-//                        Log.d(LOG_TAG, "data2 " + i + " : " + entries1[i])
-//                    }
-//                }
-//            }
-//        }
-//    }
+
 //
 //    private fun checkData(radarEntry: Float): Boolean {
 //        return radarEntry <= 150
