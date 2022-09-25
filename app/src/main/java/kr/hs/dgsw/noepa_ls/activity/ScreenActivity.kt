@@ -21,6 +21,7 @@ import kr.hs.dgsw.noepa_ls.databinding.ActivityScreenBinding
 import kr.hs.dgsw.noepa_ls.fragments.ConnectFragment
 import kr.hs.dgsw.noepa_ls.fragments.LoginFragment
 import kr.hs.dgsw.noepa_ls.fragments.Mainfragment
+import kr.hs.dgsw.noepa_ls.fragments.MesureFragment
 import java.util.*
 
 class ScreenActivity : AppCompatActivity() {
@@ -33,6 +34,7 @@ class ScreenActivity : AppCompatActivity() {
     val LOGIN_SCREEN = 0
     val MAIN_SCREEN = 1
     val CONNECT_SCREEN = 2
+    val MESURE_SCREEN = 3
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,6 +106,10 @@ class ScreenActivity : AppCompatActivity() {
             2 -> {
                mfragment = ConnectFragment()
                transaction.replace(R.id.fragmentLayout, mfragment!!)
+            }
+            3 -> {
+                mfragment = MesureFragment()
+                transaction.replace(R.id.fragmentLayout, mfragment!!)
             }
 
         }

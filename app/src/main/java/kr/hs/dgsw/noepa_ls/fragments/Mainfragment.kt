@@ -1,5 +1,6 @@
 package kr.hs.dgsw.noepa_ls.fragments
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -7,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -79,6 +81,8 @@ class Mainfragment : Fragment() {
         mBinding = FragmentMainfragmentBinding.inflate(inflater, container, false)
         mainActivity = (activity as ScreenActivity)
 
+        settingSwitch()
+
 //        initButtonListeners()
 //
 //        initChart()
@@ -117,9 +121,6 @@ class Mainfragment : Fragment() {
             mainActivity!!.changeFragment(mainActivity!!.LOGIN_SCREEN)
         }
 
-        binding.connectLayout.setOnClickListener{
-            mainActivity!!.changeFragment(mainActivity!!.CONNECT_SCREEN)
-        }
 
 
 //        binding.btnHistory.setOnClickListener {
@@ -140,6 +141,73 @@ class Mainfragment : Fragment() {
 
         // 3. 프래그먼트 레이아웃 뷰 반환
         return binding.root
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun settingSwitch() {
+        binding.switchConnect.setOnTouchListener { view: View, motionEvent: MotionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    binding.switchConnect.isChecked = true
+                }
+                MotionEvent.ACTION_UP -> {
+                    binding.switchConnect.isChecked = false
+                    mainActivity!!.changeFragment(mainActivity!!.CONNECT_SCREEN)
+                }
+                else -> {
+                    binding.switchConnect.isChecked = false
+                }
+            }
+            return@setOnTouchListener true
+        }
+
+        binding.switchMeasure.setOnTouchListener { view: View, motionEvent: MotionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    binding.switchMeasure.isChecked = true
+                }
+                MotionEvent.ACTION_UP -> {
+                    binding.switchMeasure.isChecked = false
+                    mainActivity!!.changeFragment(mainActivity!!.MESURE_SCREEN)
+                }
+                else -> {
+                    binding.switchMeasure.isChecked = false
+                }
+            }
+            return@setOnTouchListener true
+        }
+
+        binding.switchHistory.setOnTouchListener { view: View, motionEvent: MotionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    binding.switchHistory.isChecked = true
+                }
+                MotionEvent.ACTION_UP -> {
+                    binding.switchHistory.isChecked = false
+                    //mainActivity!!.changeFragment(mainActivity!!.CONNECT_SCREEN)
+                }
+                else -> {
+                    binding.switchHistory.isChecked = false
+                }
+            }
+            return@setOnTouchListener true
+        }
+
+        binding.switchLie.setOnTouchListener { view: View, motionEvent: MotionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    binding.switchLie.isChecked = true
+                }
+                MotionEvent.ACTION_UP -> {
+                    binding.switchLie.isChecked = false
+//                    mainActivity!!.changeFragment(mainActivity!!.CONNECT_SCREEN)
+                }
+                else -> {
+                    binding.switchLie.isChecked = false
+                }
+            }
+            return@setOnTouchListener true
+        }
     }
 
     override fun onRequestPermissionsResult(

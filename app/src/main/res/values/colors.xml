@@ -14,4 +14,6 @@
     <color name="Btn_Green_Shape">#00626C</color>
     <color name="pont_color">#C4C4C4</color>
     <color name="save_btn">#83DCDA</color>
+    <color name="switch_off">#126A97</color>
+    <color name="switch_on">#9EC8F0</color>
 </resources>
