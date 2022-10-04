@@ -143,14 +143,27 @@ class ScreenActivity : AppCompatActivity() {
         when (signal) {
             Signal.ATTENTION -> {
 //                binding.tvAttention.text = getFormattedMessage("attention: %d", signal)
-//                runOnUiThread { addEntry2(checkAttenTion.toDouble()) }
+                runOnUiThread {
+                    if(mfragment is MesureFragment){
+                        (mfragment as MesureFragment).addEntry2(num.toDouble())
+                    }
+                }
             }
             Signal.MEDITATION -> {
 //                binding.tvMeditation.text = getFormattedMessage("meditation: %d", signal)
-//                runOnUiThread { addEntry1(checkMeditation.toDouble()) }
+                runOnUiThread {
+                    if(mfragment is MesureFragment){
+                        (mfragment as MesureFragment).addEntry1(num.toDouble())
+                    }
+                }
             }
             Signal.BLINK -> {
 //                binding.tvBlink.text = getFormattedMessage("blink: %d", signal)
+                runOnUiThread {
+                    if(mfragment is MesureFragment){
+                        (mfragment as MesureFragment).addEntry3(num.toDouble())
+                    }
+                }
             }
             else -> Log.d(MainActivity.LOG_TAG, "unhandled signal")
 
@@ -176,47 +189,48 @@ class ScreenActivity : AppCompatActivity() {
             if (brainWave.value < 1000000 && brainWave.value != 0) {
                 when (brainWave.toString()) {
                     "DELTA" -> {
-//                        binding.tvDelta.text =
-//                            brainWave.toString() + ": " + brainWave.value.toString()
-//                            Log.d(MainActivity.LOG_TAG, entries1[0].toString())
-
+                        if(mfragment is MesureFragment){
+                            (mfragment as MesureFragment).addData(brainWave.value, 0)
+                        }
                     }
                     "THETA" -> {
-//                        binding.tvTheta.text =
-//                            brainWave.toString() + ": " + brainWave.value.toString()
+                        if(mfragment is MesureFragment){
+                            (mfragment as MesureFragment).addData(brainWave.value, 1)
+                        }
                     }
                     "LOW_ALPHA" -> {
-//                        binding.tvLowalpha.text =
-//                            brainWave.toString() + ": " + brainWave.value.toString()
+                        if(mfragment is MesureFragment){
+                            (mfragment as MesureFragment).addData(brainWave.value, 2)
+                        }
                     }
                     "HIGH_ALPHA" -> {
-//                        binding.tvHighalpha.text =
-//                            brainWave.toString() + ": " + brainWave.value.toString()
+                        if(mfragment is MesureFragment){
+                            (mfragment as MesureFragment).addData(brainWave.value, 3)
+                        }
                     }
                     "LOW_BETA" -> {
-//                        binding.tvLowbeta.text =
-//                            brainWave.toString() + ": " + brainWave.value.toString()
+                        if(mfragment is MesureFragment){
+                            (mfragment as MesureFragment).addData(brainWave.value, 4)
+                        }
                     }
                     "HIGH_BETA" -> {
-//                        binding.tvHighbeta.text =
-//                            brainWave.toString() + ": " + brainWave.value.toString()
+                        if(mfragment is MesureFragment){
+                            (mfragment as MesureFragment).addData(brainWave.value, 5)
+                        }
                     }
                     "LOW_GAMMA" -> {
-//                        binding.tvLowgamma.text =
-//                            brainWave.toString() + ": " + brainWave.value.toString()
+                        if(mfragment is MesureFragment){
+                            (mfragment as MesureFragment).addData(brainWave.value, 6)
+                        }
                     }
                     "MID_GAMMA" -> {
-//                        binding.tvMidgamma.text =
-//                            brainWave.toString() + ": " + brainWave.value.toString()
+                        if(mfragment is MesureFragment){
+                            (mfragment as MesureFragment).addData(brainWave.value, 7)
+                        }
                     }
                     else -> Log.d(MainActivity.LOG_TAG, "unhandled signal")
                 }
 
-
-//                Log.d("LOG_TAG", entries1.toString())
-//                Log.d("LOG_TAG", "data3 +" + entries1.size)
-//                binding.chart1.notifyDataSetChanged()
-//                binding.chart1.invalidate()
             }
         }
     }

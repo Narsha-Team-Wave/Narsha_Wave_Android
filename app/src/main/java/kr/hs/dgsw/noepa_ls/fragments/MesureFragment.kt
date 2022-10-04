@@ -24,6 +24,7 @@ class MesureFragment : Fragment() {
     private var mainActivity: ScreenActivity? = null
     private var mBinding: FragmentMesureBinding? = null
     private val binding get() = mBinding!!
+    private val entries: ArrayList<RadarEntry> = ArrayList()
 
 
     override fun onCreateView(
@@ -49,30 +50,23 @@ class MesureFragment : Fragment() {
         binding.LineChart1.setDrawGridBackground(true)
         binding.LineChart1.setBackgroundColor(Color.argb(0, 255, 255, 255))
         binding.LineChart1.setGridBackgroundColor(Color.argb(0x59, 255, 255, 255))
-
         binding.LineChart2.setDrawGridBackground(true)
         binding.LineChart2.setBackgroundColor(Color.argb(0, 255, 255, 255))
         binding.LineChart2.setGridBackgroundColor(Color.argb(0x59, 255, 255, 255))
-
         binding.LineChart3.setDrawGridBackground(true)
         binding.LineChart3.setBackgroundColor(Color.argb(0, 255, 255, 255))
         binding.LineChart3.setGridBackgroundColor(Color.argb(0x59, 255, 255, 255))
 
-        binding.LineChart1.description.isEnabled = true
-        binding.LineChart2.description.isEnabled = true
-        binding.LineChart3.description.isEnabled = true
         val des1: Description = binding.LineChart1.description
         val des2: Description = binding.LineChart2.description
         val des3: Description = binding.LineChart3.description
-        des1.isEnabled = true
+
         des1.text = "Meditation"
         des1.textSize = 15f
         des1.textColor = Color.WHITE
-        des2.isEnabled = true
         des2.text = "Attention"
         des2.textSize = 15f
         des2.textColor = Color.WHITE
-        des3.isEnabled = true
         des3.text = "Blink"
         des3.textSize = 15f
         des3.textColor = Color.WHITE
@@ -253,14 +247,12 @@ class MesureFragment : Fragment() {
         val min = 20f
         val cnt = 8
 
-        val entries1: ArrayList<RadarEntry> = ArrayList()
-
         for (i in 0 until cnt) {
             val val1 = (Math.random() * mul).toFloat() + min
-            entries1.add(RadarEntry(val1))
+            entries.add(RadarEntry(val1))
         }
 
-        val set1 = RadarDataSet(entries1, "")
+        val set1 = RadarDataSet(entries, "")
         set1.color = Color.argb(0x99, 80, 224, 255)
         set1.fillColor = Color.argb(0x99, 80, 224, 255)
 
@@ -278,6 +270,109 @@ class MesureFragment : Fragment() {
         binding.chart.data = data
         binding.chart.legend.isEnabled = false
         binding.chart.invalidate()
+    }
+
+    fun addEntry1(num: Double) {
+        var data1: LineData = binding.LineChart1.data
+        if (data1 == null) {
+            data1 = LineData()
+            binding.LineChart1.data = data1
+        }
+
+        var set1 = data1.getDataSetByIndex(0)
+        // set.addEntry(...); // can be called as well
+        if (set1 == null) {
+            set1 = createSet()
+            data1.addDataSet(set1)
+        }
+        //data.addEntry(new Entry((float)set.getEntryCount(), (float)num), 0);
+
+        data1.addEntry(
+            Entry(set1.entryCount
+                .toFloat(), num.toFloat()), 0
+        )
+        data1.notifyDataChanged()
+
+        // let the chart know it's data has changed
+        binding.LineChart1.notifyDataSetChanged()
+        binding.LineChart1.setVisibleXRangeMaximum(150F)
+        // this automatically refreshes the chart (calls invalidate())
+        binding.LineChart1.moveViewTo(data1.entryCount.toFloat(), 50f, YAxis.AxisDependency.LEFT)
+    }
+
+    fun addEntry2(num: Double) {
+        var data2: LineData = binding.LineChart2.data
+        if (data2 == null) {
+            data2 = LineData()
+            binding.LineChart2.data = data2
+        }
+
+        var set2 = data2.getDataSetByIndex(0)
+        // set.addEntry(...); // can be called as well
+        if (set2 == null) {
+            set2 = createSet()
+            data2.addDataSet(set2)
+        }
+        //data.addEntry(new Entry((float)set.getEntryCount(), (float)num), 0);
+
+        data2.addEntry(
+            Entry(set2.entryCount
+                .toFloat(), num.toFloat()), 0
+        )
+        data2.notifyDataChanged()
+
+        // let the chart know it's data has changed
+        binding.LineChart2.notifyDataSetChanged()
+        binding.LineChart2.setVisibleXRangeMaximum(150F)
+        // this automatically refreshes the chart (calls invalidate())
+        binding.LineChart2.moveViewTo(data2.entryCount.toFloat(), 50f, YAxis.AxisDependency.LEFT)
+    }
+
+    fun addEntry3(num: Double) {
+        var data3: LineData = binding.LineChart3.data
+        if (data3 == null) {
+            data3 = LineData()
+            binding.LineChart3.data = data3
+        }
+
+        var set3 = data3.getDataSetByIndex(0)
+        // set.addEntry(...); // can be called as well
+        if (set3 == null) {
+            set3 = createSet()
+            data3.addDataSet(set3)
+        }
+        //data.addEntry(new Entry((float)set.getEntryCount(), (float)num), 0);
+
+        data3.addEntry(
+            Entry(set3.entryCount
+                .toFloat(), num.toFloat()), 0
+        )
+        data3.notifyDataChanged()
+
+        // let the chart know it's data has changed
+        binding.LineChart3.notifyDataSetChanged()
+        binding.LineChart3.setVisibleXRangeMaximum(150F)
+        // this automatically refreshes the chart (calls invalidate())
+        binding.LineChart3.moveViewTo(data3.entryCount.toFloat(), 50f, YAxis.AxisDependency.LEFT)
+    }
+
+    fun addData(value : Int, index : Int){
+        val divisor = listOf(400000, 45000, 10000, 15000, 18000, 24000, 10000, 10000)
+        entries[index] = RadarEntry(value.toFloat() * 100 / divisor[index])
+        binding.chart.notifyDataSetChanged()
+        binding.chart.invalidate()
+    }
+
+    private fun createSet(): LineDataSet {
+        val set = LineDataSet(null, "Real-time Line Data")
+        set.lineWidth = 1f
+        set.setDrawValues(false)
+        set.valueTextColor = Color.WHITE
+        set.color = Color.WHITE
+        set.mode = LineDataSet.Mode.LINEAR
+        set.setDrawCircles(false)
+        set.highLightColor = Color.rgb(190, 190, 190)
+        return set
     }
 
 }
