@@ -18,10 +18,7 @@ import com.github.pwittchen.neurosky.library.message.enums.State
 import kr.hs.dgsw.noepa_ls.MainActivity
 import kr.hs.dgsw.noepa_ls.R
 import kr.hs.dgsw.noepa_ls.databinding.ActivityScreenBinding
-import kr.hs.dgsw.noepa_ls.fragments.ConnectFragment
-import kr.hs.dgsw.noepa_ls.fragments.LoginFragment
-import kr.hs.dgsw.noepa_ls.fragments.Mainfragment
-import kr.hs.dgsw.noepa_ls.fragments.MesureFragment
+import kr.hs.dgsw.noepa_ls.fragments.*
 import java.util.*
 
 class ScreenActivity : AppCompatActivity() {
@@ -35,6 +32,7 @@ class ScreenActivity : AppCompatActivity() {
     val MAIN_SCREEN = 1
     val CONNECT_SCREEN = 2
     val MESURE_SCREEN = 3
+    val LIE_SCREEN = 5
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,10 +95,7 @@ class ScreenActivity : AppCompatActivity() {
                 transaction.replace(R.id.fragmentLayout, mfragment!!)
             }
             1 -> {
-                //val bundle = Bundle();
-                //bundle.putString("DID",this.DID);
                 mfragment = Mainfragment()
-                //fragment.arguments = bundle
                 transaction.replace(R.id.fragmentLayout, mfragment!!)
             }
             2 -> {
@@ -109,6 +104,10 @@ class ScreenActivity : AppCompatActivity() {
             }
             3 -> {
                 mfragment = MesureFragment()
+                transaction.replace(R.id.fragmentLayout, mfragment!!)
+            }
+            5 -> {
+                mfragment = LieFragment()
                 transaction.replace(R.id.fragmentLayout, mfragment!!)
             }
 
@@ -155,6 +154,9 @@ class ScreenActivity : AppCompatActivity() {
                     if(mfragment is MesureFragment){
                         (mfragment as MesureFragment).addEntry1(num.toDouble())
                     }
+                }
+                if(mfragment is LieFragment){
+                    (mfragment as LieFragment).livedata.value = num
                 }
             }
             Signal.BLINK -> {

@@ -25,7 +25,9 @@
 
     <ImageView
         android:id="@+id/iv_brain"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:adjustViewBounds="true"
+        android:layout_marginHorizontal="70dp"
         android:layout_height="wrap_content"
         android:src="@drawable/brain_connect"
         app:layout_constraintBottom_toTopOf="@id/tv_connect"
