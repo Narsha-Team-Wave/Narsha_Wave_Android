@@ -1,5 +1,6 @@
 package kr.hs.dgsw.noepa_ls.fragments
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import kr.hs.dgsw.noepa_ls.App
 import kr.hs.dgsw.noepa_ls.Prefs
+import kr.hs.dgsw.noepa_ls.R
 import kr.hs.dgsw.noepa_ls.activity.ScreenActivity
 import kr.hs.dgsw.noepa_ls.databinding.FragmentLoginBinding
 import kr.hs.dgsw.noepa_ls.util.NoepaUtil
@@ -17,6 +19,7 @@ class LoginFragment : Fragment() {
     private var mainActivity: ScreenActivity? = null
     private var mBinding: FragmentLoginBinding? = null
     private val binding get() = mBinding!!
+
 
 
     override fun onCreateView(
@@ -32,6 +35,13 @@ class LoginFragment : Fragment() {
             if(binding.etId.text.isNullOrBlank()){
                 Toast.makeText(activity, "전화번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
                 // TODO            NoepaUtil.sendSMS("01038540977","김상추", context)
+
+                var mp = MediaPlayer.create(activity, R.raw.connect);
+                mp.start()
+                mp.setOnCompletionListener {
+                    it.start()
+//                    mp.start()
+                }
             }
             else {
                 App.prefs.id = binding.etId.text.toString()
