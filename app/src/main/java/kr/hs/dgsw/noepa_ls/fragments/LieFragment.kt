@@ -33,7 +33,6 @@ class LieFragment : Fragment() {
         mBinding = FragmentLieBinding.inflate(inflater, container, false)
         mainActivity = (activity as ScreenActivity)
 
-
         var over = false
         livedata.observe(mainActivity!!, Observer {
             Log.d("countTag", it.toString())

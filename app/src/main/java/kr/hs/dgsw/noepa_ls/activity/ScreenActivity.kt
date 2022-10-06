@@ -1,12 +1,14 @@
 package kr.hs.dgsw.noepa_ls.activity
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.github.pwittchen.neurosky.library.NeuroSky
@@ -20,6 +22,7 @@ import kr.hs.dgsw.noepa_ls.R
 import kr.hs.dgsw.noepa_ls.databinding.ActivityScreenBinding
 import kr.hs.dgsw.noepa_ls.fragments.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ScreenActivity : AppCompatActivity() {
 
@@ -27,6 +30,8 @@ class ScreenActivity : AppCompatActivity() {
     private lateinit var neuroSky: NeuroSky
     private val binding get() = mBinding!!
     private var mfragment : Fragment? = null
+
+    private val max = IntArray(8)
 
     val LOGIN_SCREEN = 0
     val MAIN_SCREEN = 1
@@ -39,43 +44,51 @@ class ScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivityScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        neuroSky = createNeuroSky()
+        for(i in 0 until 8){
+            max[i] = 0
+        }
+        neuroSky = NeuroSky(object : ExtendedDeviceMessageListener() {
+            override fun onStateChange(state: State) {
+                Log.d(MainActivity.LOG_TAG + "aaa", state.toString())
+                handleStateChange(state)
+            }
+
+            override fun onSignalChange(signal: Signal) {
+                Log.d(MainActivity.LOG_TAG + "bbb", signal.toString())
+                handleSignalChange(signal)
+            }
+
+            override fun onBrainWavesChange(brainWaves: Set<BrainWave>) {
+                Log.d(MainActivity.LOG_TAG+ "ccc", brainWaves.toString())
+                handleBrainWavesChange(brainWaves)
+            }
+        })
         setFragment()
 
     }
 
-    override fun onBackPressed() {
-        if(mfragment is Mainfragment){
-            finish()
-        } else if(mfragment is LoginFragment){
-            finish()
-        }
-        else {
-            changeFragment(MAIN_SCREEN)
-        }
-    }
 
     override fun onDestroy() {
         super.onDestroy()
         neuroSky.disconnect()
     }
 
-
-    private fun createNeuroSky(): NeuroSky {
-        return NeuroSky(object : ExtendedDeviceMessageListener() {
-            override fun onStateChange(state: State) {
-                handleStateChange(state)
+    override fun onBackPressed() {
+        when (mfragment) {
+            is Mainfragment -> {
+                finish()
             }
-
-            override fun onSignalChange(signal: Signal) {
-                handleSignalChange(signal)
+            is LoginFragment -> {
+                finish()
             }
-
-            override fun onBrainWavesChange(brainWaves: Set<BrainWave>) {
-                handleBrainWavesChange(brainWaves)
+            else -> {
+                changeFragment(MAIN_SCREEN)
             }
-        })
+        }
     }
+
+
+
 
     private fun setFragment() {
         //첫 프래그먼트는 무조건 ADD가 한개 이상 필요함
@@ -92,6 +105,7 @@ class ScreenActivity : AppCompatActivity() {
         when (screenNum) {
             0 -> {
                 mfragment = LoginFragment()
+                neuroSky.disconnect()
                 transaction.replace(R.id.fragmentLayout, mfragment!!)
             }
             1 -> {
@@ -137,11 +151,10 @@ class ScreenActivity : AppCompatActivity() {
     }
 
     private fun handleSignalChange(signal: Signal) {
-
         var num = getFormattedMessage("%d", signal).toInt()
         when (signal) {
             Signal.ATTENTION -> {
-//                binding.tvAttention.text = getFormattedMessage("attention: %d", signal)
+                Log.d(MainActivity.LOG_TAG, signal.type.toString() + ":" + num)
                 runOnUiThread {
                     if(mfragment is MesureFragment){
                         (mfragment as MesureFragment).addEntry2(num.toDouble())
@@ -149,7 +162,7 @@ class ScreenActivity : AppCompatActivity() {
                 }
             }
             Signal.MEDITATION -> {
-//                binding.tvMeditation.text = getFormattedMessage("meditation: %d", signal)
+                Log.d(MainActivity.LOG_TAG, signal.type.toString() + ":" + num)
                 runOnUiThread {
                     if(mfragment is MesureFragment){
                         (mfragment as MesureFragment).addEntry1(num.toDouble())
@@ -160,7 +173,7 @@ class ScreenActivity : AppCompatActivity() {
                 }
             }
             Signal.BLINK -> {
-//                binding.tvBlink.text = getFormattedMessage("blink: %d", signal)
+                Log.d(MainActivity.LOG_TAG, signal.type.toString() + ":" + num)
                 runOnUiThread {
                     if(mfragment is MesureFragment){
                         (mfragment as MesureFragment).addEntry3(num.toDouble())
@@ -168,10 +181,7 @@ class ScreenActivity : AppCompatActivity() {
                 }
             }
             else -> Log.d(MainActivity.LOG_TAG, "unhandled signal")
-
-
         }
-
         Log.d(MainActivity.LOG_TAG, String.format("%s: %d", signal.toString(), signal.value))
     }
 
@@ -184,50 +194,72 @@ class ScreenActivity : AppCompatActivity() {
 
     private fun handleBrainWavesChange(brainWaves: Set<BrainWave>) {
         for (brainWave in brainWaves) {
-            Log.d(
-                MainActivity.LOG_TAG,
-                String.format("test %s: %d", brainWave.toString(), brainWave.value)
+            Log.d(MainActivity.LOG_TAG, String.format("test %s: %d", brainWave.toString(), brainWave.value)
             )
             if (brainWave.value < 1000000 && brainWave.value != 0) {
                 when (brainWave.toString()) {
                     "DELTA" -> {
+                        if(max[0] < brainWave.value){
+                            max[0] = brainWave.value
+                        }
                         if(mfragment is MesureFragment){
-                            (mfragment as MesureFragment).addData(brainWave.value, 0)
+                            (mfragment as MesureFragment).addData(brainWave.value.toFloat() / max[0], 0)
                         }
                     }
                     "THETA" -> {
+                        if(max[1] < brainWave.value){
+                            max[1] = brainWave.value
+                        }
                         if(mfragment is MesureFragment){
-                            (mfragment as MesureFragment).addData(brainWave.value, 1)
+                            (mfragment as MesureFragment).addData(brainWave.value.toFloat() / max[1], 1)
                         }
                     }
                     "LOW_ALPHA" -> {
+                        if(max[2] < brainWave.value){
+                            max[2] = brainWave.value
+                        }
                         if(mfragment is MesureFragment){
-                            (mfragment as MesureFragment).addData(brainWave.value, 2)
+                            (mfragment as MesureFragment).addData(brainWave.value.toFloat() / max[2], 2)
                         }
                     }
                     "HIGH_ALPHA" -> {
+                        if(max[3] < brainWave.value){
+                            max[3] = brainWave.value
+                        }
                         if(mfragment is MesureFragment){
-                            (mfragment as MesureFragment).addData(brainWave.value, 3)
+                            (mfragment as MesureFragment).addData(brainWave.value.toFloat() / max[3], 3)
                         }
                     }
                     "LOW_BETA" -> {
+                        if(max[4] < brainWave.value){
+                            max[4] = brainWave.value
+                        }
                         if(mfragment is MesureFragment){
-                            (mfragment as MesureFragment).addData(brainWave.value, 4)
+                            (mfragment as MesureFragment).addData(brainWave.value.toFloat() / max[4], 4)
                         }
                     }
                     "HIGH_BETA" -> {
+                        if(max[5] < brainWave.value){
+                            max[5] = brainWave.value
+                        }
                         if(mfragment is MesureFragment){
-                            (mfragment as MesureFragment).addData(brainWave.value, 5)
+                            (mfragment as MesureFragment).addData(brainWave.value.toFloat() / max[5], 5)
                         }
                     }
                     "LOW_GAMMA" -> {
+                        if(max[6] < brainWave.value){
+                            max[6] = brainWave.value
+                        }
                         if(mfragment is MesureFragment){
-                            (mfragment as MesureFragment).addData(brainWave.value, 6)
+                            (mfragment as MesureFragment).addData(brainWave.value.toFloat() / max[6], 6)
                         }
                     }
                     "MID_GAMMA" -> {
+                        if(max[7] < brainWave.value){
+                            max[7] = brainWave.value
+                        }
                         if(mfragment is MesureFragment){
-                            (mfragment as MesureFragment).addData(brainWave.value, 7)
+                            (mfragment as MesureFragment).addData(brainWave.value.toFloat() / max[7], 7)
                         }
                     }
                     else -> Log.d(MainActivity.LOG_TAG, "unhandled signal")

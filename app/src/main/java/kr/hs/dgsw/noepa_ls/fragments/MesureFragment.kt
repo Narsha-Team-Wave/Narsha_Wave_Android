@@ -280,23 +280,22 @@ class MesureFragment : Fragment() {
         }
 
         var set1 = data1.getDataSetByIndex(0)
-        // set.addEntry(...); // can be called as well
+
         if (set1 == null) {
             set1 = createSet()
             data1.addDataSet(set1)
         }
-        //data.addEntry(new Entry((float)set.getEntryCount(), (float)num), 0);
 
         data1.addEntry(
-            Entry(set1.entryCount
-                .toFloat(), num.toFloat()), 0
+            Entry(
+                set1.entryCount
+                    .toFloat(), num.toFloat()
+            ), 0
         )
         data1.notifyDataChanged()
 
-        // let the chart know it's data has changed
         binding.LineChart1.notifyDataSetChanged()
         binding.LineChart1.setVisibleXRangeMaximum(150F)
-        // this automatically refreshes the chart (calls invalidate())
         binding.LineChart1.moveViewTo(data1.entryCount.toFloat(), 50f, YAxis.AxisDependency.LEFT)
     }
 
@@ -316,8 +315,10 @@ class MesureFragment : Fragment() {
         //data.addEntry(new Entry((float)set.getEntryCount(), (float)num), 0);
 
         data2.addEntry(
-            Entry(set2.entryCount
-                .toFloat(), num.toFloat()), 0
+            Entry(
+                set2.entryCount
+                    .toFloat(), num.toFloat()
+            ), 0
         )
         data2.notifyDataChanged()
 
@@ -344,8 +345,10 @@ class MesureFragment : Fragment() {
         //data.addEntry(new Entry((float)set.getEntryCount(), (float)num), 0);
 
         data3.addEntry(
-            Entry(set3.entryCount
-                .toFloat(), num.toFloat()), 0
+            Entry(
+                set3.entryCount
+                    .toFloat(), num.toFloat()
+            ), 0
         )
         data3.notifyDataChanged()
 
@@ -356,9 +359,8 @@ class MesureFragment : Fragment() {
         binding.LineChart3.moveViewTo(data3.entryCount.toFloat(), 50f, YAxis.AxisDependency.LEFT)
     }
 
-    fun addData(value : Int, index : Int){
-        val divisor = listOf(400000, 45000, 10000, 15000, 18000, 24000, 10000, 10000)
-        entries[index] = RadarEntry(value.toFloat() * 100 / divisor[index])
+    fun addData(value: Float, index: Int) {
+        entries[index] = RadarEntry(value * 100)
         binding.chart.notifyDataSetChanged()
         binding.chart.invalidate()
     }
