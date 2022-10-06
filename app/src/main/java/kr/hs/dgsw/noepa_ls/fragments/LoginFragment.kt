@@ -20,6 +20,8 @@ class LoginFragment : Fragment() {
     private var mBinding: FragmentLoginBinding? = null
     private val binding get() = mBinding!!
 
+    private var num: Int = 0
+
 
 
     override fun onCreateView(
@@ -35,13 +37,6 @@ class LoginFragment : Fragment() {
             if(binding.etId.text.isNullOrBlank()){
                 Toast.makeText(activity, "전화번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
                 // TODO            NoepaUtil.sendSMS("01038540977","김상추", context)
-
-                var mp = MediaPlayer.create(activity, R.raw.connect);
-                mp.start()
-                mp.setOnCompletionListener {
-                    it.start()
-//                    mp.start()
-                }
             }
             else {
                 App.prefs.id = binding.etId.text.toString()

@@ -1,16 +1,11 @@
 package kr.hs.dgsw.noepa_ls.activity
 
-import android.content.Intent
-import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
-import android.widget.FrameLayout
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.github.pwittchen.neurosky.library.NeuroSky
 import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException
 import com.github.pwittchen.neurosky.library.listener.ExtendedDeviceMessageListener
@@ -22,7 +17,6 @@ import kr.hs.dgsw.noepa_ls.R
 import kr.hs.dgsw.noepa_ls.databinding.ActivityScreenBinding
 import kr.hs.dgsw.noepa_ls.fragments.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ScreenActivity : AppCompatActivity() {
 
@@ -36,7 +30,7 @@ class ScreenActivity : AppCompatActivity() {
     val LOGIN_SCREEN = 0
     val MAIN_SCREEN = 1
     val CONNECT_SCREEN = 2
-    val MESURE_SCREEN = 3
+    val MEASURE_SCREEN = 3
     val LIE_SCREEN = 5
 
 
@@ -117,7 +111,7 @@ class ScreenActivity : AppCompatActivity() {
                transaction.replace(R.id.fragmentLayout, mfragment!!)
             }
             3 -> {
-                mfragment = MesureFragment()
+                mfragment = MeasureFragment()
                 transaction.replace(R.id.fragmentLayout, mfragment!!)
             }
             5 -> {
@@ -137,9 +131,18 @@ class ScreenActivity : AppCompatActivity() {
                 (mfragment as ConnectFragment).changeView()
             }
             Toast.makeText(this, "기기 연결 성공", Toast.LENGTH_SHORT).show()
+            successConnect()
         } catch (e: BluetoothNotEnabledException) {
             Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
             Log.d(MainActivity.LOG_TAG, "" + e.message)
+        }
+    }
+
+    private fun successConnect() {
+        val connect = MediaPlayer.create(this, R.raw.connect);
+        connect.start()
+        connect.setOnCompletionListener {
+            it.stop()
         }
     }
 
@@ -156,16 +159,16 @@ class ScreenActivity : AppCompatActivity() {
             Signal.ATTENTION -> {
                 Log.d(MainActivity.LOG_TAG, signal.type.toString() + ":" + num)
                 runOnUiThread {
-                    if(mfragment is MesureFragment){
-                        (mfragment as MesureFragment).addEntry2(num.toDouble())
+                    if(mfragment is MeasureFragment){
+                        (mfragment as MeasureFragment).addEntry2(num.toDouble())
                     }
                 }
             }
             Signal.MEDITATION -> {
                 Log.d(MainActivity.LOG_TAG, signal.type.toString() + ":" + num)
                 runOnUiThread {
-                    if(mfragment is MesureFragment){
-                        (mfragment as MesureFragment).addEntry1(num.toDouble())
+                    if(mfragment is MeasureFragment){
+                        (mfragment as MeasureFragment).addEntry1(num.toDouble())
                     }
                 }
                 if(mfragment is LieFragment){
@@ -175,8 +178,8 @@ class ScreenActivity : AppCompatActivity() {
             Signal.BLINK -> {
                 Log.d(MainActivity.LOG_TAG, signal.type.toString() + ":" + num)
                 runOnUiThread {
-                    if(mfragment is MesureFragment){
-                        (mfragment as MesureFragment).addEntry3(num.toDouble())
+                    if(mfragment is MeasureFragment){
+                        (mfragment as MeasureFragment).addEntry3(num.toDouble())
                     }
                 }
             }
@@ -202,64 +205,64 @@ class ScreenActivity : AppCompatActivity() {
                         if(max[0] < brainWave.value){
                             max[0] = brainWave.value
                         }
-                        if(mfragment is MesureFragment){
-                            (mfragment as MesureFragment).addData(brainWave.value.toFloat() / max[0], 0)
+                        if(mfragment is MeasureFragment){
+                            (mfragment as MeasureFragment).addData(brainWave.value.toFloat() / max[0], 0)
                         }
                     }
                     "THETA" -> {
                         if(max[1] < brainWave.value){
                             max[1] = brainWave.value
                         }
-                        if(mfragment is MesureFragment){
-                            (mfragment as MesureFragment).addData(brainWave.value.toFloat() / max[1], 1)
+                        if(mfragment is MeasureFragment){
+                            (mfragment as MeasureFragment).addData(brainWave.value.toFloat() / max[1], 1)
                         }
                     }
                     "LOW_ALPHA" -> {
                         if(max[2] < brainWave.value){
                             max[2] = brainWave.value
                         }
-                        if(mfragment is MesureFragment){
-                            (mfragment as MesureFragment).addData(brainWave.value.toFloat() / max[2], 2)
+                        if(mfragment is MeasureFragment){
+                            (mfragment as MeasureFragment).addData(brainWave.value.toFloat() / max[2], 2)
                         }
                     }
                     "HIGH_ALPHA" -> {
                         if(max[3] < brainWave.value){
                             max[3] = brainWave.value
                         }
-                        if(mfragment is MesureFragment){
-                            (mfragment as MesureFragment).addData(brainWave.value.toFloat() / max[3], 3)
+                        if(mfragment is MeasureFragment){
+                            (mfragment as MeasureFragment).addData(brainWave.value.toFloat() / max[3], 3)
                         }
                     }
                     "LOW_BETA" -> {
                         if(max[4] < brainWave.value){
                             max[4] = brainWave.value
                         }
-                        if(mfragment is MesureFragment){
-                            (mfragment as MesureFragment).addData(brainWave.value.toFloat() / max[4], 4)
+                        if(mfragment is MeasureFragment){
+                            (mfragment as MeasureFragment).addData(brainWave.value.toFloat() / max[4], 4)
                         }
                     }
                     "HIGH_BETA" -> {
                         if(max[5] < brainWave.value){
                             max[5] = brainWave.value
                         }
-                        if(mfragment is MesureFragment){
-                            (mfragment as MesureFragment).addData(brainWave.value.toFloat() / max[5], 5)
+                        if(mfragment is MeasureFragment){
+                            (mfragment as MeasureFragment).addData(brainWave.value.toFloat() / max[5], 5)
                         }
                     }
                     "LOW_GAMMA" -> {
                         if(max[6] < brainWave.value){
                             max[6] = brainWave.value
                         }
-                        if(mfragment is MesureFragment){
-                            (mfragment as MesureFragment).addData(brainWave.value.toFloat() / max[6], 6)
+                        if(mfragment is MeasureFragment){
+                            (mfragment as MeasureFragment).addData(brainWave.value.toFloat() / max[6], 6)
                         }
                     }
                     "MID_GAMMA" -> {
                         if(max[7] < brainWave.value){
                             max[7] = brainWave.value
                         }
-                        if(mfragment is MesureFragment){
-                            (mfragment as MesureFragment).addData(brainWave.value.toFloat() / max[7], 7)
+                        if(mfragment is MeasureFragment){
+                            (mfragment as MeasureFragment).addData(brainWave.value.toFloat() / max[7], 7)
                         }
                     }
                     else -> Log.d(MainActivity.LOG_TAG, "unhandled signal")

@@ -1,5 +1,6 @@
 package kr.hs.dgsw.noepa_ls.fragments
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -33,6 +34,11 @@ class LieFragment : Fragment() {
         mBinding = FragmentLieBinding.inflate(inflater, container, false)
         mainActivity = (activity as ScreenActivity)
 
+        val measure = MediaPlayer.create(activity, R.raw.measure);
+        measure.start()
+        measure.setOnCompletionListener {
+            it.start()
+        }
         var over = false
         livedata.observe(mainActivity!!, Observer {
             Log.d("countTag", it.toString())
@@ -47,10 +53,21 @@ class LieFragment : Fragment() {
             }
 
             override fun onFinish() {
+                measure.stop()
                 if (over) {
+                    val lie = MediaPlayer.create(activity, R.raw.lie);
+                    lie.start()
+                    lie.setOnCompletionListener {
+                        it.stop()
+                    }
                     binding.imgBrain.setImageResource(R.drawable.lie_brain)
                     binding.etTruthLie.setText("당신은 거짓말을 했어요!")
                 } else {
+                    val truth = MediaPlayer.create(activity, R.raw.truth);
+                    truth.start()
+                    truth.setOnCompletionListener {
+                        it.stop()
+                    }
                     binding.imgBrain.setImageResource(R.drawable.truth_brain)
                     binding.etTruthLie.setText("당신의 말은 진실이군요!")
                 }

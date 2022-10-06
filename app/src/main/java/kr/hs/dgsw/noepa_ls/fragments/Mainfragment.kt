@@ -129,7 +129,7 @@ class Mainfragment : Fragment() {
                 }
                 MotionEvent.ACTION_UP -> {
                     binding.switchMeasure.isChecked = false
-                    mainActivity!!.changeFragment(mainActivity!!.MESURE_SCREEN)
+                    mainActivity!!.changeFragment(mainActivity!!.MEASURE_SCREEN)
                 }
                 else -> {
                     binding.switchMeasure.isChecked = false

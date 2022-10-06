@@ -20,7 +20,7 @@ import kr.hs.dgsw.noepa_ls.databinding.FragmentConnectBinding
 import kr.hs.dgsw.noepa_ls.databinding.FragmentMesureBinding
 import java.util.ArrayList
 
-class MesureFragment : Fragment() {
+class MeasureFragment : Fragment() {
     private var mainActivity: ScreenActivity? = null
     private var mBinding: FragmentMesureBinding? = null
     private val binding get() = mBinding!!
