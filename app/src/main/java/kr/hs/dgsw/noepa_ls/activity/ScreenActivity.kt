@@ -19,7 +19,7 @@ import kr.hs.dgsw.noepa_ls.fragments.*
 import java.util.*
 
 class ScreenActivity : AppCompatActivity() {
-
+    var connect = false
     private var mBinding: ActivityScreenBinding? = null
     private lateinit var neuroSky: NeuroSky
     private val binding get() = mBinding!!
@@ -111,12 +111,21 @@ class ScreenActivity : AppCompatActivity() {
                transaction.replace(R.id.fragmentLayout, mfragment!!)
             }
             3 -> {
-                mfragment = MeasureFragment()
-                transaction.replace(R.id.fragmentLayout, mfragment!!)
+                if(connect){
+                    mfragment = MeasureFragment()
+                    transaction.replace(R.id.fragmentLayout, mfragment!!)
+                } else {
+                    Toast.makeText(this, "기기를 연결한 후 시도해주세요.", Toast.LENGTH_SHORT).show()
+                }
+
             }
             5 -> {
-                mfragment = LieFragment()
-                transaction.replace(R.id.fragmentLayout, mfragment!!)
+                if(connect){
+                    mfragment = LieFragment()
+                    transaction.replace(R.id.fragmentLayout, mfragment!!)
+                } else {
+                    Toast.makeText(this, "기기를 연결한 후 시도해주세요.", Toast.LENGTH_SHORT).show()
+                }
             }
 
         }
@@ -130,11 +139,15 @@ class ScreenActivity : AppCompatActivity() {
             if(mfragment is ConnectFragment){
                 (mfragment as ConnectFragment).changeView()
             }
-            Toast.makeText(this, "기기 연결 성공", Toast.LENGTH_SHORT).show()
-            successConnect()
+            connect = true
         } catch (e: BluetoothNotEnabledException) {
             Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
             Log.d(MainActivity.LOG_TAG, "" + e.message)
+            connect = false
+        }
+        if(connect){
+            Toast.makeText(this, "기기 연결 성공", Toast.LENGTH_SHORT).show()
+            successConnect()
         }
     }
 
