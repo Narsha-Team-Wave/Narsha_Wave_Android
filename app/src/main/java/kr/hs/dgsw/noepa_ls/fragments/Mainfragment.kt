@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import com.bumptech.glide.Glide
 import com.github.mikephil.charting.components.*
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
@@ -169,6 +170,14 @@ class Mainfragment : Fragment() {
             }
             return@setOnTouchListener true
         }
+    }
+
+    fun changeImg() {
+        Glide.with(this).load(R.drawable.brain).into(binding.imgBrain)
+    }
+
+    fun changeGif() {
+        Glide.with(this).load(R.drawable.brain_connect).into(binding.imgBrain)
     }
 
     override fun onRequestPermissionsResult(

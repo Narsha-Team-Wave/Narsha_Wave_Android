@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 import io.reactivex.Completable.timer
 import kr.hs.dgsw.noepa_ls.MainActivity
 import kr.hs.dgsw.noepa_ls.R
@@ -35,6 +36,31 @@ class LieFragment : Fragment() {
         // 1. 뷰 바인딩 설정
         mBinding = FragmentLieBinding.inflate(inflater, container, false)
         mainActivity = (activity as ScreenActivity)
+
+        binding.measureBtn.setOnClickListener {
+            if(mainActivity!!.check){
+                binding.measureBtn.visibility = View.GONE
+                binding.countTv.visibility = View.VISIBLE
+                startMeasure()
+            } else {
+                Toast.makeText(requireContext(), "기기가 제대로 연결되어있지 않습니다.", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+        // 3. 프래그먼트 레이아웃 뷰 반환
+        return binding.root
+    }
+
+    override fun onPause() {
+        super.onPause()
+        countDown!!.cancel()
+        measure!!.stop()
+
+    }
+
+    private fun startMeasure() {
+        Glide.with(this).load(R.drawable.measure_lie).into(binding.imgBrain)
 
         measure = MediaPlayer.create(activity, R.raw.measure);
         measure!!.start()
@@ -73,19 +99,10 @@ class LieFragment : Fragment() {
                     binding.imgBrain.setImageResource(R.drawable.truth_brain)
                     binding.etTruthLie.setText("당신의 말은 진실이군요!")
                 }
+                binding.measureBtn.visibility = View.VISIBLE
+                binding.countTv.visibility = View.GONE
             }
         }.start()
-
-
-        // 3. 프래그먼트 레이아웃 뷰 반환
-        return binding.root
-    }
-
-    override fun onPause() {
-        super.onPause()
-        countDown!!.cancel()
-        measure!!.stop()
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.github.pwittchen.neurosky.library.NeuroSky
 import com.github.pwittchen.neurosky.library.exception.BluetoothNotEnabledException
 import com.github.pwittchen.neurosky.library.listener.ExtendedDeviceMessageListener
@@ -24,6 +25,7 @@ class ScreenActivity : AppCompatActivity() {
     private lateinit var neuroSky: NeuroSky
     private val binding get() = mBinding!!
     private var mfragment : Fragment? = null
+    var check = false
 
     private val max = IntArray(8)
 
@@ -148,6 +150,7 @@ class ScreenActivity : AppCompatActivity() {
         if(connect){
             Toast.makeText(this, "기기 연결 성공", Toast.LENGTH_SHORT).show()
             successConnect()
+            changeFragment(MAIN_SCREEN)
         }
     }
 
@@ -167,6 +170,7 @@ class ScreenActivity : AppCompatActivity() {
     }
 
     private fun handleSignalChange(signal: Signal) {
+        var checkattention = 0
         var num = getFormattedMessage("%d", signal).toInt()
         when (signal) {
             Signal.ATTENTION -> {
@@ -174,6 +178,15 @@ class ScreenActivity : AppCompatActivity() {
                 runOnUiThread {
                     if(mfragment is MeasureFragment){
                         (mfragment as MeasureFragment).addEntry2(num.toDouble())
+                    } else if(mfragment is Mainfragment) {
+                        if(checkattention == num) {
+                            check = false
+                            (mfragment as Mainfragment).changeImg()
+                        } else {
+                            check = true
+                            (mfragment as Mainfragment).changeGif()
+                            checkattention = num
+                        }
                     }
                 }
             }
