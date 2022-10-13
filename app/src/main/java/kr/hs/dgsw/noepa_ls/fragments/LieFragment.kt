@@ -38,7 +38,7 @@ class LieFragment : Fragment() {
         mainActivity = (activity as ScreenActivity)
 
         binding.measureBtn.setOnClickListener {
-            if(mainActivity!!.check){
+            if (mainActivity!!.check) {
                 binding.measureBtn.visibility = View.GONE
                 binding.countTv.visibility = View.VISIBLE
                 startMeasure()
@@ -54,8 +54,10 @@ class LieFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        countDown!!.cancel()
-        measure!!.stop()
+        if (countDown != null) {
+            countDown!!.cancel()
+            measure!!.stop()
+        }
 
     }
 
