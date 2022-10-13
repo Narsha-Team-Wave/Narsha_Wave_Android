@@ -24,6 +24,8 @@ class LieFragment : Fragment() {
     private var mBinding: FragmentLieBinding? = null
     private val binding get() = mBinding!!
     var livedata: MutableLiveData<Int> = MutableLiveData()
+    private var countDown: CountDownTimer? = null
+    private var measure: MediaPlayer? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,9 +36,9 @@ class LieFragment : Fragment() {
         mBinding = FragmentLieBinding.inflate(inflater, container, false)
         mainActivity = (activity as ScreenActivity)
 
-        val measure = MediaPlayer.create(activity, R.raw.measure);
-        measure.start()
-        measure.setOnCompletionListener {
+        measure = MediaPlayer.create(activity, R.raw.measure);
+        measure!!.start()
+        measure!!.setOnCompletionListener {
             it.start()
         }
         var over = false
@@ -47,13 +49,13 @@ class LieFragment : Fragment() {
             }
         })
 
-        val countDown = object : CountDownTimer(1000 * 10, 1000) {
+        countDown = object : CountDownTimer(1000 * 10, 1000) {
             override fun onTick(p0: Long) {
                 binding.countTv.text = (p0 / 1000).toString()
             }
 
             override fun onFinish() {
-                measure.stop()
+                measure!!.stop()
                 if (over) {
                     val lie = MediaPlayer.create(activity, R.raw.lie);
                     lie.start()
@@ -77,6 +79,13 @@ class LieFragment : Fragment() {
 
         // 3. 프래그먼트 레이아웃 뷰 반환
         return binding.root
+    }
+
+    override fun onPause() {
+        super.onPause()
+        countDown!!.cancel()
+        measure!!.stop()
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
