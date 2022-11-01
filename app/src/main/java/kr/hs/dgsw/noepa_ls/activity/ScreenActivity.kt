@@ -34,6 +34,7 @@ class ScreenActivity : AppCompatActivity() {
     val CONNECT_SCREEN = 2
     val MEASURE_SCREEN = 3
     val LIE_SCREEN = 5
+    val HEALTH_SCREEN = 6
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,6 +77,9 @@ class ScreenActivity : AppCompatActivity() {
             }
             is LoginFragment -> {
                 finish()
+            }
+            is HealthFragment -> {
+                changeFragment(MEASURE_SCREEN)
             }
             else -> {
                 changeFragment(MAIN_SCREEN)
@@ -128,6 +132,10 @@ class ScreenActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(this, "기기를 연결한 후 시도해주세요.", Toast.LENGTH_SHORT).show()
                 }
+            }
+            6 -> {
+                mfragment = HealthFragment()
+                transaction.replace(R.id.fragmentLayout, mfragment!!)
             }
 
         }
@@ -257,6 +265,8 @@ class ScreenActivity : AppCompatActivity() {
                         }
                         if(mfragment is MeasureFragment){
                             (mfragment as MeasureFragment).addData(brainWave.value.toFloat() / max[3], 3)
+                        } else if(mfragment is HealthFragment){
+                            (mfragment as HealthFragment).livedata.value = brainWave.value
                         }
                     }
                     "LOW_BETA" -> {

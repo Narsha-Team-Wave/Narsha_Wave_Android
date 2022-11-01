@@ -44,6 +44,10 @@ class MeasureFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initChart()
         initLineChart()
+
+        binding.healthMeasureBtn.setOnClickListener{
+            mainActivity!!.changeFragment(mainActivity!!.HEALTH_SCREEN)
+        }
     }
 
     private fun initLineChart() {
